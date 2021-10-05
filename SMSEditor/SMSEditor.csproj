@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8414D65A-8C56-4EAE-8420-22D5E27E7F9A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SMSEditor</RootNamespace>
+    <AssemblyName>SMSEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Be.Windows.Forms.HexBox, Version=1.6.0.38064, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Be.Windows.Forms.HexBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\AssetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetPaletteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetPaletteControl.Designer.cs">
+      <DependentUpon>AssetPaletteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssetTilemapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetTilemapControl.Designer.cs">
+      <DependentUpon>AssetTilemapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssetTilesetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetTilesetControl.Designer.cs">
+      <DependentUpon>AssetTilesetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorControl.Designer.cs">
+      <DependentUpon>ColorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorEditControl.Designer.cs">
+      <DependentUpon>ColorEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssetEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetEditControl.Designer.cs">
+      <DependentUpon>AssetEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssetDataEntryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetDataEntryControl.Designer.cs">
+      <DependentUpon>AssetDataEntryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageControl.Designer.cs">
+      <DependentUpon>ImageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OutputMapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OutputMapControl.Designer.cs">
+      <DependentUpon>OutputMapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PixelTileControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PixelTileControl.Designer.cs">
+      <DependentUpon>PixelTileControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PaletteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PaletteControl.Designer.cs">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RomImageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RomImageControl.Designer.cs">
+      <DependentUpon>RomImageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RomHexControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RomHexControl.Designer.cs">
+      <DependentUpon>RomHexControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AssetSpriteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetSpriteControl.Designer.cs">
+      <DependentUpon>AssetSpriteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TileControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TileControl.Designer.cs">
+      <DependentUpon>TileControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TilemapControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TilemapControl.Designer.cs">
+      <DependentUpon>TilemapControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TilemapImageControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TilemapImageControl.Designer.cs">
+      <DependentUpon>TilemapImageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TilesControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TilesControl.Designer.cs">
+      <DependentUpon>TilesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TileSelectControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TileSelectControl.Designer.cs">
+      <DependentUpon>TileSelectControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TilesetControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TilesetControl.Designer.cs">
+      <DependentUpon>TilesetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataEntry.cs" />
+    <Compile Include="Data\PixelTile.cs" />
+    <Compile Include="Data\BitmapUtility.cs" />
+    <Compile Include="Data\Compression.cs" />
+    <Compile Include="Data\Enumerations.cs" />
+    <Compile Include="Data\GameAsset.cs" />
+    <Compile Include="Data\Palette.cs" />
+    <Compile Include="Data\Project.cs" />
+    <Compile Include="Data\Sprite.cs" />
+    <Compile Include="Data\Tile.cs" />
+    <Compile Include="Data\Tilemap.cs" />
+    <Compile Include="Data\Tileset.cs" />
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompareForm.Designer.cs">
+      <DependentUpon>CompareForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PaletteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PaletteForm.Designer.cs">
+      <DependentUpon>PaletteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PropertiesForm.Designer.cs">
+      <DependentUpon>PropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReplaceForm.Designer.cs">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\AssetPaletteControl.resx">
+      <DependentUpon>AssetPaletteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssetTilemapControl.resx">
+      <DependentUpon>AssetTilemapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssetTilesetControl.resx">
+      <DependentUpon>AssetTilesetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ColorEditControl.resx">
+      <DependentUpon>ColorEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssetEditControl.resx">
+      <DependentUpon>AssetEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssetDataEntryControl.resx">
+      <DependentUpon>AssetDataEntryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OutputMapControl.resx">
+      <DependentUpon>OutputMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PaletteControl.resx">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RomImageControl.resx">
+      <DependentUpon>RomImageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RomHexControl.resx">
+      <DependentUpon>RomHexControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssetSpriteControl.resx">
+      <DependentUpon>AssetSpriteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompareForm.resx">
+      <DependentUpon>CompareForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PaletteForm.resx">
+      <DependentUpon>PaletteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PropertiesForm.resx">
+      <DependentUpon>PropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReplaceForm.resx">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\color_wheel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_as.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
