@@ -52,6 +52,19 @@ namespace SMSEditor.Controls
         /// </summary>
         private bool HasData { get { return _project != null; } }
         private bool HasAssets { get { return _sprite != null && _bgPalette != null && _sprPalette != null && _tileset != null && _tilemap != null; } }
+        public List<GameAsset> SpriteAssets
+        {
+            get
+            {
+                if (_tileset == null || _tilemap == null)
+                    return null;
+
+                List<GameAsset> assets = new List<GameAsset>();
+                assets.Add(_tileset.DeepClone());
+                assets.Add(_tilemap.DeepClone());
+                return assets;
+            }
+        }
 
         /// <summary>
         /// Constructor
@@ -694,6 +707,24 @@ namespace SMSEditor.Controls
 
             if (!HasData)
                 return;
+
+            foreach(Sprite sprite in _project.Sprites)
+            {
+                foreach (int tilemapID in sprite.TilemapIDs)
+                {
+                    Tilemap tilemap = _project.TilemapEdits.Find(x => x.ID == tilemapID);
+                    if (tilemap == null)
+                        continue;
+
+                    tilemap.SetStatus(null);
+                    Tileset tileset = _project.TilesetEdits.Find(x => x.ID == tilemap.TilesetID);
+                    if (tileset == null)
+                        continue;
+
+                    tileset.SetStatus(null);
+                    sprite.SetStatus(new List<GameAsset>() { tileset, tilemap });
+                }
+            }
 
             foreach (ListBox lst in new List<ListBox>() { lstSprites })
             {

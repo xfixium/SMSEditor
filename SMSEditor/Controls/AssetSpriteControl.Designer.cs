@@ -31,14 +31,13 @@
             this.tpnlSpritesMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlSpriteImage = new SMSEditor.Controls.ImageControl();
             this.grpSpriteList = new System.Windows.Forms.GroupBox();
-            this.pnlSpriteListBorder = new System.Windows.Forms.Panel();
-            this.lstSprites = new System.Windows.Forms.ListBox();
+            this.lstSprites = new SMSEditor.Controls.ListBoxControl();
             this.pnlSpriteButtons = new System.Windows.Forms.Panel();
             this.btnSpriteRemove = new System.Windows.Forms.Button();
             this.btnSpriteSave = new System.Windows.Forms.Button();
             this.pnlSpriteOptions = new System.Windows.Forms.Panel();
-            this.pnlSpriteTilemapsBorder = new System.Windows.Forms.Panel();
-            this.lstSpriteTilemaps = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lstSpriteTilemaps = new SMSEditor.Controls.ListBoxControl();
             this.btnSpriteTilemapRemove = new System.Windows.Forms.Button();
             this.lblSpriteName = new System.Windows.Forms.Label();
             this.cbSpriteBGPalette = new System.Windows.Forms.ComboBox();
@@ -55,10 +54,8 @@
             this.btnSpriteTilemapMoveUp = new System.Windows.Forms.Button();
             this.tpnlSpritesMain.SuspendLayout();
             this.grpSpriteList.SuspendLayout();
-            this.pnlSpriteListBorder.SuspendLayout();
             this.pnlSpriteButtons.SuspendLayout();
             this.pnlSpriteOptions.SuspendLayout();
-            this.pnlSpriteTilemapsBorder.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpnlSpritesMain
@@ -104,7 +101,7 @@
             // 
             // grpSpriteList
             // 
-            this.grpSpriteList.Controls.Add(this.pnlSpriteListBorder);
+            this.grpSpriteList.Controls.Add(this.lstSprites);
             this.grpSpriteList.Controls.Add(this.pnlSpriteButtons);
             this.grpSpriteList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSpriteList.Location = new System.Drawing.Point(0, 0);
@@ -116,27 +113,22 @@
             this.grpSpriteList.TabStop = false;
             this.grpSpriteList.Text = "Sprites";
             // 
-            // pnlSpriteListBorder
-            // 
-            this.pnlSpriteListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlSpriteListBorder.Controls.Add(this.lstSprites);
-            this.pnlSpriteListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSpriteListBorder.Location = new System.Drawing.Point(12, 66);
-            this.pnlSpriteListBorder.Name = "pnlSpriteListBorder";
-            this.pnlSpriteListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlSpriteListBorder.Size = new System.Drawing.Size(172, 466);
-            this.pnlSpriteListBorder.TabIndex = 1;
-            // 
             // lstSprites
             // 
-            this.lstSprites.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstSprites.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstSprites.DisableHighlighting = true;
             this.lstSprites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstSprites.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstSprites.FormattingEnabled = true;
+            this.lstSprites.HorizontalExtent = 170;
             this.lstSprites.IntegralHeight = false;
-            this.lstSprites.Location = new System.Drawing.Point(1, 1);
+            this.lstSprites.ItemHeight = 15;
+            this.lstSprites.Location = new System.Drawing.Point(12, 67);
             this.lstSprites.Name = "lstSprites";
-            this.lstSprites.Size = new System.Drawing.Size(170, 464);
-            this.lstSprites.TabIndex = 0;
+            this.lstSprites.Size = new System.Drawing.Size(172, 465);
+            this.lstSprites.TabIndex = 1;
+            this.lstSprites.TextOffsetX = 2;
+            this.lstSprites.TextOffsetY = -1;
             this.lstSprites.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // pnlSpriteButtons
@@ -146,7 +138,7 @@
             this.pnlSpriteButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSpriteButtons.Location = new System.Drawing.Point(12, 19);
             this.pnlSpriteButtons.Name = "pnlSpriteButtons";
-            this.pnlSpriteButtons.Size = new System.Drawing.Size(172, 47);
+            this.pnlSpriteButtons.Size = new System.Drawing.Size(172, 48);
             this.pnlSpriteButtons.TabIndex = 0;
             // 
             // btnSpriteRemove
@@ -175,7 +167,8 @@
             // 
             // pnlSpriteOptions
             // 
-            this.pnlSpriteOptions.Controls.Add(this.pnlSpriteTilemapsBorder);
+            this.pnlSpriteOptions.Controls.Add(this.label1);
+            this.pnlSpriteOptions.Controls.Add(this.lstSpriteTilemaps);
             this.pnlSpriteOptions.Controls.Add(this.btnSpriteTilemapRemove);
             this.pnlSpriteOptions.Controls.Add(this.lblSpriteName);
             this.pnlSpriteOptions.Controls.Add(this.cbSpriteBGPalette);
@@ -197,29 +190,32 @@
             this.pnlSpriteOptions.Size = new System.Drawing.Size(172, 538);
             this.pnlSpriteOptions.TabIndex = 2;
             // 
-            // pnlSpriteTilemapsBorder
+            // label1
             // 
-            this.pnlSpriteTilemapsBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSpriteTilemapsBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlSpriteTilemapsBorder.Controls.Add(this.lstSpriteTilemaps);
-            this.pnlSpriteTilemapsBorder.Location = new System.Drawing.Point(0, 280);
-            this.pnlSpriteTilemapsBorder.Name = "pnlSpriteTilemapsBorder";
-            this.pnlSpriteTilemapsBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlSpriteTilemapsBorder.Size = new System.Drawing.Size(168, 256);
-            this.pnlSpriteTilemapsBorder.TabIndex = 14;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(0, 288);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Tilemaps:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lstSpriteTilemaps
             // 
-            this.lstSpriteTilemaps.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstSpriteTilemaps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstSpriteTilemaps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstSpriteTilemaps.DisableHighlighting = false;
+            this.lstSpriteTilemaps.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstSpriteTilemaps.FormattingEnabled = true;
+            this.lstSpriteTilemaps.HorizontalExtent = 166;
             this.lstSpriteTilemaps.IntegralHeight = false;
-            this.lstSpriteTilemaps.Location = new System.Drawing.Point(1, 1);
+            this.lstSpriteTilemaps.ItemHeight = 15;
+            this.lstSpriteTilemaps.Location = new System.Drawing.Point(0, 304);
             this.lstSpriteTilemaps.Name = "lstSpriteTilemaps";
-            this.lstSpriteTilemaps.Size = new System.Drawing.Size(166, 254);
-            this.lstSpriteTilemaps.TabIndex = 0;
+            this.lstSpriteTilemaps.Size = new System.Drawing.Size(168, 232);
+            this.lstSpriteTilemaps.TabIndex = 15;
+            this.lstSpriteTilemaps.TextOffsetX = 2;
+            this.lstSpriteTilemaps.TextOffsetY = -1;
             this.lstSpriteTilemaps.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // btnSpriteTilemapRemove
@@ -372,11 +368,9 @@
             this.Size = new System.Drawing.Size(810, 544);
             this.tpnlSpritesMain.ResumeLayout(false);
             this.grpSpriteList.ResumeLayout(false);
-            this.pnlSpriteListBorder.ResumeLayout(false);
             this.pnlSpriteButtons.ResumeLayout(false);
             this.pnlSpriteOptions.ResumeLayout(false);
             this.pnlSpriteOptions.PerformLayout();
-            this.pnlSpriteTilemapsBorder.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -386,14 +380,12 @@
         private System.Windows.Forms.TableLayoutPanel tpnlSpritesMain;
         private ImageControl pnlSpriteImage;
         private System.Windows.Forms.GroupBox grpSpriteList;
-        private System.Windows.Forms.Panel pnlSpriteListBorder;
-        private System.Windows.Forms.ListBox lstSprites;
+        private ListBoxControl lstSprites;
         private System.Windows.Forms.Panel pnlSpriteButtons;
         private System.Windows.Forms.Button btnSpriteRemove;
         private System.Windows.Forms.Button btnSpriteSave;
         private System.Windows.Forms.Panel pnlSpriteOptions;
-        private System.Windows.Forms.Panel pnlSpriteTilemapsBorder;
-        private System.Windows.Forms.ListBox lstSpriteTilemaps;
+        private ListBoxControl lstSpriteTilemaps;
         private System.Windows.Forms.Button btnSpriteTilemapRemove;
         private System.Windows.Forms.Label lblSpriteName;
         private System.Windows.Forms.ComboBox cbSpriteBGPalette;
@@ -408,5 +400,6 @@
         private System.Windows.Forms.Label lblSpriteBGPalette;
         private System.Windows.Forms.Label lblSpriteTilemap;
         private System.Windows.Forms.Button btnSpriteTilemapMoveUp;
+        private System.Windows.Forms.Label label1;
     }
 }

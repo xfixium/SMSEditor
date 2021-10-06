@@ -31,8 +31,7 @@
             this.tpnlPalettesMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPaletteColors = new SMSEditor.Controls.PaletteControl();
             this.grpPaletteList = new System.Windows.Forms.GroupBox();
-            this.pnlPaletteList = new System.Windows.Forms.Panel();
-            this.lstPalettes = new System.Windows.Forms.ListBox();
+            this.lstPalettes = new SMSEditor.Controls.ListBoxControl();
             this.pnlPaletteButtons = new System.Windows.Forms.Panel();
             this.btnPaletteRemove = new System.Windows.Forms.Button();
             this.btnPaletteSave = new System.Windows.Forms.Button();
@@ -55,7 +54,6 @@
             this.nudPaletteOffset = new System.Windows.Forms.NumericUpDown();
             this.tpnlPalettesMain.SuspendLayout();
             this.grpPaletteList.SuspendLayout();
-            this.pnlPaletteList.SuspendLayout();
             this.pnlPaletteButtons.SuspendLayout();
             this.pnlPaletteOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPaletteHex)).BeginInit();
@@ -92,7 +90,7 @@
             // 
             // grpPaletteList
             // 
-            this.grpPaletteList.Controls.Add(this.pnlPaletteList);
+            this.grpPaletteList.Controls.Add(this.lstPalettes);
             this.grpPaletteList.Controls.Add(this.pnlPaletteButtons);
             this.grpPaletteList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpPaletteList.Location = new System.Drawing.Point(0, 0);
@@ -104,27 +102,21 @@
             this.grpPaletteList.TabStop = false;
             this.grpPaletteList.Text = "Palettes";
             // 
-            // pnlPaletteList
-            // 
-            this.pnlPaletteList.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlPaletteList.Controls.Add(this.lstPalettes);
-            this.pnlPaletteList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPaletteList.Location = new System.Drawing.Point(12, 89);
-            this.pnlPaletteList.Name = "pnlPaletteList";
-            this.pnlPaletteList.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlPaletteList.Size = new System.Drawing.Size(172, 443);
-            this.pnlPaletteList.TabIndex = 1;
-            // 
             // lstPalettes
             // 
-            this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstPalettes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstPalettes.FormattingEnabled = true;
+            this.lstPalettes.HorizontalExtent = 170;
             this.lstPalettes.IntegralHeight = false;
-            this.lstPalettes.Location = new System.Drawing.Point(1, 1);
+            this.lstPalettes.ItemHeight = 15;
+            this.lstPalettes.Location = new System.Drawing.Point(12, 89);
             this.lstPalettes.Name = "lstPalettes";
-            this.lstPalettes.Size = new System.Drawing.Size(170, 441);
-            this.lstPalettes.TabIndex = 0;
+            this.lstPalettes.Size = new System.Drawing.Size(172, 443);
+            this.lstPalettes.TabIndex = 1;
+            this.lstPalettes.TextOffsetX = 2;
+            this.lstPalettes.TextOffsetY = -1;
             this.lstPalettes.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // pnlPaletteButtons
@@ -373,7 +365,6 @@
             this.Size = new System.Drawing.Size(810, 544);
             this.tpnlPalettesMain.ResumeLayout(false);
             this.grpPaletteList.ResumeLayout(false);
-            this.pnlPaletteList.ResumeLayout(false);
             this.pnlPaletteButtons.ResumeLayout(false);
             this.pnlPaletteOptions.ResumeLayout(false);
             this.pnlPaletteOptions.PerformLayout();
@@ -390,8 +381,7 @@
         private System.Windows.Forms.TableLayoutPanel tpnlPalettesMain;
         private PaletteControl pnlPaletteColors;
         private System.Windows.Forms.GroupBox grpPaletteList;
-        private System.Windows.Forms.Panel pnlPaletteList;
-        private System.Windows.Forms.ListBox lstPalettes;
+        private ListBoxControl lstPalettes;
         private System.Windows.Forms.Panel pnlPaletteButtons;
         private System.Windows.Forms.Button btnPaletteRemove;
         private System.Windows.Forms.Button btnPaletteSave;

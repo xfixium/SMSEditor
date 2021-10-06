@@ -121,11 +121,20 @@ namespace SMSEditor.Data
         /// Gets object information string
         /// </summary>
         /// <returns>Object information string</returns>
-        public override string GetInfo()
+        public override string GetInfo(List<GameAsset> assets)
         {
             int length = GetTilesetData(false, false).Length;
             StatusType = TileCount < length / 32 || Length < length ? StatusType.Overflow : StatusType.Good;
             return "ID: " + DataStartString + " | Tile Count: " + TileCount + "/" + ActualLength / 32 + " tiles | Length: " + length + "/" + Length + " bytes | Compression: " + EnumMethods.GetDescription(CompressionType) + " | Offset: " + Offset;
+        }
+
+        /// <summary>
+        /// Sets asset status
+        /// </summary>
+        public override void SetStatus(List<GameAsset> assets)
+        {
+            int length = GetTilesetData(false, false).Length;
+            StatusType = Disable ? StatusType.Disabled : TileCount < length / 32 || Length < length ? StatusType.Overflow : StatusType.Good;
         }
 
         /// <summary>

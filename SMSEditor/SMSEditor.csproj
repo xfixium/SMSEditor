@@ -101,6 +101,12 @@
     <Compile Include="Controls\ImageControl.Designer.cs">
       <DependentUpon>ImageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListBoxControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListBoxControl.Designer.cs">
+      <DependentUpon>ListBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OutputMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

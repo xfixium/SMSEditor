@@ -39,7 +39,7 @@ namespace SMSEditor.Data
         /// Gets object information string
         /// </summary>
         /// <returns>Object information string</returns>
-        public override string GetInfo()
+        public override string GetInfo(List<GameAsset> assets)
         {
             return "ID: " + ID + " | " + Data.Count + " byte(s) | Overwrite: " + (Overwrite ? "Yes" : "No") + " | Disabled: " + (Disable ? "Yes" : "No");
         }

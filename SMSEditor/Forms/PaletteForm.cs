@@ -62,7 +62,7 @@ namespace SMSEditor.Forms
 
             _palette = _project.GetPalette((lstPalettes.SelectedItem as GameAsset).ID);
             pnlPaletteEdit.SetPalette(_palette.Colors);
-            tssInformation.Text = _palette.GetInfo();
+            tssInformation.Text = _palette.GetInfo(null);
             chkDisable.Checked = _palette.Disable;
             chkOverride.Checked = _palette.Override;
         }

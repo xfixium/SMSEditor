@@ -1,4 +1,6 @@
-﻿namespace SMSEditor.Forms
+﻿
+
+namespace SMSEditor.Forms
 {
     partial class PaletteForm
     {
@@ -30,21 +32,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grpEdit = new System.Windows.Forms.GroupBox();
+            this.pnlColorPicker = new SMSEditor.Controls.ImageControl();
             this.grpEditPalette = new System.Windows.Forms.GroupBox();
+            this.pnlPaletteEdit = new SMSEditor.Controls.PaletteControl();
             this.grpPalettes = new System.Windows.Forms.GroupBox();
-            this.pnlPaletteListBorder = new System.Windows.Forms.Panel();
-            this.lstPalettes = new System.Windows.Forms.ListBox();
+            this.lstPalettes = new SMSEditor.Controls.ListBoxControl();
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.tssInformation = new System.Windows.Forms.ToolStripStatusLabel();
             this.chkDisable = new System.Windows.Forms.CheckBox();
             this.chkOverride = new System.Windows.Forms.CheckBox();
-            this.pnlPaletteEdit = new SMSEditor.Controls.PaletteControl();
-            this.pnlColorPicker = new SMSEditor.Controls.ImageControl();
             this.grpEdit.SuspendLayout();
             this.grpEditPalette.SuspendLayout();
             this.grpPalettes.SuspendLayout();
-            this.pnlPaletteListBorder.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,100 +57,6 @@
             this.grpEdit.TabIndex = 1;
             this.grpEdit.TabStop = false;
             this.grpEdit.Text = "Color Palette";
-            // 
-            // grpEditPalette
-            // 
-            this.grpEditPalette.Controls.Add(this.pnlPaletteEdit);
-            this.grpEditPalette.Location = new System.Drawing.Point(8, 200);
-            this.grpEditPalette.Name = "grpEditPalette";
-            this.grpEditPalette.Padding = new System.Windows.Forms.Padding(8);
-            this.grpEditPalette.Size = new System.Drawing.Size(368, 112);
-            this.grpEditPalette.TabIndex = 4;
-            this.grpEditPalette.TabStop = false;
-            this.grpEditPalette.Text = "Edit Palette";
-            // 
-            // grpPalettes
-            // 
-            this.grpPalettes.Controls.Add(this.pnlPaletteListBorder);
-            this.grpPalettes.Location = new System.Drawing.Point(8, 8);
-            this.grpPalettes.Name = "grpPalettes";
-            this.grpPalettes.Padding = new System.Windows.Forms.Padding(12, 4, 12, 12);
-            this.grpPalettes.Size = new System.Drawing.Size(192, 184);
-            this.grpPalettes.TabIndex = 0;
-            this.grpPalettes.TabStop = false;
-            this.grpPalettes.Text = "Palettes";
-            // 
-            // pnlPaletteListBorder
-            // 
-            this.pnlPaletteListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlPaletteListBorder.Controls.Add(this.lstPalettes);
-            this.pnlPaletteListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPaletteListBorder.Location = new System.Drawing.Point(12, 19);
-            this.pnlPaletteListBorder.Name = "pnlPaletteListBorder";
-            this.pnlPaletteListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlPaletteListBorder.Size = new System.Drawing.Size(168, 153);
-            this.pnlPaletteListBorder.TabIndex = 2;
-            // 
-            // lstPalettes
-            // 
-            this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstPalettes.FormattingEnabled = true;
-            this.lstPalettes.IntegralHeight = false;
-            this.lstPalettes.Location = new System.Drawing.Point(1, 1);
-            this.lstPalettes.Name = "lstPalettes";
-            this.lstPalettes.Size = new System.Drawing.Size(166, 151);
-            this.lstPalettes.TabIndex = 0;
-            this.lstPalettes.SelectedIndexChanged += new System.EventHandler(this.lstPalettes_SelectedIndexChanged);
-            // 
-            // ssMain
-            // 
-            this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssInformation});
-            this.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.ssMain.Location = new System.Drawing.Point(0, 359);
-            this.ssMain.Name = "ssMain";
-            this.ssMain.Size = new System.Drawing.Size(384, 5);
-            this.ssMain.SizingGrip = false;
-            this.ssMain.TabIndex = 5;
-            this.ssMain.Text = "statusStrip1";
-            // 
-            // tssInformation
-            // 
-            this.tssInformation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tssInformation.Name = "tssInformation";
-            this.tssInformation.Size = new System.Drawing.Size(0, 0);
-            // 
-            // chkDisable
-            // 
-            this.chkDisable.AutoSize = true;
-            this.chkDisable.Location = new System.Drawing.Point(208, 320);
-            this.chkDisable.Name = "chkDisable";
-            this.chkDisable.Size = new System.Drawing.Size(125, 17);
-            this.chkDisable.TabIndex = 6;
-            this.chkDisable.Text = "Disable Palette Edit";
-            this.chkDisable.UseVisualStyleBackColor = true;
-            this.chkDisable.CheckedChanged += new System.EventHandler(this.chkDisable_CheckedChanged);
-            // 
-            // chkOverride
-            // 
-            this.chkOverride.AutoSize = true;
-            this.chkOverride.Location = new System.Drawing.Point(16, 320);
-            this.chkOverride.Name = "chkOverride";
-            this.chkOverride.Size = new System.Drawing.Size(154, 17);
-            this.chkOverride.TabIndex = 7;
-            this.chkOverride.Text = "Override Original Length";
-            this.chkOverride.UseVisualStyleBackColor = true;
-            this.chkOverride.CheckedChanged += new System.EventHandler(this.chkOverride_CheckedChanged);
-            // 
-            // pnlPaletteEdit
-            // 
-            this.pnlPaletteEdit.Location = new System.Drawing.Point(8, 20);
-            this.pnlPaletteEdit.Name = "pnlPaletteEdit";
-            this.pnlPaletteEdit.ReadOnly = false;
-            this.pnlPaletteEdit.Size = new System.Drawing.Size(352, 82);
-            this.pnlPaletteEdit.TabIndex = 0;
-            this.pnlPaletteEdit.PaletteChanged += new SMSEditor.Controls.PaletteControl.PaletteChangedHandler(this.pnlPaletteEdit_PaletteChanged);
             // 
             // pnlColorPicker
             // 
@@ -176,6 +82,94 @@
             this.pnlColorPicker.Click += new System.EventHandler(this.pnlColorPicker_Click);
             this.pnlColorPicker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlColorPicker_MouseMove);
             // 
+            // grpEditPalette
+            // 
+            this.grpEditPalette.Controls.Add(this.pnlPaletteEdit);
+            this.grpEditPalette.Location = new System.Drawing.Point(8, 200);
+            this.grpEditPalette.Name = "grpEditPalette";
+            this.grpEditPalette.Padding = new System.Windows.Forms.Padding(8);
+            this.grpEditPalette.Size = new System.Drawing.Size(368, 112);
+            this.grpEditPalette.TabIndex = 4;
+            this.grpEditPalette.TabStop = false;
+            this.grpEditPalette.Text = "Edit Palette";
+            // 
+            // pnlPaletteEdit
+            // 
+            this.pnlPaletteEdit.Location = new System.Drawing.Point(8, 20);
+            this.pnlPaletteEdit.Name = "pnlPaletteEdit";
+            this.pnlPaletteEdit.ReadOnly = false;
+            this.pnlPaletteEdit.Size = new System.Drawing.Size(352, 82);
+            this.pnlPaletteEdit.TabIndex = 0;
+            this.pnlPaletteEdit.PaletteChanged += new SMSEditor.Controls.PaletteControl.PaletteChangedHandler(this.pnlPaletteEdit_PaletteChanged);
+            // 
+            // grpPalettes
+            // 
+            this.grpPalettes.Controls.Add(this.lstPalettes);
+            this.grpPalettes.Location = new System.Drawing.Point(8, 8);
+            this.grpPalettes.Name = "grpPalettes";
+            this.grpPalettes.Padding = new System.Windows.Forms.Padding(12, 4, 12, 12);
+            this.grpPalettes.Size = new System.Drawing.Size(192, 184);
+            this.grpPalettes.TabIndex = 0;
+            this.grpPalettes.TabStop = false;
+            this.grpPalettes.Text = "Palettes";
+            // 
+            // lstPalettes
+            // 
+            this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstPalettes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lstPalettes.FormattingEnabled = true;
+            this.lstPalettes.HorizontalExtent = 166;
+            this.lstPalettes.IntegralHeight = false;
+            this.lstPalettes.ItemHeight = 15;
+            this.lstPalettes.Location = new System.Drawing.Point(12, 19);
+            this.lstPalettes.Name = "lstPalettes";
+            this.lstPalettes.Size = new System.Drawing.Size(168, 153);
+            this.lstPalettes.TabIndex = 0;
+            this.lstPalettes.TextOffsetX = 2;
+            this.lstPalettes.TextOffsetY = -1;
+            this.lstPalettes.SelectedIndexChanged += new System.EventHandler(this.lstPalettes_SelectedIndexChanged);
+            // 
+            // ssMain
+            // 
+            this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssInformation});
+            this.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.ssMain.Location = new System.Drawing.Point(0, 345);
+            this.ssMain.Name = "ssMain";
+            this.ssMain.Size = new System.Drawing.Size(384, 19);
+            this.ssMain.SizingGrip = false;
+            this.ssMain.TabIndex = 7;
+            this.ssMain.Text = "statusStrip1";
+            // 
+            // tssInformation
+            // 
+            this.tssInformation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tssInformation.Name = "tssInformation";
+            this.tssInformation.Size = new System.Drawing.Size(0, 0);
+            // 
+            // chkDisable
+            // 
+            this.chkDisable.AutoSize = true;
+            this.chkDisable.Location = new System.Drawing.Point(208, 320);
+            this.chkDisable.Name = "chkDisable";
+            this.chkDisable.Size = new System.Drawing.Size(125, 17);
+            this.chkDisable.TabIndex = 6;
+            this.chkDisable.Text = "Disable Palette Edit";
+            this.chkDisable.UseVisualStyleBackColor = true;
+            this.chkDisable.CheckedChanged += new System.EventHandler(this.chkDisable_CheckedChanged);
+            // 
+            // chkOverride
+            // 
+            this.chkOverride.AutoSize = true;
+            this.chkOverride.Location = new System.Drawing.Point(16, 320);
+            this.chkOverride.Name = "chkOverride";
+            this.chkOverride.Size = new System.Drawing.Size(154, 17);
+            this.chkOverride.TabIndex = 5;
+            this.chkOverride.Text = "Override Original Length";
+            this.chkOverride.UseVisualStyleBackColor = true;
+            this.chkOverride.CheckedChanged += new System.EventHandler(this.chkOverride_CheckedChanged);
+            // 
             // PaletteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,7 +193,6 @@
             this.grpEdit.ResumeLayout(false);
             this.grpEditPalette.ResumeLayout(false);
             this.grpPalettes.ResumeLayout(false);
-            this.pnlPaletteListBorder.ResumeLayout(false);
             this.ssMain.ResumeLayout(false);
             this.ssMain.PerformLayout();
             this.ResumeLayout(false);
@@ -214,8 +207,7 @@
         private Controls.PaletteControl pnlPaletteEdit;
         private Controls.ImageControl pnlColorPicker;
         private System.Windows.Forms.GroupBox grpPalettes;
-        private System.Windows.Forms.Panel pnlPaletteListBorder;
-        private System.Windows.Forms.ListBox lstPalettes;
+        private SMSEditor.Controls.ListBoxControl lstPalettes;
         private System.Windows.Forms.ToolTip ttMain;
         private System.Windows.Forms.StatusStrip ssMain;
         private System.Windows.Forms.ToolStripStatusLabel tssInformation;

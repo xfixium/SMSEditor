@@ -231,7 +231,9 @@ namespace SMSEditor.Forms
         private void pnlAssets_InfoChanged(GameAsset asset)
         {
             tsslAssetName.Text = asset == null ? "Asset ID (None)" : asset.Name + ":";
-            tsslInfo.Text = asset == null ? "No Information" : asset.GetInfo();
+            tsslInfo.Text = asset == null ? "No Information" : asset.GetInfo(asset is Sprite ? pnlSpriteEdit.SpriteAssets : null) + " | Status:";
+            tsslStatus.ForeColor = asset.StatusType == StatusType.Good ? Color.RoyalBlue : asset.StatusType == StatusType.Disabled ? Color.DarkGray : Color.Red;
+            tsslStatus.Text = asset.StatusType.ToString();
         }
 
         /// <summary>

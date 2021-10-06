@@ -31,8 +31,7 @@
             this.tpnlTilemapsMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTilemapImage = new SMSEditor.Controls.ImageControl();
             this.grpTilemapList = new System.Windows.Forms.GroupBox();
-            this.pnlTilemapListBorder = new System.Windows.Forms.Panel();
-            this.lstTilemaps = new System.Windows.Forms.ListBox();
+            this.lstTilemaps = new SMSEditor.Controls.ListBoxControl();
             this.pnlTilemapButtons = new System.Windows.Forms.Panel();
             this.btnTilemapRemove = new System.Windows.Forms.Button();
             this.btnTilemapSave = new System.Windows.Forms.Button();
@@ -67,7 +66,6 @@
             this.nudTilemapID = new System.Windows.Forms.NumericUpDown();
             this.tpnlTilemapsMain.SuspendLayout();
             this.grpTilemapList.SuspendLayout();
-            this.pnlTilemapListBorder.SuspendLayout();
             this.pnlTilemapButtons.SuspendLayout();
             this.pnlTilemapOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTilemapHex)).BeginInit();
@@ -121,7 +119,7 @@
             // 
             // grpTilemapList
             // 
-            this.grpTilemapList.Controls.Add(this.pnlTilemapListBorder);
+            this.grpTilemapList.Controls.Add(this.lstTilemaps);
             this.grpTilemapList.Controls.Add(this.pnlTilemapButtons);
             this.grpTilemapList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpTilemapList.Location = new System.Drawing.Point(0, 0);
@@ -133,27 +131,21 @@
             this.grpTilemapList.TabStop = false;
             this.grpTilemapList.Text = "Tilemaps";
             // 
-            // pnlTilemapListBorder
-            // 
-            this.pnlTilemapListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlTilemapListBorder.Controls.Add(this.lstTilemaps);
-            this.pnlTilemapListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTilemapListBorder.Location = new System.Drawing.Point(12, 89);
-            this.pnlTilemapListBorder.Name = "pnlTilemapListBorder";
-            this.pnlTilemapListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlTilemapListBorder.Size = new System.Drawing.Size(172, 443);
-            this.pnlTilemapListBorder.TabIndex = 1;
-            // 
             // lstTilemaps
             // 
-            this.lstTilemaps.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstTilemaps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstTilemaps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstTilemaps.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstTilemaps.FormattingEnabled = true;
+            this.lstTilemaps.HorizontalExtent = 170;
             this.lstTilemaps.IntegralHeight = false;
-            this.lstTilemaps.Location = new System.Drawing.Point(1, 1);
+            this.lstTilemaps.ItemHeight = 15;
+            this.lstTilemaps.Location = new System.Drawing.Point(12, 89);
             this.lstTilemaps.Name = "lstTilemaps";
-            this.lstTilemaps.Size = new System.Drawing.Size(170, 441);
+            this.lstTilemaps.Size = new System.Drawing.Size(172, 443);
             this.lstTilemaps.TabIndex = 0;
+            this.lstTilemaps.TextOffsetX = 2;
+            this.lstTilemaps.TextOffsetY = -1;
             this.lstTilemaps.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // pnlTilemapButtons
@@ -538,7 +530,6 @@
             this.Size = new System.Drawing.Size(810, 544);
             this.tpnlTilemapsMain.ResumeLayout(false);
             this.grpTilemapList.ResumeLayout(false);
-            this.pnlTilemapListBorder.ResumeLayout(false);
             this.pnlTilemapButtons.ResumeLayout(false);
             this.pnlTilemapOptions.ResumeLayout(false);
             this.pnlTilemapOptions.PerformLayout();
@@ -557,8 +548,7 @@
         private System.Windows.Forms.TableLayoutPanel tpnlTilemapsMain;
         private ImageControl pnlTilemapImage;
         private System.Windows.Forms.GroupBox grpTilemapList;
-        private System.Windows.Forms.Panel pnlTilemapListBorder;
-        private System.Windows.Forms.ListBox lstTilemaps;
+        private ListBoxControl lstTilemaps;
         private System.Windows.Forms.Panel pnlTilemapButtons;
         private System.Windows.Forms.Button btnTilemapRemove;
         private System.Windows.Forms.Button btnTilemapSave;

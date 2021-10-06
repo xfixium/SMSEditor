@@ -123,9 +123,17 @@ namespace SMSEditor.Data
         /// <summary>
         /// Asset information changed
         /// </summary>
-        public virtual string GetInfo()
+        public virtual string GetInfo(List<GameAsset> assets)
         {
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Set asset status
+        /// </summary>
+        public virtual void SetStatus(List<GameAsset> assets)
+        {
+
         }
 
         /// <summary>

@@ -31,8 +31,7 @@
             this.tpnlTilesetsMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTilesetImage = new SMSEditor.Controls.ImageControl();
             this.grpTilesetList = new System.Windows.Forms.GroupBox();
-            this.pnlTilesetListBorder = new System.Windows.Forms.Panel();
-            this.lstTilesets = new System.Windows.Forms.ListBox();
+            this.lstTilesets = new SMSEditor.Controls.ListBoxControl();
             this.pnlTilesetButtons = new System.Windows.Forms.Panel();
             this.btnTilesetRemove = new System.Windows.Forms.Button();
             this.btnTilesetSave = new System.Windows.Forms.Button();
@@ -57,7 +56,6 @@
             this.cbTilesetPalette = new System.Windows.Forms.ComboBox();
             this.tpnlTilesetsMain.SuspendLayout();
             this.grpTilesetList.SuspendLayout();
-            this.pnlTilesetListBorder.SuspendLayout();
             this.pnlTilesetButtons.SuspendLayout();
             this.pnlTilesetOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTilesetHex)).BeginInit();
@@ -109,7 +107,7 @@
             // 
             // grpTilesetList
             // 
-            this.grpTilesetList.Controls.Add(this.pnlTilesetListBorder);
+            this.grpTilesetList.Controls.Add(this.lstTilesets);
             this.grpTilesetList.Controls.Add(this.pnlTilesetButtons);
             this.grpTilesetList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpTilesetList.Location = new System.Drawing.Point(0, 0);
@@ -121,27 +119,21 @@
             this.grpTilesetList.TabStop = false;
             this.grpTilesetList.Text = "Tilesets";
             // 
-            // pnlTilesetListBorder
-            // 
-            this.pnlTilesetListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlTilesetListBorder.Controls.Add(this.lstTilesets);
-            this.pnlTilesetListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTilesetListBorder.Location = new System.Drawing.Point(12, 87);
-            this.pnlTilesetListBorder.Name = "pnlTilesetListBorder";
-            this.pnlTilesetListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlTilesetListBorder.Size = new System.Drawing.Size(172, 445);
-            this.pnlTilesetListBorder.TabIndex = 1;
-            // 
             // lstTilesets
             // 
-            this.lstTilesets.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstTilesets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstTilesets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstTilesets.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstTilesets.FormattingEnabled = true;
+            this.lstTilesets.HorizontalExtent = 170;
             this.lstTilesets.IntegralHeight = false;
-            this.lstTilesets.Location = new System.Drawing.Point(1, 1);
+            this.lstTilesets.ItemHeight = 15;
+            this.lstTilesets.Location = new System.Drawing.Point(12, 87);
             this.lstTilesets.Name = "lstTilesets";
-            this.lstTilesets.Size = new System.Drawing.Size(170, 443);
-            this.lstTilesets.TabIndex = 0;
+            this.lstTilesets.Size = new System.Drawing.Size(172, 445);
+            this.lstTilesets.TabIndex = 1;
+            this.lstTilesets.TextOffsetX = 2;
+            this.lstTilesets.TextOffsetY = -1;
             this.lstTilesets.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // pnlTilesetButtons
@@ -407,7 +399,6 @@
             this.Size = new System.Drawing.Size(810, 544);
             this.tpnlTilesetsMain.ResumeLayout(false);
             this.grpTilesetList.ResumeLayout(false);
-            this.pnlTilesetListBorder.ResumeLayout(false);
             this.pnlTilesetButtons.ResumeLayout(false);
             this.pnlTilesetOptions.ResumeLayout(false);
             this.pnlTilesetOptions.PerformLayout();
@@ -424,8 +415,7 @@
         private System.Windows.Forms.TableLayoutPanel tpnlTilesetsMain;
         private ImageControl pnlTilesetImage;
         private System.Windows.Forms.GroupBox grpTilesetList;
-        private System.Windows.Forms.Panel pnlTilesetListBorder;
-        private System.Windows.Forms.ListBox lstTilesets;
+        private ListBoxControl lstTilesets;
         private System.Windows.Forms.Panel pnlTilesetButtons;
         private System.Windows.Forms.Button btnTilesetRemove;
         private System.Windows.Forms.Button btnTilesetSave;

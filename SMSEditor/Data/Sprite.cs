@@ -21,6 +21,7 @@
 //
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace SMSEditor.Data
@@ -66,9 +67,20 @@ namespace SMSEditor.Data
         /// <param name="frame">The currently selected tilemap (frame)</param>
         /// <param name="tilesetID">The tileset of the selected tilemap</param>
         /// <returns></returns>
-        public override string GetInfo()
+        public override string GetInfo(List<GameAsset> assets)
         {
-            return "ID: " + ID + " | BG Palette: " + BGPaletteID + " (" + BGPaletteID.ToString("X") + ") | SPR Palette: " + SPRPaletteID + " (" + SPRPaletteID.ToString("X") + ")";
+            string info = string.Empty;
+            if (assets != null)
+                info = " | Tileset: " + assets[0].DataStartString + " | Tilemap: " + assets[1].DataStartString;
+            return "ID: " + ID + " | BG Palette: " + BGPaletteID + " (" + BGPaletteID.ToString("X") + ") | SPR Palette: " + SPRPaletteID + " (" + SPRPaletteID.ToString("X") + ")" + info;
+        }
+
+        /// <summary>
+        /// Sets asset status
+        /// </summary>
+        public override void SetStatus(List<GameAsset> assets)
+        {
+            StatusType = assets == null ? StatusType.Error : assets.Any(x => x.StatusType == StatusType.Disabled) ? StatusType.Disabled : assets.Any(x => x.StatusType == StatusType.Overflow) ? StatusType.Overflow : StatusType.Good;
         }
     }
 }

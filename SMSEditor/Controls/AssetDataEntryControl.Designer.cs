@@ -34,8 +34,7 @@
             this.radDataEntryOverwrite = new System.Windows.Forms.RadioButton();
             this.tpnlDataInjectionMain = new System.Windows.Forms.TableLayoutPanel();
             this.grpDataEntryList = new System.Windows.Forms.GroupBox();
-            this.pnlDataEntryListBorder = new System.Windows.Forms.Panel();
-            this.lstDataEntries = new System.Windows.Forms.ListBox();
+            this.lstDataEntries = new SMSEditor.Controls.ListBoxControl();
             this.pnlDataEntryButtons = new System.Windows.Forms.Panel();
             this.btnDataEntryRemove = new System.Windows.Forms.Button();
             this.btnDataEntrySave = new System.Windows.Forms.Button();
@@ -53,7 +52,6 @@
             this.grpData.SuspendLayout();
             this.tpnlDataInjectionMain.SuspendLayout();
             this.grpDataEntryList.SuspendLayout();
-            this.pnlDataEntryListBorder.SuspendLayout();
             this.pnlDataEntryButtons.SuspendLayout();
             this.pnlDataEntryOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDataEntryHex)).BeginInit();
@@ -124,7 +122,7 @@
             // 
             // grpDataEntryList
             // 
-            this.grpDataEntryList.Controls.Add(this.pnlDataEntryListBorder);
+            this.grpDataEntryList.Controls.Add(this.lstDataEntries);
             this.grpDataEntryList.Controls.Add(this.pnlDataEntryButtons);
             this.grpDataEntryList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpDataEntryList.Location = new System.Drawing.Point(0, 0);
@@ -136,27 +134,21 @@
             this.grpDataEntryList.TabStop = false;
             this.grpDataEntryList.Text = "Data Entries";
             // 
-            // pnlDataEntryListBorder
-            // 
-            this.pnlDataEntryListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlDataEntryListBorder.Controls.Add(this.lstDataEntries);
-            this.pnlDataEntryListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDataEntryListBorder.Location = new System.Drawing.Point(12, 66);
-            this.pnlDataEntryListBorder.Name = "pnlDataEntryListBorder";
-            this.pnlDataEntryListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlDataEntryListBorder.Size = new System.Drawing.Size(172, 466);
-            this.pnlDataEntryListBorder.TabIndex = 1;
-            // 
             // lstDataEntries
             // 
-            this.lstDataEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstDataEntries.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstDataEntries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstDataEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstDataEntries.FormattingEnabled = true;
+            this.lstDataEntries.HorizontalExtent = 170;
             this.lstDataEntries.IntegralHeight = false;
-            this.lstDataEntries.Location = new System.Drawing.Point(1, 1);
+            this.lstDataEntries.ItemHeight = 15;
+            this.lstDataEntries.Location = new System.Drawing.Point(12, 66);
             this.lstDataEntries.Name = "lstDataEntries";
-            this.lstDataEntries.Size = new System.Drawing.Size(170, 464);
-            this.lstDataEntries.TabIndex = 0;
+            this.lstDataEntries.Size = new System.Drawing.Size(172, 466);
+            this.lstDataEntries.TabIndex = 1;
+            this.lstDataEntries.TextOffsetX = 2;
+            this.lstDataEntries.TextOffsetY = -1;
             this.lstDataEntries.SelectedIndexChanged += new System.EventHandler(this.lstAssets_SelectedIndexChanged);
             // 
             // pnlDataEntryButtons
@@ -330,7 +322,6 @@
             this.grpData.PerformLayout();
             this.tpnlDataInjectionMain.ResumeLayout(false);
             this.grpDataEntryList.ResumeLayout(false);
-            this.pnlDataEntryListBorder.ResumeLayout(false);
             this.pnlDataEntryButtons.ResumeLayout(false);
             this.pnlDataEntryOptions.ResumeLayout(false);
             this.pnlDataEntryOptions.PerformLayout();
@@ -347,8 +338,7 @@
         private System.Windows.Forms.RadioButton radDataEntryOverwrite;
         private System.Windows.Forms.TableLayoutPanel tpnlDataInjectionMain;
         private System.Windows.Forms.GroupBox grpDataEntryList;
-        private System.Windows.Forms.Panel pnlDataEntryListBorder;
-        private System.Windows.Forms.ListBox lstDataEntries;
+        private ListBoxControl lstDataEntries;
         private System.Windows.Forms.Panel pnlDataEntryButtons;
         private System.Windows.Forms.Button btnDataEntryRemove;
         private System.Windows.Forms.Button btnDataEntrySave;

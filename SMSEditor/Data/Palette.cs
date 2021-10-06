@@ -181,9 +181,9 @@ namespace SMSEditor.Data
         /// Gets object information string
         /// </summary>
         /// <returns>Object information string</returns>
-        public override string GetInfo()
+        public override string GetInfo(List<GameAsset> assets)
         {
-            return "ID: " + ID + " | Location: " + DataStartString + " | " + Length + " byte(s) | Compression: " + CompressionType.ToString();
+            return "ID: " + DataStartString + " | Length: " + Length + " bytes | Compression: " + EnumMethods.GetDescription(CompressionType) + " | Offset: " + Offset;
         }
 
         /// <summary>

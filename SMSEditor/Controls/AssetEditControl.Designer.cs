@@ -93,8 +93,7 @@
             this.chkTilemapIndexed = new System.Windows.Forms.CheckBox();
             this.btnRevertTilemap = new System.Windows.Forms.Button();
             this.grpSpriteList = new System.Windows.Forms.GroupBox();
-            this.pnlSpriteListBorder = new System.Windows.Forms.Panel();
-            this.lstSprites = new System.Windows.Forms.ListBox();
+            this.lstSprites = new SMSEditor.Controls.ListBoxControl();
             this.mnuSpriteOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuImage = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuImageExportAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -149,7 +148,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTilemapRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTilemapColumns)).BeginInit();
             this.grpSpriteList.SuspendLayout();
-            this.pnlSpriteListBorder.SuspendLayout();
             this.mnuSpriteOptions.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlSpriteListTools.SuspendLayout();
@@ -940,7 +938,7 @@
             // 
             // grpSpriteList
             // 
-            this.grpSpriteList.Controls.Add(this.pnlSpriteListBorder);
+            this.grpSpriteList.Controls.Add(this.lstSprites);
             this.grpSpriteList.Controls.Add(this.panel1);
             this.grpSpriteList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSpriteList.Location = new System.Drawing.Point(0, 0);
@@ -952,28 +950,22 @@
             this.grpSpriteList.TabStop = false;
             this.grpSpriteList.Text = "Select Sprite To Edit";
             // 
-            // pnlSpriteListBorder
-            // 
-            this.pnlSpriteListBorder.BackColor = System.Drawing.Color.DarkGray;
-            this.pnlSpriteListBorder.Controls.Add(this.lstSprites);
-            this.pnlSpriteListBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSpriteListBorder.Location = new System.Drawing.Point(12, 40);
-            this.pnlSpriteListBorder.Name = "pnlSpriteListBorder";
-            this.pnlSpriteListBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.pnlSpriteListBorder.Size = new System.Drawing.Size(172, 492);
-            this.pnlSpriteListBorder.TabIndex = 1;
-            // 
             // lstSprites
             // 
-            this.lstSprites.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstSprites.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstSprites.ContextMenuStrip = this.mnuSpriteOptions;
             this.lstSprites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstSprites.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstSprites.FormattingEnabled = true;
+            this.lstSprites.HorizontalExtent = 170;
             this.lstSprites.IntegralHeight = false;
-            this.lstSprites.Location = new System.Drawing.Point(1, 1);
+            this.lstSprites.ItemHeight = 15;
+            this.lstSprites.Location = new System.Drawing.Point(12, 42);
             this.lstSprites.Name = "lstSprites";
-            this.lstSprites.Size = new System.Drawing.Size(170, 490);
-            this.lstSprites.TabIndex = 0;
+            this.lstSprites.Size = new System.Drawing.Size(172, 490);
+            this.lstSprites.TabIndex = 1;
+            this.lstSprites.TextOffsetX = 2;
+            this.lstSprites.TextOffsetY = -1;
             this.lstSprites.SelectedIndexChanged += new System.EventHandler(this.lstSprites_SelectedIndexChanged);
             // 
             // mnuSpriteOptions
@@ -983,7 +975,7 @@
             this.mnuAddress,
             this.mnuData});
             this.mnuSpriteOptions.Name = "mnuInfo";
-            this.mnuSpriteOptions.Size = new System.Drawing.Size(181, 92);
+            this.mnuSpriteOptions.Size = new System.Drawing.Size(117, 70);
             // 
             // mnuImage
             // 
@@ -993,7 +985,7 @@
             this.mnuImageExportSprite,
             this.mnuImageExportTileset});
             this.mnuImage.Name = "mnuImage";
-            this.mnuImage.Size = new System.Drawing.Size(180, 22);
+            this.mnuImage.Size = new System.Drawing.Size(116, 22);
             this.mnuImage.Text = "Image";
             // 
             // mnuImageExportAll
@@ -1031,7 +1023,7 @@
             this.mnuAddrDec,
             this.mnuAddrHex});
             this.mnuAddress.Name = "mnuAddress";
-            this.mnuAddress.Size = new System.Drawing.Size(180, 22);
+            this.mnuAddress.Size = new System.Drawing.Size(116, 22);
             this.mnuAddress.Text = "Address";
             // 
             // mnuAddrDec
@@ -1042,7 +1034,7 @@
             this.mnuAddrDecCopyTileset,
             this.mnuAddrDecCopyTilemap});
             this.mnuAddrDec.Name = "mnuAddrDec";
-            this.mnuAddrDec.Size = new System.Drawing.Size(180, 22);
+            this.mnuAddrDec.Size = new System.Drawing.Size(143, 22);
             this.mnuAddrDec.Text = "Decimal";
             // 
             // mnuAddrDecCopyBGPalette
@@ -1082,7 +1074,7 @@
             this.mnuAddrHexCopyTilemap,
             this.toolStripMenuItem3});
             this.mnuAddrHex.Name = "mnuAddrHex";
-            this.mnuAddrHex.Size = new System.Drawing.Size(180, 22);
+            this.mnuAddrHex.Size = new System.Drawing.Size(143, 22);
             this.mnuAddrHex.Text = "Hexadecimal";
             // 
             // mnuAddrHexCopyBGPalette
@@ -1128,7 +1120,7 @@
             this.mnuDataHex,
             this.mnuDataAsm});
             this.mnuData.Name = "mnuData";
-            this.mnuData.Size = new System.Drawing.Size(180, 22);
+            this.mnuData.Size = new System.Drawing.Size(116, 22);
             this.mnuData.Text = "Data";
             // 
             // mnuDataIgnoreCompression
@@ -1273,7 +1265,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(12, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(172, 21);
+            this.panel1.Size = new System.Drawing.Size(172, 23);
             this.panel1.TabIndex = 0;
             // 
             // pnlSpriteListTools
@@ -1358,7 +1350,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTilemapRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTilemapColumns)).EndInit();
             this.grpSpriteList.ResumeLayout(false);
-            this.pnlSpriteListBorder.ResumeLayout(false);
             this.mnuSpriteOptions.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.pnlSpriteListTools.ResumeLayout(false);
@@ -1410,8 +1401,7 @@
         private System.Windows.Forms.CheckBox chkTilemapIndexed;
         private System.Windows.Forms.Button btnRevertTilemap;
         private System.Windows.Forms.GroupBox grpSpriteList;
-        private System.Windows.Forms.Panel pnlSpriteListBorder;
-        private System.Windows.Forms.ListBox lstSprites;
+        private ListBoxControl lstSprites;
         private System.Windows.Forms.Panel pnlSpriteListTools;
         private System.Windows.Forms.Label lblSpriteTilemap;
         private System.Windows.Forms.Button btnPreviousFrame;

@@ -64,6 +64,7 @@
             this.pnlRomHex = new SMSEditor.Controls.RomHexControl();
             this.tabOutputMap = new System.Windows.Forms.TabPage();
             this.lblStarting = new System.Windows.Forms.Label();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.mnuMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -192,7 +193,8 @@
             // 
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslAssetName,
-            this.tsslInfo});
+            this.tsslInfo,
+            this.tsslStatus});
             this.ssMain.Location = new System.Drawing.Point(0, 617);
             this.ssMain.Name = "ssMain";
             this.ssMain.Size = new System.Drawing.Size(840, 22);
@@ -433,6 +435,13 @@
     " existing one.";
             this.lblStarting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(42, 17);
+            this.tsslStatus.Text = "Status";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -503,6 +512,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuTools;
         private System.Windows.Forms.ToolStripMenuItem mnuValidateOutput;
         private System.Windows.Forms.TabPage tabOutputMap;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
     }
 }
 
