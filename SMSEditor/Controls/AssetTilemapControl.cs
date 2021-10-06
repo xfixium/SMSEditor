@@ -173,6 +173,12 @@ namespace SMSEditor.Controls
                 return;
 
             Tilemap tilemap = GetTilemapData();
+            if (tilemap.TilesetID <= -1)
+            {
+                MessageBox.Show("Please aassign a tileset to the tilemap.");
+                return;
+            }
+
             if (_project.Tilemaps.Find(x => x.ID == tilemap.ID) != null)
             {
                 _project.Tilemaps[_project.Tilemaps.FindIndex(x => x.ID == tilemap.ID)] = tilemap.DeepClone();

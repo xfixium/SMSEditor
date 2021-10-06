@@ -129,6 +129,9 @@ namespace SMSEditor.Controls
             if (_project.DataEntries == null)
                 _project.DataEntries = new List<DataEntry>();
 
+            foreach (DataEntry entry in _project.DataEntries)
+                entry.SetStatus(null);
+
             lstDataEntries.Items.AddRange(_project.DataEntries.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
             foreach (ListBox ctrl in new List<ListBox>() { lstDataEntries })
                 if (ctrl.Items.Count > 0)
@@ -191,6 +194,7 @@ namespace SMSEditor.Controls
                 dataEntry.Overwrite = radDataEntryOverwrite.Checked;
                 dataEntry.Comments = txtDataEntryComments.Text;
                 dataEntry.Data = DataFromText();
+                dataEntry.SetStatus(null);
                 return dataEntry;
             }
             catch

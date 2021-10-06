@@ -60,8 +60,10 @@ namespace SMSEditor.Controls
                     return null;
 
                 List<GameAsset> assets = new List<GameAsset>();
-                assets.Add(_tileset.DeepClone());
-                assets.Add(_tilemap.DeepClone());
+                assets.Add(_bgPalette);
+                assets.Add(_sprPalette);
+                assets.Add(_tileset);
+                assets.Add(_tilemap);
                 return assets;
             }
         }
@@ -172,83 +174,92 @@ namespace SMSEditor.Controls
         /// </summary>
         private void mnuContextMenuItem_Click(object sender, EventArgs e)
         {
-            if (!HasData || lstSprites.SelectedItem == null)
-                return;
-
-            // Image options
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-            if (item.Name == mnuImageExportAll.Name)
-                ExportAllSprites();
-            else if (item.Name == mnuImageExportSprite.Name)
-                ExportSprite();
-            else if (item.Name == mnuImageExportTileset.Name)
-                ExportTileset();
-
-            // Address decimal options
-            else if (item.Name == mnuAddrDecCopyBGPalette.Name && _bgPalette != null)
-                Clipboard.SetText(_bgPalette.ID.ToString());
-            else if (item.Name == mnuAddrDecCopySPRPalette.Name && _sprPalette != null)
-                Clipboard.SetText(_sprPalette.ID.ToString());
-            else if (item.Name == mnuAddrDecCopyTileset.Name && _tileset != null)
-                Clipboard.SetText(_tileset.ID.ToString());
-            else if (item.Name == mnuAddrDecCopyTilemap.Name && _tilemap != null)
-                Clipboard.SetText(_tilemap.ID.ToString());
-
-            // Address hexidecimal options
-            else if (item.Name == mnuAddrHexCopyBGPalette.Name && _bgPalette != null)
-                Clipboard.SetText(_bgPalette.ID.ToString("X"));
-            else if (item.Name == mnuAddrHexCopySPRPalette.Name && _sprPalette != null)
-                Clipboard.SetText(_sprPalette.ID.ToString("X"));
-            else if (item.Name == mnuAddrHexCopyTileset.Name && _tileset != null)
-                Clipboard.SetText(_tileset.ID.ToString("X"));
-            else if (item.Name == mnuAddrHexCopyTilemap.Name && _tilemap != null)
-                Clipboard.SetText(_tilemap.ID.ToString("X"));
-
-            // Data binary options
-            else if (item.Name == mnuDataBinExportBGPalette.Name && _bgPalette != null)
+            try
             {
-                Palette palette = _bgPalette.DeepClone();
-                palette.Override = mnuDataOverrideLength.Checked;
-                ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
-            }
-            else if (item.Name == mnuDataBinExportSPRPalette.Name && _sprPalette != null)
-            {
-                Palette palette = _sprPalette.DeepClone();
-                palette.Override = mnuDataOverrideLength.Checked;
-                ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
-            }
-            else if (item.Name == mnuDataBinExportTileset.Name && _tileset != null)
-            {
-                Tileset tileset = _tileset.DeepClone();
-                tileset.Override = mnuDataOverrideLength.Checked;
-                ExportData(tileset.GetTilesetData(mnuDataIgnoreCompression.Checked, false), tileset.Name);
-            }
-            else if (item.Name == mnuDataBinExportTilemap.Name && _tilemap != null)
-            {
-                Tilemap tilemap = _tilemap.DeepClone();
-                tilemap.Override = mnuDataOverrideLength.Checked;
-                ExportData(tilemap.GetTilemapData(mnuDataIgnoreCompression.Checked, false), tilemap.Name);
-            }
+                if (!HasData || lstSprites.SelectedItem == null)
+                    return;
 
-            // Data hexidecimal options
-            else if (item.Name == mnuDataAsmCopyBGPalette.Name && _bgPalette != null)
-                Clipboard.SetText(_bgPalette.GetASMString());
-            else if (item.Name == mnuDataAsmCopySPRPalette.Name && _sprPalette != null)
-                Clipboard.SetText(_sprPalette.GetASMString());
-            else if (item.Name == mnuDataAsmCopyTileset.Name && _tileset != null)
-                Clipboard.SetText(_tileset.GetASMString());
-            else if (item.Name == mnuDataAsmCopyTilemap.Name && _tilemap != null)
-                Clipboard.SetText(_tilemap.GetASMString());
+                bool edited = mnuEditedData.Checked;
 
-            // Data assembly options
-            else if (item.Name == mnuDataAsmCopyBGPalette.Name && _bgPalette != null)
-                Clipboard.SetText(_bgPalette.GetASMString());
-            else if (item.Name == mnuDataAsmCopySPRPalette.Name && _sprPalette != null)
-                Clipboard.SetText(_sprPalette.GetASMString());
-            else if (item.Name == mnuDataAsmCopyTileset.Name && _tileset != null)
-                Clipboard.SetText(_tileset.GetASMString());
-            else if (item.Name == mnuDataAsmCopyTilemap.Name && _tilemap != null)
-                Clipboard.SetText(_tilemap.GetASMString());
+                // Image options
+                ToolStripMenuItem item = sender as ToolStripMenuItem;
+                if (item.Name == mnuImageExportAll.Name)
+                    ExportAllSprites();
+                else if (item.Name == mnuImageExportSprite.Name)
+                    ExportSprite();
+                else if (item.Name == mnuImageExportTileset.Name)
+                    ExportTileset();
+
+                // Address decimal options
+                else if (item.Name == mnuAddrDecCopyBGPalette.Name && _bgPalette != null)
+                    Clipboard.SetText(_bgPalette.ID.ToString());
+                else if (item.Name == mnuAddrDecCopySPRPalette.Name && _sprPalette != null)
+                    Clipboard.SetText(_sprPalette.ID.ToString());
+                else if (item.Name == mnuAddrDecCopyTileset.Name && _tileset != null)
+                    Clipboard.SetText(_tileset.ID.ToString());
+                else if (item.Name == mnuAddrDecCopyTilemap.Name && _tilemap != null)
+                    Clipboard.SetText(_tilemap.ID.ToString());
+
+                // Address hexidecimal options
+                else if (item.Name == mnuAddrHexCopyBGPalette.Name && _bgPalette != null)
+                    Clipboard.SetText(_bgPalette.ID.ToString("X"));
+                else if (item.Name == mnuAddrHexCopySPRPalette.Name && _sprPalette != null)
+                    Clipboard.SetText(_sprPalette.ID.ToString("X"));
+                else if (item.Name == mnuAddrHexCopyTileset.Name && _tileset != null)
+                    Clipboard.SetText(_tileset.ID.ToString("X"));
+                else if (item.Name == mnuAddrHexCopyTilemap.Name && _tilemap != null)
+                    Clipboard.SetText(_tilemap.ID.ToString("X"));
+
+                // Data binary options
+                else if (item.Name == mnuDataBinExportBGPalette.Name && _bgPalette != null)
+                {
+                    Palette palette = edited ? _bgPalette.DeepClone() : _project.GetPalette(_bgPalette.ID, true);
+                    palette.Override = mnuDataOverrideLength.Checked;
+                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
+                }
+                else if (item.Name == mnuDataBinExportSPRPalette.Name && _sprPalette != null)
+                {
+                    Palette palette = edited ? _sprPalette.DeepClone() : _project.GetPalette(_sprPalette.ID, true);
+                    palette.Override = mnuDataOverrideLength.Checked;
+                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
+                }
+                else if (item.Name == mnuDataBinExportTileset.Name && _tileset != null)
+                {
+                    Tileset tileset = edited ? _tileset.DeepClone() : _project.GetTileset(_tileset.ID, true);
+                    tileset.Override = mnuDataOverrideLength.Checked;
+                    ExportData(tileset.GetTilesetData(mnuDataIgnoreCompression.Checked, false), tileset.Name);
+                }
+                else if (item.Name == mnuDataBinExportTilemap.Name && _tilemap != null)
+                {
+                    Tilemap tilemap = edited ? _tilemap.DeepClone() : _project.GetTilemap(_tilemap.ID, true);
+                    tilemap.Override = mnuDataOverrideLength.Checked;
+                    ExportData(tilemap.GetTilemapData(mnuDataIgnoreCompression.Checked, false), tilemap.Name);
+                }
+
+                // Data hexidecimal options
+                else if (item.Name == mnuDataHexCopyBGPalette.Name && _bgPalette != null)
+                    Clipboard.SetText(edited ? _bgPalette.GetASMString(true) : _project.GetPalette(_bgPalette.ID, true).GetASMString(true));
+                else if (item.Name == mnuDataHexCopySPRPalette.Name && _sprPalette != null)
+                    Clipboard.SetText(edited ? _sprPalette.GetASMString(true) : _project.GetPalette(_sprPalette.ID, true).GetASMString(true));
+                else if (item.Name == mnuDataHexCopyTileset.Name && _tileset != null)
+                    Clipboard.SetText(edited ? _tileset.GetASMString(true) : _project.GetTileset(_tileset.ID, true).GetASMString(true));
+                else if (item.Name == mnuDataHexCopyTilemap.Name && _tilemap != null)
+                    Clipboard.SetText(edited ? _tilemap.GetASMString(true) : _project.GetTilemap(_tilemap.ID, true).GetASMString(true));
+
+                // Data assembly options
+                else if (item.Name == mnuDataAsmCopyBGPalette.Name && _bgPalette != null)
+                    Clipboard.SetText(edited ? _bgPalette.GetASMString(false) : _project.GetPalette(_bgPalette.ID, true).GetASMString(false));
+                else if (item.Name == mnuDataAsmCopySPRPalette.Name && _sprPalette != null)
+                    Clipboard.SetText(edited ? _sprPalette.GetASMString(false) : _project.GetPalette(_sprPalette.ID, true).GetASMString(false));
+                else if (item.Name == mnuDataAsmCopyTileset.Name && _tileset != null)
+                    Clipboard.SetText(edited ? _tileset.GetASMString(false) : _project.GetTileset(_tileset.ID, true).GetASMString(false));
+                else if (item.Name == mnuDataAsmCopyTilemap.Name && _tilemap != null)
+                    Clipboard.SetText(edited ? _tilemap.GetASMString(false) : _project.GetTilemap(_tilemap.ID, true).GetASMString(false));
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -263,21 +274,25 @@ namespace SMSEditor.Controls
             if (ctrl.Name == chkDisableBGPalette.Name)
             {
                 _bgPalette.Disable = chkDisableBGPalette.Checked;
+                SetStatus(_bgPalette);
                 _project.SetPalette(_bgPalette);
             }
             else if (ctrl.Name == chkDisableSPRPalette.Name)
             {
                 _sprPalette.Disable = chkDisableSPRPalette.Checked;
+                SetStatus(_sprPalette);
                 _project.SetPalette(_sprPalette);
             }
             else if (ctrl.Name == chkDisableTileset.Name)
             {
                 _tileset.Disable = chkDisableTileset.Checked;
+                SetStatus(_tileset);
                 _project.SetTileset(_tileset);
             }
             else if (ctrl.Name == chkDisableTilemap.Name)
             {
                 _tilemap.Disable = chkDisableTilemap.Checked;
+                SetStatus(_tilemap);
                 _project.SetTilemap(_tilemap);
             }
             else if (ctrl.Name == chkTilesetOverride.Name)
@@ -375,6 +390,7 @@ namespace SMSEditor.Controls
             _sprPalette = _project.GetPalette(_sprPalette.ID);
             _tileset = _project.GetTileset(_tileset.ID);
             _tilemap = _project.GetTilemap(_sprite.TilemapIDs[_frame]);
+            SetStatus(_sprite);
             UpdateImages();
         }
 
@@ -465,6 +481,7 @@ namespace SMSEditor.Controls
 
             _tileset.Pixels = pnlTileset.Pixels;
             _project.SetTileset(_tileset);
+            SetStatus(_tileset);
             UpdateImages();
         }
 
@@ -493,8 +510,10 @@ namespace SMSEditor.Controls
 
             int tileID = pnlTileset.TileID;
             pnlTileset.RemoveSelection();
+            _project.SetTileset(_tileset);
             _tilemap.ShiftTiles(-1, tileID);
             _project.SetTilemap(_tilemap);
+            SetStatus(_tileset);
             pnlTile.Clear();
             UpdateImages();
         }
@@ -520,7 +539,10 @@ namespace SMSEditor.Controls
                 return;
 
             _tileset.AddEmptyTile();
+            _project.SetTileset(_tileset);
             _tilemap.ShiftTiles(1);
+            _project.SetTilemap(_tilemap);
+            SetStatus(_tileset);
             UpdateImages();
         }
 
@@ -624,6 +646,7 @@ namespace SMSEditor.Controls
 
             _tilemap.Columns = (int)nudTilemapColumns.Value;
             _project.SetTilemap(_tilemap);
+            SetStatus(_tilemap);
             UpdateImages();
         }
 
@@ -637,6 +660,7 @@ namespace SMSEditor.Controls
 
             _tilemap.Rows = (int)nudTilemapRows.Value;
             _project.SetTilemap(_tilemap);
+            SetStatus(_tilemap);
             UpdateImages();
         }
 
@@ -710,19 +734,25 @@ namespace SMSEditor.Controls
 
             foreach(Sprite sprite in _project.Sprites)
             {
+                Palette bgPalette = _project.PaletteEdits.Find(x => x.ID == sprite.BGPaletteID);
+                if (bgPalette != null)
+                    bgPalette.SetStatus(null);
+
+                Palette sprPalette = _project.PaletteEdits.Find(x => x.ID == sprite.SPRPaletteID);
+                if (sprPalette != null)
+                    sprPalette.SetStatus(null);
+
                 foreach (int tilemapID in sprite.TilemapIDs)
                 {
                     Tilemap tilemap = _project.TilemapEdits.Find(x => x.ID == tilemapID);
-                    if (tilemap == null)
-                        continue;
+                    if (tilemap != null)
+                        tilemap.SetStatus(null);
 
-                    tilemap.SetStatus(null);
-                    Tileset tileset = _project.TilesetEdits.Find(x => x.ID == tilemap.TilesetID);
-                    if (tileset == null)
-                        continue;
+                    Tileset tileset = _project.TilesetEdits.Find(x => x.ID == (tilemap == null ? -1 : tilemap.TilesetID));
+                    if (tileset != null)
+                        tileset.SetStatus(null);
 
-                    tileset.SetStatus(null);
-                    sprite.SetStatus(new List<GameAsset>() { tileset, tilemap });
+                    sprite.SetStatus(new List<GameAsset>() { bgPalette, sprPalette, tileset, tilemap });
                 }
             }
 
@@ -786,19 +816,20 @@ namespace SMSEditor.Controls
                     return;
             }
 
+            bool edited = mnuEditedData.Checked;
             foreach (Sprite sprite in _project.Sprites)
             {
                 List<Tilemap> tilemaps = new List<Tilemap>();
                 foreach (int id in sprite.TilemapIDs)
-                    tilemaps.Add(_project.GetTilemap(id));
+                    tilemaps.Add(_project.GetTilemap(id, !edited));
 
-                Palette bgPalette = _project.GetPalette(sprite.BGPaletteID);
-                Palette sprPalette = _project.GetPalette(sprite.SPRPaletteID);
+                Palette bgPalette = _project.GetPalette(sprite.BGPaletteID, !edited);
+                Palette sprPalette = _project.GetPalette(sprite.SPRPaletteID, !edited);
                 foreach (Tilemap tilemap in tilemaps)
                 {
                     try
                     {
-                        using (Bitmap image = BitmapUtility.GetSpriteImageStrip(tilemaps, _project.GetTilesets(tilemaps), bgPalette, sprPalette))
+                        using (Bitmap image = BitmapUtility.GetSpriteImageStrip(tilemaps, _project.GetTilesets(tilemaps, !edited), bgPalette, sprPalette))
                         {
                             image.Save(path + "\\" + sprite.Name + ".png", ImageFormat.Png);
                         }
@@ -816,9 +847,10 @@ namespace SMSEditor.Controls
         /// </summary>
         public void ExportSprite()
         {
+            bool edited = mnuEditedData.Checked;
             List<Tilemap> tilemaps = new List<Tilemap>();
             foreach (int id in _sprite.TilemapIDs)
-                tilemaps.Add(_project.GetTilemap(id));
+                tilemaps.Add(_project.GetTilemap(id, !edited));
 
             if (!HasAssets || tilemaps.Count <= 0)
             {
@@ -835,7 +867,9 @@ namespace SMSEditor.Controls
                     dialog.Filter = "PNG Image File|*.png";
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
-                        using (Bitmap image = BitmapUtility.GetSpriteImageStrip(tilemaps, _project.GetTilesets(tilemaps), _bgPalette, _sprPalette))
+                        Palette bgPalette = _project.GetPalette(_bgPalette.ID, !edited);
+                        Palette sprPalette = _project.GetPalette(_sprPalette.ID, !edited);
+                        using (Bitmap image = BitmapUtility.GetSpriteImageStrip(tilemaps, _project.GetTilesets(tilemaps, !edited), bgPalette, sprPalette))
                         {
                             image.Save(dialog.FileName, ImageFormat.Png);
                         }
@@ -868,7 +902,10 @@ namespace SMSEditor.Controls
                     dialog.FileName = _tileset.Name;
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
-                        using (Bitmap image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 16))
+                        bool edited = mnuEditedData.Checked;
+                        Palette palette = _project.GetPalette(_selectedPalette.ID, !edited);
+                        Tileset tileset = _project.GetTileset(_tileset.ID, !edited);
+                        using (Bitmap image = BitmapUtility.GetTilesetImage(tileset, palette, 16))
                         {
                             image.Save(dialog.FileName, ImageFormat.Png);
                         }
@@ -916,11 +953,28 @@ namespace SMSEditor.Controls
         }
 
         /// <summary>
-        /// Trigger info changed event handler
+        /// External call to info changed event handler
         /// </summary>
         public void OnInfoChanged()
         {
             tabMain_SelectedIndexChanged(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Update the asset status, and sprite status
+        /// </summary>
+        /// <param name="asset">The asset to update the status of</param>
+        private void SetStatus(GameAsset asset)
+        {
+            if (asset == null)
+                return;
+
+            List<GameAsset> assets = new List<GameAsset>() { _bgPalette, _sprPalette, _tileset, _tilemap };
+            if (!(asset is Sprite))
+                asset.SetStatus(null);
+
+            _sprite.SetStatus(assets);
+            OnInfoChanged();
         }
 
         /// <summary>

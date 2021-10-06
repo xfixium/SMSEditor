@@ -116,6 +116,7 @@ namespace SMSEditor.Forms
             // lstPalettes
             // 
             this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstPalettes.DisableHighlighting = false;
             this.lstPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstPalettes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstPalettes.FormattingEnabled = true;
@@ -135,9 +136,9 @@ namespace SMSEditor.Forms
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssInformation});
             this.ssMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.ssMain.Location = new System.Drawing.Point(0, 345);
+            this.ssMain.Location = new System.Drawing.Point(0, 359);
             this.ssMain.Name = "ssMain";
-            this.ssMain.Size = new System.Drawing.Size(384, 19);
+            this.ssMain.Size = new System.Drawing.Size(384, 5);
             this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 7;
             this.ssMain.Text = "statusStrip1";

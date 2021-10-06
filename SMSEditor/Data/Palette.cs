@@ -187,16 +187,25 @@ namespace SMSEditor.Data
         }
 
         /// <summary>
+        /// Sets asset status
+        /// </summary>
+        public override void SetStatus(List<GameAsset> assets)
+        {
+            StatusType = Disable ? StatusType.Disabled : StatusType.Good;
+        }
+
+        /// <summary>
         /// Gets assembly string
         /// </summary>
         /// <returns>Object assembly string</returns>
-        public string GetASMString()
+        public string GetASMString(bool hex)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(".db ");
+            if (!hex)
+                sb.Append(".db ");
             byte[] data = GetPaletteData(true, false);
             foreach (byte b in data)
-                sb.Append("$" + b.ToString("X2") + " ");
+                sb.Append((hex ? "" : "$") + b.ToString("X2") + " ");
             return sb.ToString().Trim();
         }
 

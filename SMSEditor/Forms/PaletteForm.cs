@@ -138,7 +138,9 @@ namespace SMSEditor.Forms
             {
                 lst.Items.Clear();
                 foreach (GameAsset obj in _project.Palettes.OrderBy(x => x.ID))
-                    lst.Items.Add(obj);
+                {
+                    lst.Items.Add(_project.GetPalette(obj.ID));
+                }
             }
             foreach (ListBox lst in new List<ListBox>() { lstPalettes })
                 if (lst.Items.Count > 0)

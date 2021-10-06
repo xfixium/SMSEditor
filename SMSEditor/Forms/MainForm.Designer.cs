@@ -44,6 +44,7 @@
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.tsslAssetName = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabSprites = new System.Windows.Forms.TabPage();
@@ -64,7 +65,6 @@
             this.pnlRomHex = new SMSEditor.Controls.RomHexControl();
             this.tabOutputMap = new System.Windows.Forms.TabPage();
             this.lblStarting = new System.Windows.Forms.Label();
-            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.mnuMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -207,12 +207,22 @@
             this.tsslAssetName.Name = "tsslAssetName";
             this.tsslAssetName.Size = new System.Drawing.Size(78, 17);
             this.tsslAssetName.Text = "Asset (None)";
+            this.tsslAssetName.Visible = false;
             // 
             // tsslInfo
             // 
             this.tsslInfo.Name = "tsslInfo";
             this.tsslInfo.Size = new System.Drawing.Size(89, 17);
             this.tsslInfo.Text = "No Information";
+            this.tsslInfo.Visible = false;
+            // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(42, 17);
+            this.tsslStatus.Text = "Status";
+            this.tsslStatus.Visible = false;
             // 
             // pnlMain
             // 
@@ -434,13 +444,6 @@
             this.lblStarting.Text = "From the File menu, select Open ROM for a new project, select Open Project for an" +
     " existing one.";
             this.lblStarting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tsslStatus
-            // 
-            this.tsslStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(42, 17);
-            this.tsslStatus.Text = "Status";
             // 
             // MainForm
             // 

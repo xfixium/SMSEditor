@@ -50,6 +50,14 @@ namespace SMSEditor.Controls
         }
 
         /// <summary>
+        /// Context menu item click
+        /// </summary>
+        private void mnuContextMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
         /// Save asset button click
         /// </summary>
         private void btnAsset_Click(object sender, EventArgs e)
@@ -137,6 +145,12 @@ namespace SMSEditor.Controls
                 return;
 
             Sprite sprite = GetSpriteData();
+            if (sprite.TilemapIDs == null || sprite.TilemapIDs.Count <= 0)
+            {
+                MessageBox.Show("Please add at least one tilemap to the sprite.");
+                return;
+            }
+
             if (_project.Sprites.Find(x => x.Name.ToLower() == sprite.Name.ToLower()) != null)
             {
                 _project.Sprites[_project.Sprites.FindIndex(x => x.Name.ToLower() == sprite.Name.ToLower())] = sprite.DeepClone();

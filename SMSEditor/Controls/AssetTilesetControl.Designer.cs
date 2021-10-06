@@ -122,6 +122,7 @@
             // lstTilesets
             // 
             this.lstTilesets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstTilesets.DisableHighlighting = true;
             this.lstTilesets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstTilesets.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstTilesets.FormattingEnabled = true;

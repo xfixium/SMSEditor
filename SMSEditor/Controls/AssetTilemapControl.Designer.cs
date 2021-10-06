@@ -134,6 +134,7 @@
             // lstTilemaps
             // 
             this.lstTilemaps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstTilemaps.DisableHighlighting = true;
             this.lstTilemaps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstTilemaps.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstTilemaps.FormattingEnabled = true;

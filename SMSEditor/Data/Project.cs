@@ -384,7 +384,7 @@ namespace SMSEditor.Data
         /// </summary>
         /// <param name="tilemaps">List of tilemaps to get tilesets from</param>
         /// <returns>A list of unique tilesets</returns>
-        public List<Tileset> GetTilesets(List<Tilemap> tilemaps)
+        public List<Tileset> GetTilesets(List<Tilemap> tilemaps, bool original)
         {
             List<Tileset> tilesets = new List<Tileset>();
             foreach (Tilemap tilemap in tilemaps)
@@ -392,7 +392,7 @@ namespace SMSEditor.Data
                 if (tilesets.Find(x => x.ID == tilemap.TilesetID) != null)
                     continue;
 
-                Tileset tileset = GetTileset(tilemap.TilesetID);
+                Tileset tileset = GetTileset(tilemap.TilesetID, original);
                 if (tileset == null)
                     continue;
 

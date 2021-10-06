@@ -43,5 +43,13 @@ namespace SMSEditor.Data
         {
             return "ID: " + ID + " | " + Data.Count + " byte(s) | Overwrite: " + (Overwrite ? "Yes" : "No") + " | Disabled: " + (Disable ? "Yes" : "No");
         }
+
+        /// <summary>
+        /// Sets asset status
+        /// </summary>
+        public override void SetStatus(List<GameAsset> assets)
+        {
+            StatusType = Disable ? StatusType.Disabled : StatusType.Good;
+        }
     }
 }

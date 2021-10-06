@@ -137,6 +137,8 @@
             this.btnPreviousFrame = new System.Windows.Forms.Button();
             this.btnNextFrame = new System.Windows.Forms.Button();
             this.tpnlSpriteEditMain = new System.Windows.Forms.TableLayoutPanel();
+            this.mnuEditedData = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.tabSpriteEditMain.SuspendLayout();
             this.tabSprite.SuspendLayout();
             this.pnlSpriteTools.SuspendLayout();
@@ -954,6 +956,7 @@
             // 
             this.lstSprites.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstSprites.ContextMenuStrip = this.mnuSpriteOptions;
+            this.lstSprites.DisableHighlighting = false;
             this.lstSprites.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSprites.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstSprites.FormattingEnabled = true;
@@ -971,11 +974,14 @@
             // mnuSpriteOptions
             // 
             this.mnuSpriteOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuEditedData,
+            this.toolStripMenuItem4,
             this.mnuImage,
             this.mnuAddress,
             this.mnuData});
             this.mnuSpriteOptions.Name = "mnuInfo";
-            this.mnuSpriteOptions.Size = new System.Drawing.Size(117, 70);
+            this.mnuSpriteOptions.Size = new System.Drawing.Size(181, 120);
+            this.mnuSpriteOptions.Opening += new System.ComponentModel.CancelEventHandler(this.mnuSpriteOptions_Opening);
             // 
             // mnuImage
             // 
@@ -985,7 +991,7 @@
             this.mnuImageExportSprite,
             this.mnuImageExportTileset});
             this.mnuImage.Name = "mnuImage";
-            this.mnuImage.Size = new System.Drawing.Size(116, 22);
+            this.mnuImage.Size = new System.Drawing.Size(180, 22);
             this.mnuImage.Text = "Image";
             // 
             // mnuImageExportAll
@@ -1023,7 +1029,7 @@
             this.mnuAddrDec,
             this.mnuAddrHex});
             this.mnuAddress.Name = "mnuAddress";
-            this.mnuAddress.Size = new System.Drawing.Size(116, 22);
+            this.mnuAddress.Size = new System.Drawing.Size(180, 22);
             this.mnuAddress.Text = "Address";
             // 
             // mnuAddrDec
@@ -1082,28 +1088,28 @@
             this.mnuAddrHexCopyBGPalette.Name = "mnuAddrHexCopyBGPalette";
             this.mnuAddrHexCopyBGPalette.Size = new System.Drawing.Size(209, 22);
             this.mnuAddrHexCopyBGPalette.Text = "Copy BG Palette Address";
-            this.mnuAddrHexCopyBGPalette.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
+            this.mnuAddrHexCopyBGPalette.BackColorChanged += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
             // mnuAddrHexCopySPRPalette
             // 
             this.mnuAddrHexCopySPRPalette.Name = "mnuAddrHexCopySPRPalette";
             this.mnuAddrHexCopySPRPalette.Size = new System.Drawing.Size(209, 22);
             this.mnuAddrHexCopySPRPalette.Text = "Copy SPR Palette Address";
-            this.mnuAddrHexCopySPRPalette.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
+            this.mnuAddrHexCopySPRPalette.BackColorChanged += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
             // mnuAddrHexCopyTileset
             // 
             this.mnuAddrHexCopyTileset.Name = "mnuAddrHexCopyTileset";
             this.mnuAddrHexCopyTileset.Size = new System.Drawing.Size(209, 22);
             this.mnuAddrHexCopyTileset.Text = "Copy Tileset Address";
-            this.mnuAddrHexCopyTileset.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
+            this.mnuAddrHexCopyTileset.BackColorChanged += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
             // mnuAddrHexCopyTilemap
             // 
             this.mnuAddrHexCopyTilemap.Name = "mnuAddrHexCopyTilemap";
             this.mnuAddrHexCopyTilemap.Size = new System.Drawing.Size(209, 22);
             this.mnuAddrHexCopyTilemap.Text = "Copy Tilemap Address";
-            this.mnuAddrHexCopyTilemap.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
+            this.mnuAddrHexCopyTilemap.BackColorChanged += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -1120,11 +1126,12 @@
             this.mnuDataHex,
             this.mnuDataAsm});
             this.mnuData.Name = "mnuData";
-            this.mnuData.Size = new System.Drawing.Size(116, 22);
+            this.mnuData.Size = new System.Drawing.Size(180, 22);
             this.mnuData.Text = "Data";
             // 
             // mnuDataIgnoreCompression
             // 
+            this.mnuDataIgnoreCompression.CheckOnClick = true;
             this.mnuDataIgnoreCompression.Name = "mnuDataIgnoreCompression";
             this.mnuDataIgnoreCompression.Size = new System.Drawing.Size(204, 22);
             this.mnuDataIgnoreCompression.Text = "Ignore Compression";
@@ -1132,6 +1139,7 @@
             // mnuDataOverrideLength
             // 
             this.mnuDataOverrideLength.Checked = true;
+            this.mnuDataOverrideLength.CheckOnClick = true;
             this.mnuDataOverrideLength.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuDataOverrideLength.Name = "mnuDataOverrideLength";
             this.mnuDataOverrideLength.Size = new System.Drawing.Size(204, 22);
@@ -1328,6 +1336,20 @@
             this.tpnlSpriteEditMain.Size = new System.Drawing.Size(810, 544);
             this.tpnlSpriteEditMain.TabIndex = 3;
             // 
+            // mnuEditedData
+            // 
+            this.mnuEditedData.Checked = true;
+            this.mnuEditedData.CheckOnClick = true;
+            this.mnuEditedData.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuEditedData.Name = "mnuEditedData";
+            this.mnuEditedData.Size = new System.Drawing.Size(180, 22);
+            this.mnuEditedData.Text = "Edited Data";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
+            // 
             // AssetEditControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1408,15 +1430,10 @@
         private System.Windows.Forms.Button btnNextFrame;
         private System.Windows.Forms.TextBox txtSpriteEditSPRPalette;
         private System.Windows.Forms.TextBox txtSpriteEditBGPalette;
-        private System.Windows.Forms.ContextMenuStrip mnuSpriteOptions;
-        private System.Windows.Forms.ToolStripMenuItem mnuImageExportSprite;
-        private System.Windows.Forms.ToolStripMenuItem mnuImageExportTileset;
         private System.Windows.Forms.Button btnEditPalette;
         private System.Windows.Forms.TableLayoutPanel tpnlSpriteEditMain;
         private System.Windows.Forms.CheckBox chkHighlighter;
         private System.Windows.Forms.Label lblHighlighterCountValue;
-        private System.Windows.Forms.ToolStripMenuItem mnuImageExportAll;
-        private System.Windows.Forms.ToolStripMenuItem mnuImage;
         private System.Windows.Forms.CheckBox chkTilemapOverride;
         private System.Windows.Forms.Label lblTilemapRows;
         private System.Windows.Forms.Label lblTilemapColumns;
@@ -1434,7 +1451,24 @@
         private System.Windows.Forms.CheckBox chkDisableTileset;
         private System.Windows.Forms.CheckBox chkDisableTilemap;
         private System.Windows.Forms.CheckBox chkShowIndexesWithOffset;
+        private System.Windows.Forms.ContextMenuStrip mnuSpriteOptions;
+        private System.Windows.Forms.ToolStripMenuItem mnuImage;
+        private System.Windows.Forms.ToolStripMenuItem mnuImageExportAll;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem mnuImageExportSprite;
+        private System.Windows.Forms.ToolStripMenuItem mnuImageExportTileset;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddress;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrDec;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyBGPalette;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopySPRPalette;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyTileset;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyTilemap;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrHex;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyBGPalette;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopySPRPalette;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyTileset;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyTilemap;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem mnuData;
         private System.Windows.Forms.ToolStripMenuItem mnuDataIgnoreCompression;
         private System.Windows.Forms.ToolStripMenuItem mnuDataOverrideLength;
@@ -1454,17 +1488,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDataAsmCopySPRPalette;
         private System.Windows.Forms.ToolStripMenuItem mnuDataAsmCopyTileset;
         private System.Windows.Forms.ToolStripMenuItem mnuDataAsmCopyTilemap;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddress;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrDec;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyBGPalette;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopySPRPalette;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyTileset;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrDecCopyTilemap;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrHex;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyBGPalette;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopySPRPalette;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyTileset;
-        private System.Windows.Forms.ToolStripMenuItem mnuAddrHexCopyTilemap;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditedData;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
     }
 }

@@ -105,6 +105,7 @@
             // lstPalettes
             // 
             this.lstPalettes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstPalettes.DisableHighlighting = true;
             this.lstPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstPalettes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstPalettes.FormattingEnabled = true;

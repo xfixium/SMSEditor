@@ -275,17 +275,17 @@ namespace SMSEditor.Data
         /// Gets assembly string
         /// </summary>
         /// <returns>Object assembly string</returns>
-        public string GetASMString()
+        public string GetASMString(bool hex)
         {
             StringBuilder sb = new StringBuilder();
             for (int row = 0; row < Rows; row++)
             {
-                string line = ".dw ";
+                string line = hex ? "" : UseTileAttributes ? ".dw " : ".db ";
                 for (int col = 0; col < Columns; col++)
                 {
                     byte b = (byte)Tiles[row * Columns + col].TileID;
                     byte[] bytes = GetTileBytes(Tiles[row * Columns + col]);
-                    line += "$" + (UseTileAttributes ? bytes[1].ToString("X2") + bytes[0].ToString("X2"): b.ToString("X2")) + " ";
+                    line += (hex ? "" : "$") + (UseTileAttributes ? bytes[1].ToString("X2") + (hex ? " " : "") + bytes[0].ToString("X2") : b.ToString("X2")) + " ";
                 }
                 sb.AppendLine(line.Trim());
             }

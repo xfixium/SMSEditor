@@ -230,6 +230,7 @@ namespace SMSEditor.Forms
         /// <param name="info">The information to display</param>
         private void pnlAssets_InfoChanged(GameAsset asset)
         {
+            tsslAssetName.Visible = tsslInfo.Visible = tsslStatus.Visible = true;
             tsslAssetName.Text = asset == null ? "Asset ID (None)" : asset.Name + ":";
             tsslInfo.Text = asset == null ? "No Information" : asset.GetInfo(asset is Sprite ? pnlSpriteEdit.SpriteAssets : null) + " | Status:";
             tsslStatus.ForeColor = asset.StatusType == StatusType.Good ? Color.RoyalBlue : asset.StatusType == StatusType.Disabled ? Color.DarkGray : Color.Red;

@@ -70,8 +70,8 @@ namespace SMSEditor.Data
         public override string GetInfo(List<GameAsset> assets)
         {
             string info = string.Empty;
-            if (assets != null)
-                info = " | Tileset: " + assets[0].DataStartString + " | Tilemap: " + assets[1].DataStartString;
+            if (assets != null && assets.Count >= 4)
+                info = " | Tileset: " + assets[2].DataStartString + " | Tilemap: " + assets[3].DataStartString;
             return "ID: " + ID + " | BG Palette: " + BGPaletteID + " (" + BGPaletteID.ToString("X") + ") | SPR Palette: " + SPRPaletteID + " (" + SPRPaletteID.ToString("X") + ")" + info;
         }
 
@@ -80,6 +80,7 @@ namespace SMSEditor.Data
         /// </summary>
         public override void SetStatus(List<GameAsset> assets)
         {
+            assets.RemoveAll(x => x == null);
             StatusType = assets == null ? StatusType.Error : assets.Any(x => x.StatusType == StatusType.Disabled) ? StatusType.Disabled : assets.Any(x => x.StatusType == StatusType.Overflow) ? StatusType.Overflow : StatusType.Good;
         }
     }

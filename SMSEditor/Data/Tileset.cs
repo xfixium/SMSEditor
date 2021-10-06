@@ -124,7 +124,6 @@ namespace SMSEditor.Data
         public override string GetInfo(List<GameAsset> assets)
         {
             int length = GetTilesetData(false, false).Length;
-            StatusType = TileCount < length / 32 || Length < length ? StatusType.Overflow : StatusType.Good;
             return "ID: " + DataStartString + " | Tile Count: " + TileCount + "/" + ActualLength / 32 + " tiles | Length: " + length + "/" + Length + " bytes | Compression: " + EnumMethods.GetDescription(CompressionType) + " | Offset: " + Offset;
         }
 
@@ -140,17 +139,17 @@ namespace SMSEditor.Data
         /// <summary>
         /// Gets assembly string
         /// </summary>
+        /// <param name="hex">If only getting raw hex values</param>
         /// <returns>Object assembly string</returns>
-        public string GetASMString()
+        public string GetASMString(bool hex)
         {
             StringBuilder sb = new StringBuilder();
             byte[] data = GetTilesetData(true, false);
             for (int i = 0; i < data.Length / 32; i++)
             {
-                sb.AppendLine("; Tile index $" + i.ToString("X3"));
-                string line = ".db ";
+                string line = hex ? "" : ".db ";
                 for (int j = 0; j < 32; j++)
-                    line += "$" + data[i * j + j].ToString("X2") + " ";
+                    line += (hex ? "" : "$") + data[i * j + j].ToString("X2") + " ";
                 sb.AppendLine(line.Trim());
             }
             return sb.ToString();
