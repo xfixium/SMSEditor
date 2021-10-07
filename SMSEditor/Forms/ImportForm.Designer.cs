@@ -40,20 +40,21 @@
             this.chkIgnoreEmpty = new System.Windows.Forms.CheckBox();
             this.radBGPalette = new System.Windows.Forms.RadioButton();
             this.grpIndexAdjustment = new System.Windows.Forms.GroupBox();
+            this.pnlPalettes = new SMSEditor.Controls.ColorEditControl();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.sslTileset = new System.Windows.Forms.ToolStripStatusLabel();
             this.sslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.grpTileset = new System.Windows.Forms.GroupBox();
+            this.pnlImage = new SMSEditor.Controls.TilemapImageControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pnlTiles = new SMSEditor.Controls.PixelTileControl();
             this.pnlSpriteListTools = new System.Windows.Forms.Panel();
             this.lblSpriteTilemap = new System.Windows.Forms.Label();
             this.btnPreviousFrame = new System.Windows.Forms.Button();
             this.btnNextFrame = new System.Windows.Forms.Button();
-            this.pnlTiles = new SMSEditor.Controls.PixelTileControl();
-            this.pnlImage = new SMSEditor.Controls.TilemapImageControl();
-            this.pnlPalettes = new SMSEditor.Controls.ColorEditControl();
+            this.tsslAsset = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpOptions.SuspendLayout();
             this.grpIndexAdjustment.SuspendLayout();
             this.ssMain.SuspendLayout();
@@ -191,9 +192,19 @@
             this.grpIndexAdjustment.TabStop = false;
             this.grpIndexAdjustment.Text = "Import Palette Match";
             // 
+            // pnlPalettes
+            // 
+            this.pnlPalettes.BGPaletteSelected = true;
+            this.pnlPalettes.Location = new System.Drawing.Point(16, 24);
+            this.pnlPalettes.Name = "pnlPalettes";
+            this.pnlPalettes.Size = new System.Drawing.Size(560, 80);
+            this.pnlPalettes.TabIndex = 0;
+            this.pnlPalettes.ColorShifted += new SMSEditor.Controls.ColorEditControl.ColorShiftedHandler(this.pnlColors_ColorShifted);
+            // 
             // ssMain
             // 
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslAsset,
             this.sslTileset,
             this.sslStatus});
             this.ssMain.Location = new System.Drawing.Point(0, 594);
@@ -249,6 +260,31 @@
             this.grpTileset.TabStop = false;
             this.grpTileset.Text = "Image";
             // 
+            // pnlImage
+            // 
+            this.pnlImage.AutoScroll = true;
+            this.pnlImage.AutoScrollMinSize = new System.Drawing.Size(328, 381);
+            this.pnlImage.Canvas = new System.Drawing.Size(8, 8);
+            this.pnlImage.Centered = true;
+            this.pnlImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlImage.Frames = ((System.Collections.Generic.List<System.Drawing.Rectangle>)(resources.GetObject("pnlImage.Frames")));
+            this.pnlImage.HatchBackColor = System.Drawing.Color.DarkGray;
+            this.pnlImage.HatchForeColor = System.Drawing.Color.White;
+            this.pnlImage.HatchStyle = System.Drawing.Drawing2D.HatchStyle.OutlinedDiamond;
+            this.pnlImage.Image = null;
+            this.pnlImage.ImageAlpha = 1F;
+            this.pnlImage.ImageScale = 1;
+            this.pnlImage.Index = 0;
+            this.pnlImage.Location = new System.Drawing.Point(12, 23);
+            this.pnlImage.MinimumScale = 1;
+            this.pnlImage.Name = "pnlImage";
+            this.pnlImage.Size = new System.Drawing.Size(328, 381);
+            this.pnlImage.SnapSize = new System.Drawing.Size(8, 8);
+            this.pnlImage.TabIndex = 0;
+            this.pnlImage.UseCanvas = false;
+            this.pnlImage.UseHatch = true;
+            this.pnlImage.UseMouseWheelScaling = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pnlTiles);
@@ -259,6 +295,31 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tileset";
+            // 
+            // pnlTiles
+            // 
+            this.pnlTiles.AutoScroll = true;
+            this.pnlTiles.AutoScrollMinSize = new System.Drawing.Size(576, 1092);
+            this.pnlTiles.Canvas = new System.Drawing.Size(8, 8);
+            this.pnlTiles.Centered = true;
+            this.pnlTiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTiles.HatchBackColor = System.Drawing.Color.DarkGray;
+            this.pnlTiles.HatchForeColor = System.Drawing.Color.White;
+            this.pnlTiles.HatchStyle = System.Drawing.Drawing2D.HatchStyle.OutlinedDiamond;
+            this.pnlTiles.Image = null;
+            this.pnlTiles.ImageAlpha = 1F;
+            this.pnlTiles.ImageScale = 3;
+            this.pnlTiles.Indexed = false;
+            this.pnlTiles.Location = new System.Drawing.Point(12, 23);
+            this.pnlTiles.MinimumScale = 1;
+            this.pnlTiles.Name = "pnlTiles";
+            this.pnlTiles.SelectedTilesetID = 0;
+            this.pnlTiles.Size = new System.Drawing.Size(209, 381);
+            this.pnlTiles.SnapSize = new System.Drawing.Size(8, 8);
+            this.pnlTiles.TabIndex = 0;
+            this.pnlTiles.UseCanvas = false;
+            this.pnlTiles.UseHatch = true;
+            this.pnlTiles.UseMouseWheelScaling = false;
             // 
             // pnlSpriteListTools
             // 
@@ -304,64 +365,12 @@
             this.btnNextFrame.UseVisualStyleBackColor = true;
             this.btnNextFrame.Click += new System.EventHandler(this.btnFrame_Click);
             // 
-            // pnlTiles
+            // tsslAsset
             // 
-            this.pnlTiles.AutoScroll = true;
-            this.pnlTiles.AutoScrollMinSize = new System.Drawing.Size(576, 1092);
-            this.pnlTiles.Canvas = new System.Drawing.Size(8, 8);
-            this.pnlTiles.Centered = true;
-            this.pnlTiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTiles.HatchBackColor = System.Drawing.Color.DarkGray;
-            this.pnlTiles.HatchForeColor = System.Drawing.Color.White;
-            this.pnlTiles.HatchStyle = System.Drawing.Drawing2D.HatchStyle.OutlinedDiamond;
-            this.pnlTiles.Image = null;
-            this.pnlTiles.ImageAlpha = 1F;
-            this.pnlTiles.ImageScale = 3;
-            this.pnlTiles.Indexed = false;
-            this.pnlTiles.Location = new System.Drawing.Point(12, 23);
-            this.pnlTiles.MinimumScale = 1;
-            this.pnlTiles.Name = "pnlTiles";
-            this.pnlTiles.SelectedTilesetID = 0;
-            this.pnlTiles.Size = new System.Drawing.Size(209, 381);
-            this.pnlTiles.SnapSize = new System.Drawing.Size(8, 8);
-            this.pnlTiles.TabIndex = 0;
-            this.pnlTiles.UseCanvas = false;
-            this.pnlTiles.UseHatch = true;
-            this.pnlTiles.UseMouseWheelScaling = false;
-            // 
-            // pnlImage
-            // 
-            this.pnlImage.AutoScroll = true;
-            this.pnlImage.AutoScrollMinSize = new System.Drawing.Size(328, 381);
-            this.pnlImage.Canvas = new System.Drawing.Size(8, 8);
-            this.pnlImage.Centered = true;
-            this.pnlImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlImage.Frames = ((System.Collections.Generic.List<System.Drawing.Rectangle>)(resources.GetObject("pnlImage.Frames")));
-            this.pnlImage.HatchBackColor = System.Drawing.Color.DarkGray;
-            this.pnlImage.HatchForeColor = System.Drawing.Color.White;
-            this.pnlImage.HatchStyle = System.Drawing.Drawing2D.HatchStyle.OutlinedDiamond;
-            this.pnlImage.Image = null;
-            this.pnlImage.ImageAlpha = 1F;
-            this.pnlImage.ImageScale = 1;
-            this.pnlImage.Index = 0;
-            this.pnlImage.Location = new System.Drawing.Point(12, 23);
-            this.pnlImage.MinimumScale = 1;
-            this.pnlImage.Name = "pnlImage";
-            this.pnlImage.Size = new System.Drawing.Size(328, 381);
-            this.pnlImage.SnapSize = new System.Drawing.Size(8, 8);
-            this.pnlImage.TabIndex = 0;
-            this.pnlImage.UseCanvas = false;
-            this.pnlImage.UseHatch = true;
-            this.pnlImage.UseMouseWheelScaling = true;
-            // 
-            // pnlPalettes
-            // 
-            this.pnlPalettes.BGPaletteSelected = true;
-            this.pnlPalettes.Location = new System.Drawing.Point(16, 24);
-            this.pnlPalettes.Name = "pnlPalettes";
-            this.pnlPalettes.Size = new System.Drawing.Size(560, 80);
-            this.pnlPalettes.TabIndex = 0;
-            this.pnlPalettes.ColorShifted += new SMSEditor.Controls.ColorEditControl.ColorShiftedHandler(this.pnlColors_ColorShifted);
+            this.tsslAsset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tsslAsset.Name = "tsslAsset";
+            this.tsslAsset.Size = new System.Drawing.Size(40, 17);
+            this.tsslAsset.Text = "Asset:";
             // 
             // ImportForm
             // 
@@ -424,5 +433,6 @@
         private System.Windows.Forms.Button btnPreviousFrame;
         private System.Windows.Forms.Button btnNextFrame;
         private Controls.TilemapImageControl pnlImage;
+        private System.Windows.Forms.ToolStripStatusLabel tsslAsset;
     }
 }

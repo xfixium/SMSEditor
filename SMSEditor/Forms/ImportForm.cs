@@ -317,10 +317,11 @@ namespace SMSEditor.Forms
             compiled.Override = true;
             compiled.Pixels = BitmapUtility.PixelTilesToSMSTiles(pixelTiles, pnlPalettes.BGImport, pnlPalettes.SPRImport);
             var bytes = compiled.GetTilesetData(false, false);
-            string status = original == null ? "Error" : original.Length < bytes.Length ? "Length Overflow" : original.TileCount >= pixelTiles.Count ? "Good" : "Tile Overflow";
-            sslTileset.Text = original.Name + ": " + (original == null ? "NA" : original.TileCount.ToString()) + " tiles | Import: " + pixelTiles.Count + " tiles | Length: " + original.Length + " | Import: " + bytes.Length + " | Status:";
-            sslStatus.Text = status;
-            sslStatus.ForeColor = status != "Good" ? Color.Red : Color.SlateBlue;
+            StatusType status = original.Length < bytes.Length || original.TileCount < pixelTiles.Count ? StatusType.Overflow : StatusType.Good;
+            tsslAsset.Text = original.Name + ":";
+            sslTileset.Text = "ID: " + original.DataStartString + " | Tile Count: " + pixelTiles.Count + "/" + original.TileCount + " tiles | Length: " + bytes.Length + "/" + original.Length + " bytes | Status:";
+            sslStatus.Text = EnumMethods.GetDescription(status);
+            sslStatus.ForeColor = status == StatusType.Good ? Color.RoyalBlue : Color.Red;
         }
     }
 }

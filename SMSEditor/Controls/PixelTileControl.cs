@@ -117,8 +117,7 @@ namespace SMSEditor.Controls
             Size gridSize = GetTransformedSnap(Canvas);
             int cols = gridSize.Width;
             int rows = gridSize.Height;
-            Font black = new Font("Segoe UI", 7 + ImageScale, FontStyle.Bold);
-            Font white = new Font("Segoe UI", 5 + ImageScale, FontStyle.Regular);
+            Font font = new Font("Segoe UI", 5 + ImageScale, FontStyle.Regular);
             StringFormat format = new StringFormat();
             format.LineAlignment = StringAlignment.Center;
             format.Alignment = StringAlignment.Center;
@@ -132,8 +131,8 @@ namespace SMSEditor.Controls
                         string palette = selected[index].UseBGPalette ? "BG" : "SPR";
                         Point point = new Point((col * SnapSize.Width * ImageScale) + (origin.X * ImageScale) + AutoScrollPosition.X, (row * SnapSize.Height * ImageScale) + (origin.Y * ImageScale) + AutoScrollPosition.Y);
                         RectangleF rect = new RectangleF(point.X, point.Y, (SnapSize.Width + 1) * ImageScale, (SnapSize.Height + 1) * ImageScale);
-                        gfx.DrawString(palette, black, Brushes.Black, rect, format);
-                        gfx.DrawString(palette, white, Brushes.White, rect, format);
+                        BitmapUtility.DrawTextOutline(gfx, palette, font, Brushes.Black, rect, format);
+                        gfx.DrawString(palette, font, Brushes.White, rect, format);
                     }
                     index++;
                 }

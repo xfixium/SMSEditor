@@ -21,9 +21,11 @@
 //
 
 using System;
+using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using SMSEditor.Data;
 
 namespace SMSEditor.Controls
 {
@@ -312,10 +314,10 @@ namespace SMSEditor.Controls
         }
 
         /// <summary>
-        /// 
+        /// Sets the indexed color panel's color
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="color"></param>
+        /// <param name="index">The color panel index</param>
+        /// <param name="color">The backcolor to set</param>
         private void SetColorPanel(int index, Color color)
         {
             Control panel = (Controls.Find("pnlColor" + index, true)[0] as Panel);
@@ -330,13 +332,17 @@ namespace SMSEditor.Controls
         /// <returns>A color string</returns>
         private string GetTooltip(Color col)
         {
-            return "R: " + col.R + " G: " + col.G + " B: " + col.B;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("RGB: " + col.R + ", " + col.G + ", " + col.B);
+            sb.AppendLine("RGB Hex: $" + col.R.ToString("X2") + col.G.ToString("X2") + col.B.ToString("X2"));
+            sb.AppendLine("SMS Hex: $" + Palette.GetColor(col).ToString("X2"));
+            return sb.ToString();
         }
 
         /// <summary>
-        /// 
+        /// Gets empty mouse event arguments
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Empty mouse event arguments</returns>
         private MouseEventArgs GetEmptyMouseEvent()
         {
             return new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0);
