@@ -248,9 +248,9 @@ namespace SMSEditor.Forms
                 List<int> pixels = imageData[tilemap.TilesetID];
                 using (Bitmap tiles = BitmapUtility.PixelsToBitmap(imageData[tilemap.TilesetID].ToArray(), 8, (pixels.Count / 64) * 8))
                 {
-                    List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], edit.Offset, chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
+                    List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], 0, chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
                     int position = GetFramePosition(tilemap.ID, edit.ID);
-                    tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, tiles, tilemap.Offset, _flipType);
+                    tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, tiles, tilemap.Offset + edit.Offset, _flipType);
 
                     // If the tiles weren't already added to the control, add it
                     if (pnlTiles.PixelTiles.Find(x => x.TilesetID == tilemap.TilesetID) == null)

@@ -261,6 +261,7 @@
             // txtSpriteName
             // 
             this.txtSpriteName.Location = new System.Drawing.Point(0, 16);
+            this.txtSpriteName.MaxLength = 50;
             this.txtSpriteName.Name = "txtSpriteName";
             this.txtSpriteName.Size = new System.Drawing.Size(168, 22);
             this.txtSpriteName.TabIndex = 1;

@@ -139,7 +139,10 @@ namespace SMSEditor.Forms
         private void mnuExport_Click(object sender, EventArgs e)
         {
             if (!(sender is ToolStripMenuItem menu) || !HasData)
+            {
+                MessageBox.Show("Open a ROM (.sms) or SMS Editor project file (.smsed) first.");
                 return;
+            }
 
             if (menu.Name == mnuExportBinarySMS.Name)
             {

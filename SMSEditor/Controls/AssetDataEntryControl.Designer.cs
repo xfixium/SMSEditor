@@ -137,6 +137,7 @@
             // lstDataEntries
             // 
             this.lstDataEntries.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstDataEntries.DisableHighlighting = false;
             this.lstDataEntries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstDataEntries.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstDataEntries.FormattingEnabled = true;
@@ -297,6 +298,7 @@
             // txtDataEntryName
             // 
             this.txtDataEntryName.Location = new System.Drawing.Point(0, 56);
+            this.txtDataEntryName.MaxLength = 50;
             this.txtDataEntryName.Name = "txtDataEntryName";
             this.txtDataEntryName.Size = new System.Drawing.Size(168, 22);
             this.txtDataEntryName.TabIndex = 5;

@@ -433,6 +433,7 @@ namespace SMSEditor.Data
         /// <param name="id">The assey id to revert</param>
         public void RevertAsset(int id)
         {
+            PaletteEdits.RemoveAll(x => x.ID == id);
             TilesetEdits.RemoveAll(x => x.ID == id);
             TilemapEdits.RemoveAll(x => x.ID == id);
         }

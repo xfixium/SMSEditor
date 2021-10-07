@@ -465,10 +465,8 @@ namespace SMSEditor.Controls
             if (!HasData || !HasAssets)
                 return;
 
-            chkDisableBGPalette.Checked = true;
-            chkDisableSPRPalette.Checked = true;
-            chkDisableTileset.Checked = true;
-            chkDisableTilemap.Checked = true;
+            Control ctrl = sender as Control;
+            chkDisableBGPalette.Checked = chkDisableSPRPalette.Checked = chkDisableTileset.Checked = chkDisableTilemap.Checked = ctrl.Name == btnSpriteDisable.Name;
         }
 
         /// <summary>
@@ -778,6 +776,7 @@ namespace SMSEditor.Controls
             if (!HasData || !HasAssets)
                 return;
 
+            _selectedPalette = radBackgroundPalette.Checked ? _bgPalette : _sprPalette;
             pnlSprite.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
             pnlTilemap.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
             pnlTilemap.SetTilemap(_tilemap.Tiles, _tilemap.Columns, _tilemap.Rows, _tilemap.Offset, _tilemap.PlaceHolder);

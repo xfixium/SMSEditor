@@ -147,6 +147,12 @@ namespace SMSEditor.Controls
                 return;
 
             DataEntry dataEntry = GetDataEntryData();
+            if (dataEntry.Name.Trim() == "")
+            {
+                MessageBox.Show("Please enter a name for the data entry.");
+                return;
+            }
+
             if (_project.DataEntries.Find(x => x.ID == dataEntry.ID) != null)
             {
                 _project.DataEntries[_project.DataEntries.FindIndex(x => x.ID == dataEntry.ID)] = dataEntry.DeepClone();
