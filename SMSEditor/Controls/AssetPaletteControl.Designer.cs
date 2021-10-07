@@ -294,6 +294,7 @@
             // txtPaletteName
             // 
             this.txtPaletteName.Location = new System.Drawing.Point(0, 56);
+            this.txtPaletteName.MaxLength = 50;
             this.txtPaletteName.Name = "txtPaletteName";
             this.txtPaletteName.Size = new System.Drawing.Size(168, 22);
             this.txtPaletteName.TabIndex = 5;
@@ -313,13 +314,23 @@
             // 
             this.nudPaletteLength.Location = new System.Drawing.Point(0, 136);
             this.nudPaletteLength.Maximum = new decimal(new int[] {
-            2147483647,
+            16,
+            0,
+            0,
+            0});
+            this.nudPaletteLength.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.nudPaletteLength.Name = "nudPaletteLength";
             this.nudPaletteLength.Size = new System.Drawing.Size(80, 22);
             this.nudPaletteLength.TabIndex = 9;
+            this.nudPaletteLength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // lblPaletteCompression
             // 
@@ -347,7 +358,7 @@
             // 
             this.nudPaletteOffset.Location = new System.Drawing.Point(88, 136);
             this.nudPaletteOffset.Maximum = new decimal(new int[] {
-            255,
+            16,
             0,
             0,
             0});

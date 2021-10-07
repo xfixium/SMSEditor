@@ -286,9 +286,19 @@
             0,
             0,
             0});
+            this.nudTilemapLength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudTilemapLength.Name = "nudTilemapLength";
             this.nudTilemapLength.Size = new System.Drawing.Size(80, 22);
             this.nudTilemapLength.TabIndex = 13;
+            this.nudTilemapLength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // grpTilemapDivider
             // 
@@ -431,9 +441,19 @@
             0,
             0,
             0});
+            this.nudTilemapRows.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudTilemapRows.Name = "nudTilemapRows";
             this.nudTilemapRows.Size = new System.Drawing.Size(80, 22);
             this.nudTilemapRows.TabIndex = 9;
+            this.nudTilemapRows.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // cbTilemapBGPalette
             // 
@@ -448,6 +468,7 @@
             // txtTilemapName
             // 
             this.txtTilemapName.Location = new System.Drawing.Point(0, 56);
+            this.txtTilemapName.MaxLength = 50;
             this.txtTilemapName.Name = "txtTilemapName";
             this.txtTilemapName.Size = new System.Drawing.Size(168, 22);
             this.txtTilemapName.TabIndex = 5;
@@ -460,9 +481,19 @@
             0,
             0,
             0});
+            this.nudTilemapColumns.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudTilemapColumns.Name = "nudTilemapColumns";
             this.nudTilemapColumns.Size = new System.Drawing.Size(80, 22);
             this.nudTilemapColumns.TabIndex = 7;
+            this.nudTilemapColumns.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // lblTilemapBGPalette
             // 

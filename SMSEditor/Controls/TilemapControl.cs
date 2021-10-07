@@ -62,8 +62,9 @@ namespace SMSEditor.Controls
         public int TileID { get { return _tileID; } set { _tileID = value; UpdateBackBuffer(); } }
         public bool UseGrid { get { return _useGrid; } set { _useGrid = value; UpdateBackBuffer(); } }
         public bool Highlight { get { return _highlight; } set { _highlight = value; UpdateBackBuffer(); } }
-        public int Offset { get; set; }
+        public int Offset { get; set; } = 0;
         public bool UseOffset { get { return _useOffset; } set { _useOffset = value; Invalidate(); } }
+        public bool Placeholder { get; set; } = false;
         public int HighlightCount { get; private set; } = 0;
         public bool Indexed
         {
@@ -92,6 +93,7 @@ namespace SMSEditor.Controls
         protected override void OnDrawAfterOnPaint(ref PaintEventArgs e)
         {
             DrawAttributeValue(e.Graphics, GetOrigin());
+            //DrawPlaceholder(e.Graphics, GetOrigin());
         }
 
         /// <summary>
@@ -114,7 +116,7 @@ namespace SMSEditor.Controls
             base.OnMouseDown(e);
             Focus();
 
-            if (Image == null || _tiles.Count <= 0 || TileID < 0)
+            if (Image == null || _tiles.Count <= 0 || TileID < 0 || Placeholder)
                 return;
 
             if (e.Button != MouseButtons.Left)
@@ -246,14 +248,39 @@ namespace SMSEditor.Controls
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gfx"></param>
+        /// <param name="origin"></param>
+        private void DrawPlaceholder(Graphics gfx, Point origin)
+        {
+            Font font = new Font(Font.Name, 8 * ImageScale, FontStyle.Bold);
+            StringFormat format = new StringFormat();
+            format.LineAlignment = StringAlignment.Near;
+            format.Alignment = StringAlignment.Near;
+            format.FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.NoClip;
+
+            if (Placeholder)
+            {
+                var x = (origin.X * ImageScale) + AutoScrollPosition.X;
+                var y = (origin.Y * ImageScale) + AutoScrollPosition.Y;
+                RectangleF position = new RectangleF(x, y, 100 * ImageScale, 16 * ImageScale);
+                BitmapUtility.DrawTextOutline(gfx, "Placeholder", font, Brushes.Black, position, format);
+                gfx.DrawString("Placeholder", font, Brushes.White, position, format);
+            }
+        }
+
+        /// <summary>
         /// Sets the tile map data
         /// </summary>
         /// <param name="tilemap">The tile map data to set</param>
-        public void SetTilemap(List<Tile> tiles, int cols, int rows, int offset)
+        public void SetTilemap(List<Tile> tiles, int cols, int rows, int offset, bool placeholder)
         {
             _columns = cols;
             _rows = rows;
             _tiles = tiles;
+            Offset = offset;
+            Placeholder = placeholder;
             UpdateBackBuffer();
         }
     }

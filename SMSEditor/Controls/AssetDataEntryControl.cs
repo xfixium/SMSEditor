@@ -265,7 +265,7 @@ namespace SMSEditor.Controls
         /// </summary>
         public void OnInfoChanged()
         {
-            OnInfoChanged(GetDataEntryData());
+            OnInfoChanged(lstDataEntries.SelectedItem == null ? null : GetDataEntryData());
         }
     }
 }

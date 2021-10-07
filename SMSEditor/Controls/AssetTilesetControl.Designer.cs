@@ -283,13 +283,24 @@
             0,
             0,
             0});
+            this.nudTilesetLength.Minimum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
             this.nudTilesetLength.Name = "nudTilesetLength";
             this.nudTilesetLength.Size = new System.Drawing.Size(80, 20);
             this.nudTilesetLength.TabIndex = 9;
+            this.nudTilesetLength.Value = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
             // 
             // txtTilesetName
             // 
             this.txtTilesetName.Location = new System.Drawing.Point(0, 56);
+            this.txtTilesetName.MaxLength = 50;
             this.txtTilesetName.Name = "txtTilesetName";
             this.txtTilesetName.Size = new System.Drawing.Size(168, 20);
             this.txtTilesetName.TabIndex = 5;

@@ -165,7 +165,7 @@ namespace SMSEditor.Data
         public void ShiftTiles(int amount, int index)
         {
             foreach (Tile tile in Tiles)
-                if (tile.TileID >= index)
+                if (tile.TileID >= index + Offset)
                     tile.TileID += amount;
         }
 

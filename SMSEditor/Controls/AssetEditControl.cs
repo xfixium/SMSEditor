@@ -511,7 +511,7 @@ namespace SMSEditor.Controls
             int tileID = pnlTileset.TileID;
             pnlTileset.RemoveSelection();
             _project.SetTileset(_tileset);
-            _tilemap.ShiftTiles(-1, tileID);
+            _tilemap.ShiftTiles(-1, tileID + _tileset.Offset);
             _project.SetTilemap(_tilemap);
             SetStatus(_tileset);
             pnlTile.Clear();
@@ -780,8 +780,7 @@ namespace SMSEditor.Controls
 
             pnlSprite.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
             pnlTilemap.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
-            pnlTilemap.SetTilemap(_tilemap.Tiles, _tilemap.Columns, _tilemap.Rows, _tilemap.Offset);
-            pnlTilemap.Offset = _tilemap.Offset;
+            pnlTilemap.SetTilemap(_tilemap.Tiles, _tilemap.Columns, _tilemap.Rows, _tilemap.Offset, _tilemap.PlaceHolder);
             pnlTileset.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 16);
             pnlTileset.SetTileset(_tileset.Pixels, _selectedPalette.Colors, _tileset.Offset);
             pnlTiles.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 6);
@@ -990,6 +989,13 @@ namespace SMSEditor.Controls
                     lst.Items.Add(obj);
             }
 
+            if (asset == null)
+            {
+                if (lstSprites.Items.Count > 0)
+                    lstSprites.SelectedIndex = 0;
+
+                return;
+            }
             asset = _project.Sprites.Find(x => x.ID == (asset as GameAsset).ID);
             lstSprites.SelectedItem = asset ?? (lstSprites.Items.Count > 0 ? lstSprites.Items[0] : asset);
             tabMain_SelectedIndexChanged(this, EventArgs.Empty);

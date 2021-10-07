@@ -59,7 +59,7 @@ namespace SMSEditor.Controls
 
             Control ctrl = sender as Control;
             if (ctrl.Name == btnPaletteValidate.Name)
-                ValidatePalette();
+                ValidatePalette(false);
             else  if (ctrl.Name == btnPaletteSave.Name)
                 SavePalette();
             else if (ctrl.Name == btnPaletteRemove.Name)
@@ -126,7 +126,6 @@ namespace SMSEditor.Controls
 
             foreach (ComboBox ctrl in new List<ComboBox>() { cbPaletteCompression })
             {
-                ctrl.Items.Clear();
                 ctrl.ValueMember = "Value";
                 ctrl.DisplayMember = "Description";
                 ctrl.DataSource = EnumMethods.GetEnumCollection(typeof(CompressionType), false);
@@ -144,7 +143,7 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Get data from the rom, with the given palette parameters
         /// </summary>
-        private bool ValidatePalette()
+        private bool ValidatePalette(bool save)
         {
             try
             {
@@ -152,6 +151,12 @@ namespace SMSEditor.Controls
                     return false;
 
                 Palette palette = GetPaletteData();
+                if (save && palette.Name.Trim() == "")
+                {
+                    MessageBox.Show("Please enter a name for the palette.");
+                    return false;
+                }
+
                 _project.LoadPaletteData(palette);
                 SetPaletteData(palette);
                 return true;
@@ -168,10 +173,10 @@ namespace SMSEditor.Controls
         /// </summary>
         private void SavePalette()
         {
-            if (!HasData || !ValidatePalette())
+            if (!HasData || !ValidatePalette(true))
                 return;
 
-            Palette palette = GetPaletteData();
+            Palette palette = GetPaletteData();            
             if (_project.Palettes.Find(x => x.ID == palette.ID) != null)
             {
                 _project.Palettes[_project.Palettes.FindIndex(x => x.ID == palette.ID)] = palette.DeepClone();
@@ -268,7 +273,7 @@ namespace SMSEditor.Controls
         /// </summary>
         public void OnInfoChanged()
         {
-            OnInfoChanged(GetPaletteData());
+            OnInfoChanged(lstPalettes.SelectedItem == null ? null : GetPaletteData());
         }
 
         /// <summary>

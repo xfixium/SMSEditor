@@ -142,7 +142,6 @@ namespace SMSEditor.Controls
             {
                 object selected = ctrl.SelectedItem;
                 ctrl.Items.Clear();
-                ctrl.Items.AddRange(Palette.GetDefaultPalettes().ToArray());
                 ctrl.Items.AddRange(_project.Palettes.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
                 if (selected != null && ctrl.Items.Contains(selected))
                     ctrl.SelectedItem = selected;

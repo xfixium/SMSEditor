@@ -69,6 +69,9 @@ namespace SMSEditor.Forms
                 {
                     _project = null;
                     _project = (Project)formatter.Deserialize(fs);
+                    if (_project.Palettes.Find(x => x.ID == -1) == null || _project.Palettes.Find(x => x.ID == -2) == null)
+                        _project.Palettes.AddRange(Palette.GetDefaultPalettes());
+
                     LoadData();
                 }
             }
@@ -230,6 +233,12 @@ namespace SMSEditor.Forms
         /// <param name="info">The information to display</param>
         private void pnlAssets_InfoChanged(GameAsset asset)
         {
+            if (asset == null)
+            {
+                tsslAssetName.Visible = tsslInfo.Visible = tsslStatus.Visible = false;
+                return;
+            }
+
             tsslAssetName.Visible = tsslInfo.Visible = tsslStatus.Visible = true;
             tsslAssetName.Text = asset == null ? "Asset ID (None)" : asset.Name + ":";
             tsslInfo.Text = asset == null ? "No Information" : asset.GetInfo(asset is Sprite ? pnlSpriteEdit.SpriteAssets : null) + " | Status:";

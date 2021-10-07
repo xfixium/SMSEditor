@@ -60,7 +60,7 @@ namespace SMSEditor.Controls
 
             Control ctrl = sender as Control;
             if (ctrl.Name == btnTilemapValidate.Name)
-                ValidateTilemap();
+                ValidateTilemap(false);
             else if (ctrl.Name == btnTilemapSave.Name)
                 SaveTilemap();
             else if (ctrl.Name == btnTilemapRemove.Name)
@@ -120,7 +120,6 @@ namespace SMSEditor.Controls
 
             foreach (ComboBox ctrl in new List<ComboBox>() { cbTilemapCompression })
             {
-                ctrl.Items.Clear();
                 ctrl.ValueMember = "Value";
                 ctrl.DisplayMember = "Description";
                 ctrl.DataSource = EnumMethods.GetEnumCollection(typeof(CompressionType), false);
@@ -140,7 +139,7 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Get data from the rom, with the given tilemap parameters
         /// </summary>
-        private bool ValidateTilemap()
+        private bool ValidateTilemap(bool save)
         {
             try
             {
@@ -150,6 +149,12 @@ namespace SMSEditor.Controls
                 pnlTilemapImage.Tag = null;
                 pnlTilemapImage.Image = null;
                 Tilemap tilemap = GetTilemapData();
+                if (save && tilemap.Name.Trim() == "")
+                {
+                    MessageBox.Show("Please enter a name for the tilemap.");
+                    return false;
+                }
+
                 if (tilemap.PlaceHolder)
                     tilemap.SetPlaceholderTiles();
                 else
@@ -169,7 +174,7 @@ namespace SMSEditor.Controls
         /// </summary>
         private void SaveTilemap()
         {
-            if (!HasData || !ValidateTilemap())
+            if (!HasData || !ValidateTilemap(true))
                 return;
 
             Tilemap tilemap = GetTilemapData();
@@ -361,7 +366,7 @@ namespace SMSEditor.Controls
         /// </summary>
         public void OnInfoChanged()
         {
-            OnInfoChanged(GetTilemapData());
+            OnInfoChanged(lstTilemaps.SelectedItem == null ? null : GetTilemapData());
         }
 
         /// <summary>
@@ -373,7 +378,6 @@ namespace SMSEditor.Controls
             {
                 object selected = ctrl.SelectedItem;
                 ctrl.Items.Clear();
-                ctrl.Items.AddRange(Palette.GetDefaultPalettes().ToArray());
                 ctrl.Items.AddRange(_project.Palettes.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
                 if (selected != null && ctrl.Items.Contains(selected))
                     ctrl.SelectedItem = selected;

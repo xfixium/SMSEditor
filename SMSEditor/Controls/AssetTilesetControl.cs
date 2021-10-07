@@ -61,7 +61,7 @@ namespace SMSEditor.Controls
 
             Control ctrl = sender as Control;
             if (ctrl.Name == btnTilesetValidate.Name)
-                ValidateTileset();
+                ValidateTileset(false);
             else if (ctrl.Name == btnTilesetSave.Name)
                 SaveTileset();
             else if (ctrl.Name == btnTilesetRemove.Name)
@@ -119,7 +119,6 @@ namespace SMSEditor.Controls
 
             foreach (ComboBox ctrl in new List<ComboBox>() { cbTilesetCompression })
             {
-                ctrl.Items.Clear();
                 ctrl.ValueMember = "Value";
                 ctrl.DisplayMember = "Description";
                 ctrl.DataSource = EnumMethods.GetEnumCollection(typeof(CompressionType), false);
@@ -139,7 +138,7 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Get data from the rom, with the given tileset parameters
         /// </summary>
-        private bool ValidateTileset()
+        private bool ValidateTileset(bool save)
         {
             try
             {
@@ -149,6 +148,12 @@ namespace SMSEditor.Controls
                 pnlTilesetImage.Tag = null;
                 pnlTilesetImage.Image = null;
                 Tileset tileset = GetTilesetData();
+                if (save && tileset.Name.Trim() == "")
+                {
+                    MessageBox.Show("Please enter a name for the tileset.");
+                    return false;
+                }
+
                 _project.LoadTilesetData(tileset);
                 SetTilesetData(tileset);
                 return true;
@@ -165,7 +170,7 @@ namespace SMSEditor.Controls
         /// </summary>
         private void SaveTileset()
         {
-            if (!HasData || !ValidateTileset())
+            if (!HasData || !ValidateTileset(true))
                 return;
 
             Tileset tileset = GetTilesetData();
@@ -321,7 +326,7 @@ namespace SMSEditor.Controls
         /// </summary>
         public void OnInfoChanged()
         {
-            OnInfoChanged(GetTilesetData());
+            OnInfoChanged(lstTilesets.SelectedItem == null ? null : GetTilesetData());
         }
 
         /// <summary>
@@ -371,7 +376,6 @@ namespace SMSEditor.Controls
             {
                 object selected = ctrl.SelectedItem;
                 ctrl.Items.Clear();
-                ctrl.Items.AddRange(Palette.GetDefaultPalettes().ToArray());
                 ctrl.Items.AddRange(_project.Palettes.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
                 if (selected != null && ctrl.Items.Contains(selected))
                     ctrl.SelectedItem = selected;

@@ -52,6 +52,7 @@ namespace SMSEditor.Data
         public Project(string path)
         {
             ROM.AddRange(File.ReadAllBytes(path));
+            Palettes.AddRange(Palette.GetDefaultPalettes());
         }
 
         /// <summary>

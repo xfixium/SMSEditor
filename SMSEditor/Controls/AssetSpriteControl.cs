@@ -145,6 +145,12 @@ namespace SMSEditor.Controls
                 return;
 
             Sprite sprite = GetSpriteData();
+            if (sprite.Name.Trim() == "")
+            {
+                MessageBox.Show("Please enter a name for the sprite.");
+                return;
+            }
+
             if (sprite.TilemapIDs == null || sprite.TilemapIDs.Count <= 0)
             {
                 MessageBox.Show("Please add at least one tilemap to the sprite.");
@@ -347,7 +353,7 @@ namespace SMSEditor.Controls
         /// </summary>
         public void OnInfoChanged()
         {
-            OnInfoChanged(GetSpriteData());
+            OnInfoChanged(lstSprites.SelectedItem == null ? null : GetSpriteData());
         }
 
         /// <summary>
@@ -390,7 +396,6 @@ namespace SMSEditor.Controls
             {
                 object selected = ctrl.SelectedItem;
                 ctrl.Items.Clear();
-                ctrl.Items.AddRange(Palette.GetDefaultPalettes().ToArray());
                 ctrl.Items.AddRange(_project.Palettes.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
                 if (selected != null && ctrl.Items.Contains(selected))
                     ctrl.SelectedItem = selected;

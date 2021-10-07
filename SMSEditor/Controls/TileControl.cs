@@ -185,7 +185,7 @@ namespace SMSEditor.Controls
             if (Pixels == null || Pixels.Count <= 0)
                 return;
 
-            Palette = palette;
+            Palette = palette.DeepClone();
             Image = BitmapUtility.GetPixelTileImage(Pixels, Palette, ClientSize);
         }
     }

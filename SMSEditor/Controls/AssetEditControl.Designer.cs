@@ -652,7 +652,6 @@
             this.pnlTilemap.Location = new System.Drawing.Point(3, 3);
             this.pnlTilemap.MinimumScale = 1;
             this.pnlTilemap.Name = "pnlTilemap";
-            this.pnlTilemap.Offset = 0;
             this.pnlTilemap.Size = new System.Drawing.Size(425, 503);
             this.pnlTilemap.SnapSize = new System.Drawing.Size(8, 8);
             this.pnlTilemap.TabIndex = 0;

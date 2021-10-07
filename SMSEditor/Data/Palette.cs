@@ -114,7 +114,7 @@ namespace SMSEditor.Data
             sprDefaultColors.Add(Color.FromArgb(255, 170, 170, 0));
 
             List<Palette> defaultPalettes = new List<Palette>();
-            defaultPalettes.Add(new Palette(-1, "BG Default", bgDefaultColors));
+            defaultPalettes.Add(new Palette(-3, "BG Default", bgDefaultColors));
             defaultPalettes.Add(new Palette(-2, "SPR Default", sprDefaultColors));
             return defaultPalettes;
         }
