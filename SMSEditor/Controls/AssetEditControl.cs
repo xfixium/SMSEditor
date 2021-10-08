@@ -214,47 +214,43 @@ namespace SMSEditor.Controls
                 else if (item.Name == mnuDataBinExportBGPalette.Name && _bgPalette != null)
                 {
                     Palette palette = edited ? _bgPalette.DeepClone() : _project.GetPalette(_bgPalette.ID, true);
-                    palette.Override = mnuDataOverrideLength.Checked;
-                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
+                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false, mnuDataOverrideLength.Checked), palette.Name);
                 }
                 else if (item.Name == mnuDataBinExportSPRPalette.Name && _sprPalette != null)
                 {
                     Palette palette = edited ? _sprPalette.DeepClone() : _project.GetPalette(_sprPalette.ID, true);
-                    palette.Override = mnuDataOverrideLength.Checked;
-                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false), palette.Name);
+                    ExportData(palette.GetPaletteData(mnuDataIgnoreCompression.Checked, false, mnuDataOverrideLength.Checked), palette.Name);
                 }
                 else if (item.Name == mnuDataBinExportTileset.Name && _tileset != null)
                 {
                     Tileset tileset = edited ? _tileset.DeepClone() : _project.GetTileset(_tileset.ID, true);
-                    tileset.Override = mnuDataOverrideLength.Checked;
-                    ExportData(tileset.GetTilesetData(mnuDataIgnoreCompression.Checked, false), tileset.Name);
+                    ExportData(tileset.GetTilesetData(mnuDataIgnoreCompression.Checked, false, mnuDataOverrideLength.Checked), tileset.Name);
                 }
                 else if (item.Name == mnuDataBinExportTilemap.Name && _tilemap != null)
                 {
                     Tilemap tilemap = edited ? _tilemap.DeepClone() : _project.GetTilemap(_tilemap.ID, true);
-                    tilemap.Override = mnuDataOverrideLength.Checked;
-                    ExportData(tilemap.GetTilemapData(mnuDataIgnoreCompression.Checked, false), tilemap.Name);
+                    ExportData(tilemap.GetTilemapData(mnuDataIgnoreCompression.Checked, false, mnuDataOverrideLength.Checked), tilemap.Name);
                 }
 
                 // Data hexidecimal options
                 else if (item.Name == mnuDataHexCopyBGPalette.Name && _bgPalette != null)
-                    Clipboard.SetText(edited ? _bgPalette.GetASMString(true) : _project.GetPalette(_bgPalette.ID, true).GetASMString(true));
+                    Clipboard.SetText(edited ? _bgPalette.GetASMString(true, mnuDataOverrideLength.Checked) : _project.GetPalette(_bgPalette.ID, true).GetASMString(true, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataHexCopySPRPalette.Name && _sprPalette != null)
-                    Clipboard.SetText(edited ? _sprPalette.GetASMString(true) : _project.GetPalette(_sprPalette.ID, true).GetASMString(true));
+                    Clipboard.SetText(edited ? _sprPalette.GetASMString(true, mnuDataOverrideLength.Checked) : _project.GetPalette(_sprPalette.ID, true).GetASMString(true, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataHexCopyTileset.Name && _tileset != null)
-                    Clipboard.SetText(edited ? _tileset.GetASMString(true) : _project.GetTileset(_tileset.ID, true).GetASMString(true));
+                    Clipboard.SetText(edited ? _tileset.GetASMString(true, mnuDataOverrideLength.Checked) : _project.GetTileset(_tileset.ID, true).GetASMString(true, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataHexCopyTilemap.Name && _tilemap != null)
-                    Clipboard.SetText(edited ? _tilemap.GetASMString(true) : _project.GetTilemap(_tilemap.ID, true).GetASMString(true));
+                    Clipboard.SetText(edited ? _tilemap.GetASMString(true, mnuDataOverrideLength.Checked) : _project.GetTilemap(_tilemap.ID, true).GetASMString(true, mnuDataOverrideLength.Checked));
 
                 // Data assembly options
                 else if (item.Name == mnuDataAsmCopyBGPalette.Name && _bgPalette != null)
-                    Clipboard.SetText(edited ? _bgPalette.GetASMString(false) : _project.GetPalette(_bgPalette.ID, true).GetASMString(false));
+                    Clipboard.SetText(edited ? _bgPalette.GetASMString(false, mnuDataOverrideLength.Checked) : _project.GetPalette(_bgPalette.ID, true).GetASMString(false, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataAsmCopySPRPalette.Name && _sprPalette != null)
-                    Clipboard.SetText(edited ? _sprPalette.GetASMString(false) : _project.GetPalette(_sprPalette.ID, true).GetASMString(false));
+                    Clipboard.SetText(edited ? _sprPalette.GetASMString(false, mnuDataOverrideLength.Checked) : _project.GetPalette(_sprPalette.ID, true).GetASMString(false, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataAsmCopyTileset.Name && _tileset != null)
-                    Clipboard.SetText(edited ? _tileset.GetASMString(false) : _project.GetTileset(_tileset.ID, true).GetASMString(false));
+                    Clipboard.SetText(edited ? _tileset.GetASMString(false, mnuDataOverrideLength.Checked) : _project.GetTileset(_tileset.ID, true).GetASMString(false, mnuDataOverrideLength.Checked));
                 else if (item.Name == mnuDataAsmCopyTilemap.Name && _tilemap != null)
-                    Clipboard.SetText(edited ? _tilemap.GetASMString(false) : _project.GetTilemap(_tilemap.ID, true).GetASMString(false));
+                    Clipboard.SetText(edited ? _tilemap.GetASMString(false, mnuDataOverrideLength.Checked) : _project.GetTilemap(_tilemap.ID, true).GetASMString(false, mnuDataOverrideLength.Checked));
             }
             catch
             {
@@ -454,6 +450,7 @@ namespace SMSEditor.Controls
                     return;
 
                 lstSprites_SelectedIndexChanged(this, EventArgs.Empty);
+                SetStatus(_sprite);
             }
         }
 

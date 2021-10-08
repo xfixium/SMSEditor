@@ -63,8 +63,10 @@ namespace SMSEditor.Data
         /// Also handles compression of exported bytes
         /// </summary>
         /// <param name="bytes">The bytes to export</param>
+        /// <param name="pad">If padding should be applied to length</param>
+        /// <param name="over">If data length should be overriden</param>
         /// <returns>A finalized array of bytes</returns>
-        public byte[] GetExportData(List<byte> bytes, bool pad)
+        public byte[] GetExportData(List<byte> bytes, bool pad, bool over)
         {
             if (CompressionType == CompressionType.PSRLEPlanar4)
             {
@@ -91,7 +93,7 @@ namespace SMSEditor.Data
                 for (int i = 0; i < amount; i++)
                     bytes.Add(0);
             }
-            else if (!Override && bytes.Count > Length)
+            else if (!over && bytes.Count > Length)
                 bytes = bytes.GetRange(0, Length);
 
             return bytes.ToArray();

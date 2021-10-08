@@ -470,7 +470,7 @@ namespace SMSEditor.Data
                     continue;
 
                 int position = palette.Location;
-                byte[] bytes = palette.GetPaletteData(false, true);
+                byte[] bytes = palette.GetPaletteData(false, true, palette.Override);
                 if (position > data.Count - 1)
                 {
                     var length = (position - data.Count) + bytes.Length;
@@ -491,7 +491,7 @@ namespace SMSEditor.Data
                     continue;
 
                 int position = tileset.Location;
-                byte[] bytes = tileset.GetTilesetData(false, true);
+                byte[] bytes = tileset.GetTilesetData(false, true, tileset.Override);
                 if (position > data.Count - 1)
                 {
                     var length = (position - data.Count) + bytes.Length;
@@ -512,7 +512,7 @@ namespace SMSEditor.Data
                     continue;
 
                 int position = tilemap.Location;
-                byte[] bytes = tilemap.GetTilemapData(false, true);
+                byte[] bytes = tilemap.GetTilemapData(false, true, tilemap.Override);
                 if (position > data.Count - 1)
                 {
                     var length = (position - data.Count) + bytes.Length;

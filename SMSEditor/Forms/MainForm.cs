@@ -69,9 +69,6 @@ namespace SMSEditor.Forms
                 {
                     _project = null;
                     _project = (Project)formatter.Deserialize(fs);
-                    if (_project.Palettes.Find(x => x.ID == -1) == null || _project.Palettes.Find(x => x.ID == -2) == null)
-                        _project.Palettes.AddRange(Palette.GetDefaultPalettes());
-
                     LoadData();
                 }
             }

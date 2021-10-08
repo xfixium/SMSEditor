@@ -170,9 +170,11 @@ namespace SMSEditor.Forms
                         if (tile.TileID == i + tilemap.Offset)
                             tile.UseBGPalette = pixelTiles[i].UseBGPalette;
 
+                tilemap.SetStatus(null);
                 _project.SetTilemap(tilemap);
                 var tileset = _project.GetTileset(tilemap.TilesetID, true).DeepClone();
                 tileset.Pixels = BitmapUtility.PixelTilesToSMSTiles(pixelTiles, pnlPalettes.BGImport, pnlPalettes.SPRImport);
+                tileset.SetStatus(null);
                 _project.SetTileset(tileset);
             }
 
@@ -182,7 +184,7 @@ namespace SMSEditor.Forms
         /// <summary>
         /// Cancel button click
         /// </summary>
-        private void butCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
@@ -208,62 +210,69 @@ namespace SMSEditor.Forms
         /// </summary>
         private void GetTiles()
         {
-            if (_tilemaps.Count <= 0)
-                return;
-
-            // Reset
-            int index = 0;
-            _frame = 0;
-            pnlTiles.SelectedTilesetID = _tilemaps[_frame].TilesetID;
-            pnlTiles.Clear();
-            pnlImage.Frames.Clear();
-
-            // TODO: Optimize this junk
-            // Consolidate bitmaps
-            Dictionary<int, List<int>> imageData = new Dictionary<int, List<int>>();
-            foreach (Tilemap tilemap in _tilemaps)
+            try
             {
-                Rectangle rect = new Rectangle(new Point(index, _image.Height - tilemap.Size.Height), tilemap.Size);
-                if (imageData.ContainsKey(tilemap.TilesetID))
-                    imageData[tilemap.TilesetID].AddRange(BitmapUtility.GetPixelTilesLinear(_image, rect));
-                else
-                {
-                    List<int> pixels = new List<int>();
-                    pixels.AddRange(BitmapUtility.GetPixelTilesLinear(_image, rect));
-                    imageData.Add(tilemap.TilesetID, pixels);
-                }
-                pnlImage.Frames.Add(new Rectangle(new Point(index, _image.Height - tilemap.Size.Height), tilemap.Size));
-                index += tilemap.Size.Width;
-            }
+                if (_tilemaps.Count <= 0)
+                    return;
 
-            // Create tilesets and tiles
-            foreach (Tilemap tilemap in _tilemaps)
-            {
-                Tileset tileset = _project.GetTileset(tilemap.TilesetID, true);
-                if (tileset == null)
-                    continue;
+                // Reset
+                int index = 0;
+                _frame = 0;
+                pnlTiles.SelectedTilesetID = _tilemaps[_frame].TilesetID;
+                pnlTiles.Clear();
+                pnlImage.Frames.Clear();
 
-                List<int> pixels = imageData[tilemap.TilesetID];
-                using (Bitmap tiles = BitmapUtility.PixelsToBitmap(pixels.ToArray(), 8, (pixels.Count / 64) * 8))
+                // TODO: Optimize this junk
+                // Consolidate bitmaps
+                Dictionary<int, List<int>> imageData = new Dictionary<int, List<int>>();
+                foreach (Tilemap tilemap in _tilemaps)
                 {
-                    tilemap.Tiles.Clear();
-                    List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
-                    var position = GetFramePosition(tilemap.ID, tilemap.TilesetID);
-                    var framePixels = imageData[tilemap.TilesetID].GetRange(position, tilemap.Columns * tilemap.Rows * 64);
-                    using (Bitmap frame = BitmapUtility.PixelsToBitmap(framePixels.ToArray(), 8, (framePixels.Count / 64) * 8))
+                    Rectangle rect = new Rectangle(new Point(index, _image.Height - tilemap.Size.Height), tilemap.Size);
+                    if (imageData.ContainsKey(tilemap.TilesetID))
+                        imageData[tilemap.TilesetID].AddRange(BitmapUtility.GetPixelTilesLinear(_image, rect));
+                    else
                     {
-                        tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, frame, tilemap.Offset + tileset.Offset, _flipType);
+                        List<int> pixels = new List<int>();
+                        pixels.AddRange(BitmapUtility.GetPixelTilesLinear(_image, rect));
+                        imageData.Add(tilemap.TilesetID, pixels);
                     }
-
-                    // If the tiles weren't already added to the control, add it
-                    if (pnlTiles.PixelTiles.Find(x => x.TilesetID == tilemap.TilesetID) == null)
-                        pnlTiles.PixelTiles.AddRange(pixelTiles);
+                    pnlImage.Frames.Add(new Rectangle(new Point(index, _image.Height - tilemap.Size.Height), tilemap.Size));
+                    index += tilemap.Size.Width;
                 }
-            }
 
-            // Update
-            pnlImage.Index = _frame;
-            pnlColors_ColorShifted();
+                // Create tilesets and tiles
+                foreach (Tilemap tilemap in _tilemaps)
+                {
+                    Tileset tileset = _project.GetTileset(tilemap.TilesetID, true);
+                    if (tileset == null)
+                        continue;
+
+                    List<int> pixels = imageData[tilemap.TilesetID];
+                    using (Bitmap tiles = BitmapUtility.PixelsToBitmap(pixels.ToArray(), 8, (pixels.Count / 64) * 8))
+                    {
+                        tilemap.Tiles.Clear();
+                        List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
+                        var position = GetFramePosition(tilemap.ID, tilemap.TilesetID);
+                        var framePixels = imageData[tilemap.TilesetID].GetRange(position, tilemap.Columns * tilemap.Rows * 64);
+                        using (Bitmap frame = BitmapUtility.PixelsToBitmap(framePixels.ToArray(), 8, (framePixels.Count / 64) * 8))
+                        {
+                            tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, frame, tilemap.Offset + tileset.Offset, _flipType);
+                        }
+
+                        // If the tiles weren't already added to the control, add it
+                        if (pnlTiles.PixelTiles.Find(x => x.TilesetID == tilemap.TilesetID) == null)
+                            pnlTiles.PixelTiles.AddRange(pixelTiles);
+                    }
+                }
+
+                // Update
+                pnlImage.Index = _frame;
+                pnlColors_ColorShifted();
+            }
+            catch
+            {
+                MessageBox.Show("There was an issue importing the image. Make sure the image is the correct size.");
+            }
         }
 
         /// <summary>
@@ -319,7 +328,7 @@ namespace SMSEditor.Forms
             List<PixelTile> pixelTiles = pnlTiles.GetPixelTiles(original.ID, false);
             compiled.Override = true;
             compiled.Pixels = BitmapUtility.PixelTilesToSMSTiles(pixelTiles, pnlPalettes.BGImport, pnlPalettes.SPRImport);
-            var bytes = compiled.GetTilesetData(false, false);
+            var bytes = compiled.GetTilesetData(false, false, compiled.Override);
             StatusType status = original.Length < bytes.Length || original.TileCount < pixelTiles.Count ? StatusType.Overflow : StatusType.Good;
             tsslAsset.Text = original.Name + ":";
             sslTileset.Text = "ID: " + original.DataStartString + " | Tile Count: " + pixelTiles.Count + "/" + original.TileCount + " tiles | Length: " + bytes.Length + "/" + original.Length + " bytes | Status:";

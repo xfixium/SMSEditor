@@ -123,7 +123,7 @@ namespace SMSEditor.Data
         /// <returns>Object information string</returns>
         public override string GetInfo(List<GameAsset> assets)
         {
-            int length = GetTilesetData(false, false).Length;
+            int length = GetTilesetData(false, false, true).Length;
             return "ID: " + DataStartString + " | Tile Count: " + TileCount + "/" + ActualLength / 32 + " tiles | Length: " + length + "/" + Length + " bytes | Compression: " + EnumMethods.GetDescription(CompressionType) + " | Offset: " + Offset;
         }
 
@@ -132,8 +132,8 @@ namespace SMSEditor.Data
         /// </summary>
         public override void SetStatus(List<GameAsset> assets)
         {
-            int length = GetTilesetData(false, false).Length;
-            StatusType = Disable ? StatusType.Disabled : TileCount < length / 32 || Length < length ? StatusType.Overflow : StatusType.Good;
+            int length = GetTilesetData(false, false, true).Length;
+            StatusType = Disable ? StatusType.Disabled : ActualLength / 32 < TileCount || Length < length ? StatusType.Overflow : StatusType.Good;
         }
 
         /// <summary>
@@ -141,10 +141,10 @@ namespace SMSEditor.Data
         /// </summary>
         /// <param name="hex">If only getting raw hex values</param>
         /// <returns>Object assembly string</returns>
-        public string GetASMString(bool hex)
+        public string GetASMString(bool hex, bool over)
         {
             StringBuilder sb = new StringBuilder();
-            byte[] data = GetTilesetData(true, false);
+            byte[] data = GetTilesetData(true, false, over);
             for (int i = 0; i < data.Length / 32; i++)
             {
                 string line = hex ? "" : ".db ";
@@ -219,7 +219,7 @@ namespace SMSEditor.Data
         /// <param name="getRawData">If ignoring compression and data length limitation</param>
         /// <param name="pad">Padding with zeros, if the data is smaller than the original</param>
         /// <returns>An array of edit byte data</returns>
-        public byte[] GetTilesetData(bool getRawData, bool pad)
+        public byte[] GetTilesetData(bool getRawData, bool pad, bool over)
         {
             List<byte> bytes = new List<byte>();
             List<byte> pixels = new List<byte>();
@@ -251,7 +251,7 @@ namespace SMSEditor.Data
                     bytes.Add(value[0]);
                 }
             }
-            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad);
+            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad, over);
         }
 
         /// <summary>

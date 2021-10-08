@@ -257,7 +257,7 @@ namespace SMSEditor.Data
         /// <returns>Object information string</returns>
         public override string GetInfo(List<GameAsset> assets)
         {
-            int length = GetTilemapData(false, false).Length;
+            int length = GetTilemapData(false, false, true).Length;
             int actualLength = ActualLength / (UseTileAttributes ? 2 : 1);
             return "ID: " + DataStartString + " | Tile Count: " + Tiles.Count + "/" + actualLength + " tiles | Length: " + length + "/" + Length + " bytes | Compression: " + EnumMethods.GetDescription(CompressionType) + " | Offset: " + Offset;
         }
@@ -267,7 +267,7 @@ namespace SMSEditor.Data
         /// </summary>
         public override void SetStatus(List<GameAsset> assets)
         {
-            int length = GetTilemapData(false, false).Length;
+            int length = GetTilemapData(false, false, true).Length;
             StatusType = Disable ? StatusType.Disabled : Length < length ? StatusType.Overflow : StatusType.Good;
         }
 
@@ -275,7 +275,7 @@ namespace SMSEditor.Data
         /// Gets assembly string
         /// </summary>
         /// <returns>Object assembly string</returns>
-        public string GetASMString(bool hex)
+        public string GetASMString(bool hex, bool over)
         {
             StringBuilder sb = new StringBuilder();
             for (int row = 0; row < Rows; row++)
@@ -298,7 +298,7 @@ namespace SMSEditor.Data
         /// <param name="getRawData">If ignoring compression and data length limitation</param>
         /// <param name="pad">Padding with zeros, if the data is smaller than the original</param>
         /// <returns>An array of bytes</returns>
-        public byte[] GetTilemapData(bool getRawData, bool pad)
+        public byte[] GetTilemapData(bool getRawData, bool pad, bool over)
         {
             List<byte> bytes = new List<byte>();
             if (UseTileAttributes)
@@ -308,7 +308,7 @@ namespace SMSEditor.Data
                 foreach (Tile tile in Tiles)
                     bytes.Add((byte)tile.TileID);
 
-            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad);
+            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad, over);
         }
     }
 }

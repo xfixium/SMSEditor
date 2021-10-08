@@ -198,12 +198,12 @@ namespace SMSEditor.Data
         /// Gets assembly string
         /// </summary>
         /// <returns>Object assembly string</returns>
-        public string GetASMString(bool hex)
+        public string GetASMString(bool hex, bool over)
         {
             StringBuilder sb = new StringBuilder();
             if (!hex)
                 sb.Append(".db ");
-            byte[] data = GetPaletteData(true, false);
+            byte[] data = GetPaletteData(true, false, over);
             foreach (byte b in data)
                 sb.Append((hex ? "" : "$") + b.ToString("X2") + " ");
             return sb.ToString().Trim();
@@ -215,14 +215,14 @@ namespace SMSEditor.Data
         /// <param name="getRawData">If ignoring compression and data length limitation</param>
         /// <param name="pad">Padding with zeros, if the data is smaller than the original</param>
         /// <returns>An array of bytes</returns>
-        public byte[] GetPaletteData(bool getRawData, bool pad)
+        public byte[] GetPaletteData(bool getRawData, bool pad, bool over)
         {
             List<byte> bytes = new List<byte>();
             foreach (Color color in Colors.GetRange(Override ? 0 : Offset, Override ? Colors.Count : Length))
             {
                 bytes.Add(GetColor(color));
             }
-            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad);
+            return getRawData ? bytes.ToArray() : GetExportData(bytes, pad, over);
         }
 
         /// <summary>
