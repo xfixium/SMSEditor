@@ -39,6 +39,7 @@
             this.btnDataEntryRemove = new System.Windows.Forms.Button();
             this.btnDataEntrySave = new System.Windows.Forms.Button();
             this.pnlDataEntryOptions = new System.Windows.Forms.Panel();
+            this.btnImportData = new System.Windows.Forms.Button();
             this.lblDataEntryComments = new System.Windows.Forms.Label();
             this.txtDataEntryComments = new System.Windows.Forms.TextBox();
             this.nudDataEntryHex = new System.Windows.Forms.NumericUpDown();
@@ -74,6 +75,7 @@
             // txtDataEntry
             // 
             this.txtDataEntry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDataEntry.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDataEntry.Location = new System.Drawing.Point(12, 23);
             this.txtDataEntry.Multiline = true;
             this.txtDataEntry.Name = "txtDataEntry";
@@ -144,9 +146,9 @@
             this.lstDataEntries.HorizontalExtent = 170;
             this.lstDataEntries.IntegralHeight = false;
             this.lstDataEntries.ItemHeight = 15;
-            this.lstDataEntries.Location = new System.Drawing.Point(12, 66);
+            this.lstDataEntries.Location = new System.Drawing.Point(12, 89);
             this.lstDataEntries.Name = "lstDataEntries";
-            this.lstDataEntries.Size = new System.Drawing.Size(172, 466);
+            this.lstDataEntries.Size = new System.Drawing.Size(172, 443);
             this.lstDataEntries.TabIndex = 1;
             this.lstDataEntries.TextOffsetX = 2;
             this.lstDataEntries.TextOffsetY = -1;
@@ -154,12 +156,13 @@
             // 
             // pnlDataEntryButtons
             // 
+            this.pnlDataEntryButtons.Controls.Add(this.btnImportData);
             this.pnlDataEntryButtons.Controls.Add(this.btnDataEntryRemove);
             this.pnlDataEntryButtons.Controls.Add(this.btnDataEntrySave);
             this.pnlDataEntryButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlDataEntryButtons.Location = new System.Drawing.Point(12, 19);
             this.pnlDataEntryButtons.Name = "pnlDataEntryButtons";
-            this.pnlDataEntryButtons.Size = new System.Drawing.Size(172, 47);
+            this.pnlDataEntryButtons.Size = new System.Drawing.Size(172, 70);
             this.pnlDataEntryButtons.TabIndex = 0;
             // 
             // btnDataEntryRemove
@@ -207,6 +210,18 @@
             this.pnlDataEntryOptions.Size = new System.Drawing.Size(172, 538);
             this.pnlDataEntryOptions.TabIndex = 2;
             // 
+            // btnImportData
+            // 
+            this.btnImportData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnImportData.Location = new System.Drawing.Point(0, 46);
+            this.btnImportData.Margin = new System.Windows.Forms.Padding(0);
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(172, 23);
+            this.btnImportData.TabIndex = 2;
+            this.btnImportData.Text = "Import Data";
+            this.btnImportData.UseVisualStyleBackColor = true;
+            this.btnImportData.Click += new System.EventHandler(this.btnAsset_Click);
+            // 
             // lblDataEntryComments
             // 
             this.lblDataEntryComments.AutoSize = true;
@@ -246,7 +261,7 @@
             this.lblDataEntryHex.Margin = new System.Windows.Forms.Padding(0);
             this.lblDataEntryHex.Name = "lblDataEntryHex";
             this.lblDataEntryHex.Size = new System.Drawing.Size(80, 13);
-            this.lblDataEntryHex.TabIndex = 2;
+            this.lblDataEntryHex.TabIndex = 1;
             this.lblDataEntryHex.Text = "Position (Hex):";
             this.lblDataEntryHex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -260,7 +275,7 @@
             0});
             this.nudDataEntryID.Name = "nudDataEntryID";
             this.nudDataEntryID.Size = new System.Drawing.Size(80, 22);
-            this.nudDataEntryID.TabIndex = 1;
+            this.nudDataEntryID.TabIndex = 2;
             this.nudDataEntryID.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
             // 
             // chkDataEntryDisable
@@ -355,5 +370,6 @@
         private System.Windows.Forms.Label lblDataEntryHex;
         private System.Windows.Forms.Label lblDataEntryComments;
         private System.Windows.Forms.TextBox txtDataEntryComments;
+        private System.Windows.Forms.Button btnImportData;
     }
 }

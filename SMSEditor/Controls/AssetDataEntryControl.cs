@@ -21,6 +21,7 @@
 //
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -59,6 +60,8 @@ namespace SMSEditor.Controls
                 SaveDataEntry();
             else if (ctrl.Name == btnDataEntryRemove.Name)
                 RemoveDataEntry();
+            else if (ctrl.Name == btnImportData.Name)
+                ImportData();
         }
 
         /// <summary>
@@ -225,7 +228,7 @@ namespace SMSEditor.Controls
                 radDataEntryOverwrite.Checked = dataEntry.Overwrite;
                 radDataEntryInsert.Checked = !dataEntry.Overwrite;
                 txtDataEntryComments.Text = dataEntry.Comments;
-                DataToText(dataEntry);
+                DataToText(dataEntry.Data);
             }
             catch
             {
@@ -257,13 +260,33 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Converts data entry data into text
         /// </summary>
-        private void DataToText(DataEntry dataEntry)
+        private void DataToText(List<byte> data)
         {
+            if (data == null)
+                return;
+
             StringBuilder text = new StringBuilder();
-            foreach (byte b in dataEntry.Data)
+            foreach (byte b in data)
                 text.Append((chkDataEntryUseHex.Checked ? b.ToString("X2") : b.ToString()) + " ");
 
             txtDataEntry.Text = text.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Imports binary data from an external source
+        /// </summary>
+        private void ImportData()
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Import Data";
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                List<byte> data = new List<byte>();
+                data.AddRange(File.ReadAllBytes(ofd.FileName));
+                DataToText(data);
+            }
         }
 
         /// <summary>
