@@ -239,18 +239,21 @@ namespace SMSEditor.Forms
             // Create tilesets and tiles
             foreach (Tilemap tilemap in _tilemaps)
             {
-                Tileset tileset = _project.Tilesets.Find(x => x.ID == tilemap.TilesetID);
+                Tileset tileset = _project.GetTileset(tilemap.TilesetID, true);
                 if (tileset == null)
                     continue;
 
-                Tileset edit = tileset.DeepClone();
-                edit.Pixels.Clear();
                 List<int> pixels = imageData[tilemap.TilesetID];
-                using (Bitmap tiles = BitmapUtility.PixelsToBitmap(imageData[tilemap.TilesetID].ToArray(), 8, (pixels.Count / 64) * 8))
+                using (Bitmap tiles = BitmapUtility.PixelsToBitmap(pixels.ToArray(), 8, (pixels.Count / 64) * 8))
                 {
-                    List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], 0, chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
-                    int position = GetFramePosition(tilemap.ID, edit.ID);
-                    tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, tiles, tilemap.Offset + edit.Offset, _flipType);
+                    tilemap.Tiles.Clear();
+                    List<PixelTile> pixelTiles = BitmapUtility.GetPixelTiles(tiles, tilemap.TilesetID, pnlPalettes.BGImport[0], chkAllowDuplicates.Checked, chkIgnoreEmpty.Checked, _flipType);
+                    var position = GetFramePosition(tilemap.ID, tilemap.TilesetID);
+                    var framePixels = imageData[tilemap.TilesetID].GetRange(position, tilemap.Columns * tilemap.Rows * 64);
+                    using (Bitmap frame = BitmapUtility.PixelsToBitmap(framePixels.ToArray(), 8, (framePixels.Count / 64) * 8))
+                    {
+                        tilemap.Tiles = BitmapUtility.GetTilesFromImage(pixelTiles, frame, tilemap.Offset + tileset.Offset, _flipType);
+                    }
 
                     // If the tiles weren't already added to the control, add it
                     if (pnlTiles.PixelTiles.Find(x => x.TilesetID == tilemap.TilesetID) == null)
@@ -278,7 +281,7 @@ namespace SMSEditor.Forms
                 if (tilemap.ID == tilemapID)
                     break;
 
-                position = tilemap.Size.Width * tilemap.Size.Height * (position + 1);
+                position = tilemap.Size.Width * tilemap.Size.Height + (position);
             }
 
             return position;

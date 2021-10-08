@@ -433,22 +433,13 @@ namespace SMSEditor.Data
         /// </summary>
         /// <param name="image">The source image to get unique pixel tile data from</param>
         /// <param name="backColor">The transparent color that</param>
-        /// <param name="padding">The number of empty tiles to prefix the tileset</param>
         /// <param name="allowDuplicates">If allowing tiles that are the same, not optimizing</param>
         /// <param name="ignoreEmpty">If not including tiles that are comprised only of the transparent color</param>
         /// <param name="flipCheck">Comparison type</param>
         /// <returns>A list of pixel data, tiled, in 32 bit format</returns>
-        public static List<PixelTile> GetPixelTiles(Bitmap image, int tilesetID, Color backColor, int padding, bool allowDuplicates, bool ignoreEmpty, FlipType flipCheck)
+        public static List<PixelTile> GetPixelTiles(Bitmap image, int tilesetID, Color backColor, bool allowDuplicates, bool ignoreEmpty, FlipType flipCheck)
         {
             List<PixelTile> pixelTiles = new List<PixelTile>();
-            if (padding > 0)
-            {
-                int argb = backColor.ToArgb();
-                int[] empty = new int[padding * 64];
-                for (int i = 0; i < empty.Length; i++)
-                    empty[i] = argb;
-                pixelTiles.Add(new PixelTile(tilesetID, empty));
-            }
             int cols = image.Width / 8;
             int rows = image.Height / 8;
             for (int row = 0; row < rows; row++)
@@ -539,7 +530,7 @@ namespace SMSEditor.Data
                         index++;
                     }
 
-                    tiles.Add(new Tile(index + offset, flipType));
+                    tiles.Add(new Tile(index >= pixelTiles.Count ? 0 : index + offset, flipType));
                 }
             }
             return tiles;
