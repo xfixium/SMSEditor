@@ -287,14 +287,6 @@ namespace SMSEditor.Data
                 Raw = raw;
                 Data.AddRange(data.ToArray());
             }
-
-            //public override string ToString()
-            //{
-            //    string data = Raw ? "Raw " : "Run ";
-            //    foreach (byte b in Data)
-            //        data += b.ToString("X2") + ", ";
-            //    return data;
-            //}
         };
     }
 }

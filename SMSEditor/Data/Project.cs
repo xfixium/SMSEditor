@@ -466,7 +466,7 @@ namespace SMSEditor.Data
             data.AddRange(ROM.ToArray());
             foreach (Palette palette in PaletteEdits.OrderBy(x => x.Location))
             {
-                if (palette.Disable)
+                if (palette.Disable || palette.ID < 0)
                     continue;
 
                 int position = palette.Location;
@@ -487,7 +487,7 @@ namespace SMSEditor.Data
 
             foreach (Tileset tileset in TilesetEdits.OrderBy(x => x.Location))
             {
-                if (tileset.Disable)
+                if (tileset.Disable || tileset.ID < 0)
                     continue;
 
                 int position = tileset.Location;
@@ -508,7 +508,7 @@ namespace SMSEditor.Data
 
             foreach (Tilemap tilemap in TilemapEdits.OrderBy(x => x.Location))
             {
-                if (tilemap.Disable || tilemap.PlaceHolder)
+                if (tilemap.Disable || tilemap.PlaceHolder || tilemap.ID < 0)
                     continue;
 
                 int position = tilemap.Location;
