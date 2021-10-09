@@ -49,7 +49,7 @@ Let's get started.
 ## Palettes:
 Palettes are a collection of colors that the Master System uses when drawing graphics to the screen. The Master System has two palettes that it 
 can use, the background palette, and the sprite palette. Each palette has 16 colors out of 64 total colors the Master System can use. The topic 
-of palettes is quite detailed, and it won't be covered fully here. For more information about palettes, visit Maxim's thorough explaination of 
+of palettes is quite detailed, and it won't be covered fully here. For more information about palettes, visit Maxim's thorough explanation of 
 them here:
 
 https://www.smspower.org/maxim/HowToProgram/Palette
