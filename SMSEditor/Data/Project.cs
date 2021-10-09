@@ -412,25 +412,23 @@ namespace SMSEditor.Data
             if (sprite == null)
                 return;
 
-            List<Tilemap> tilemaps = new List<Tilemap>();
+            PaletteEdits.RemoveAll(x => x.ID == sprite.BGPaletteID);
+            PaletteEdits.RemoveAll(x => x.ID == sprite.SPRPaletteID);
             foreach (int tilemapID in sprite.TilemapIDs)
             {
-                var edit = TilemapEdits.Find(x => x.ID == tilemapID);
-                if (edit != null)
-                    tilemaps.Add(edit);
-            }
-
-            foreach (Tilemap tilemap in tilemaps)
-            {
-                TilesetEdits.RemoveAll(x => x.ID == tilemap.TilesetID);
-                TilemapEdits.RemoveAll(x => x.ID == tilemap.ID);
+                var tilemap = TilemapEdits.Find(x => x.ID == tilemapID);
+                if (tilemap != null)
+                {
+                    TilesetEdits.RemoveAll(x => x.ID == tilemap.TilesetID);
+                    TilemapEdits.RemoveAll(x => x.ID == tilemap.ID);
+                }
             }
         }
 
         /// <summary>
         /// Removes any edits made to the given asset
         /// </summary>
-        /// <param name="id">The assey id to revert</param>
+        /// <param name="id">The asset id to revert</param>
         public void RevertAsset(int id)
         {
             PaletteEdits.RemoveAll(x => x.ID == id);

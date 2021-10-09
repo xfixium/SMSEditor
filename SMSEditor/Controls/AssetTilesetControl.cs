@@ -127,7 +127,7 @@ namespace SMSEditor.Controls
             }
 
             UpdateAssets();
-
+            pnlTilesetImage.Image = null;
             lstTilesets.Items.Clear();
             lstTilesets.Items.AddRange(_project.Tilesets.Cast<GameAsset>().OrderBy(x => x.ID).ToArray());
             foreach (ListBox ctrl in new List<ListBox>() { lstTilesets })
@@ -218,7 +218,10 @@ namespace SMSEditor.Controls
             try
             {
                 if (!HasData)
+                {
+                    pnlTilesetImage.Image = null;
                     return null;
+                }
 
                 Tileset tileset = new Tileset();
                 tileset.ID = (int)nudTilesetID.Value;
@@ -234,6 +237,7 @@ namespace SMSEditor.Controls
             }
             catch
             {
+                pnlTilesetImage.Image = null;
                 return null;
             }
         }
@@ -246,7 +250,10 @@ namespace SMSEditor.Controls
             try
             {
                 if (!HasData || tileset.Pixels.Count <= 0)
+                {
+                    pnlTilesetImage.Image = null;
                     return;
+                }
 
                 nudTilesetID.Value = tileset.ID;
                 txtTilesetName.Text = tileset.Name;
@@ -308,11 +315,8 @@ namespace SMSEditor.Controls
                     pnlTilesetPalette.SetPalette(colors);
                 }
 
-                if (pnlTilesetImage.Tag != null)
-                {
-                    Tileset tileset = pnlTilesetImage.Tag as Tileset;
-                    pnlTilesetImage.Image = BitmapUtility.GetTilesetImage(tileset.Pixels, 255, colors, 16, tileset.Offset);
-                }
+                Tileset tileset = lstTilesets.SelectedItem == null ? null : _project.GetTileset((lstTilesets.SelectedItem as GameAsset).ID, true);
+                pnlTilesetImage.Image = tileset == null ? null : BitmapUtility.GetTilesetImage(tileset.Pixels, 255, colors, 16, tileset.Offset);
             }
             catch
             {

@@ -128,7 +128,7 @@ namespace SMSEditor.Controls
             }
 
             UpdateAssets();
-
+            pnlTilemapImage.Image = null;
             lstTilemaps.Items.Clear();
             lstTilemaps.Items.AddRange(_project.Tilemaps.Cast<GameAsset>().Where(x => x.ID > -1).OrderBy(x => x.ID).ToArray());
             foreach (ListBox ctrl in new List<ListBox>() { lstTilemaps })
@@ -227,7 +227,10 @@ namespace SMSEditor.Controls
             try
             {
                 if (!HasData)
+                {
+                    pnlTilemapImage.Image = null;
                     return null;
+                }
 
                 Tilemap tilemap = new Tilemap();
                 tilemap.ID = (int)nudTilemapID.Value;
@@ -252,6 +255,7 @@ namespace SMSEditor.Controls
             }
             catch
             {
+                pnlTilemapImage.Image = null;
                 return null;
             }
         }
@@ -264,7 +268,10 @@ namespace SMSEditor.Controls
             try
             {
                 if (!HasData)
+                {
+                    pnlTilemapImage.Image = null;
                     return;
+                }
 
                 nudTilemapID.Value = tilemap.ID;
                 txtTilemapName.Text = tilemap.Name;

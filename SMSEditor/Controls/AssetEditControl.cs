@@ -131,15 +131,15 @@ namespace SMSEditor.Controls
                 _loading = true;
                 if (!HasData || lstSprites.SelectedItem == null)
                 {
-                    _loading = false;
+                    DisableEditing();
                     return;
                 }
-                   
+
                 _frame = 0;
                 _sprite = _project.GetSprite((lstSprites.SelectedItem as GameAsset).ID);
-                if (_sprite.TilemapIDs.Count <= 0)
+                if (_sprite == null || _sprite.TilemapIDs.Count <= 0)
                 {
-                    _loading = false;
+                    DisableEditing();
                     return;
                 }
 
@@ -147,6 +147,13 @@ namespace SMSEditor.Controls
                 _sprPalette = _project.GetPalette(_sprite.SPRPaletteID);
                 _tilemap = _project.GetTilemap(_sprite.TilemapIDs[_frame]);
                 _tileset = _project.GetTileset(_tilemap.TilesetID);
+
+                if (!HasAssets)
+                {
+                    DisableEditing();
+                    return;
+                }
+
                 _selectedPalette = radBackgroundPalette.Checked ? _bgPalette : _sprPalette;
                 btnPreviousFrame.Enabled = _sprite.TilemapIDs.Count > 1;
                 btnNextFrame.Enabled = _sprite.TilemapIDs.Count > 1;
@@ -164,7 +171,7 @@ namespace SMSEditor.Controls
             }
             catch
             {
-                _loading = false;
+                DisableEditing();
                 return;
             }
         }
@@ -378,8 +385,10 @@ namespace SMSEditor.Controls
                 _project.RevertAsset(_tileset.ID);
             else if (button.Name == btnRevertTilemap.Name && _tilemap != null)
                 _project.RevertAsset(_tilemap.ID);
-            else if (button.Name == btnSpriteRevertPalette.Name && _selectedPalette != null)
-                _project.RevertAsset(_selectedPalette.ID);
+            else if (button.Name == btnRevertBGPalette.Name && _bgPalette != null)
+                _project.RevertAsset(_bgPalette.ID);
+            else if (button.Name == btnRevertSPRPalette.Name && _sprPalette != null)
+                _project.RevertAsset(_sprPalette.ID);
 
             _sprite = _project.GetSprite(_sprite.ID);
             _bgPalette = _project.GetPalette(_bgPalette.ID);
@@ -770,27 +779,46 @@ namespace SMSEditor.Controls
         /// </summary>
         private void UpdateImages()
         {
-            if (!HasData || !HasAssets)
-                return;
+            try
+            {
+                if (!HasData || !HasAssets)
+                    return;
 
-            _selectedPalette = radBackgroundPalette.Checked ? _bgPalette : _sprPalette;
-            pnlSprite.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
-            pnlTilemap.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
-            pnlTilemap.SetTilemap(_tilemap.Tiles, _tilemap.Columns, _tilemap.Rows, _tilemap.Offset, _tilemap.PlaceHolder);
-            pnlTileset.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 16);
-            pnlTileset.SetTileset(_tileset.Pixels, _selectedPalette.Colors, _tileset.Offset);
-            pnlTiles.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 6);
-            pnlTiles.Offset = _tilemap.Offset;
-            pnlTiles.TileCount = _tileset.TileCount + _tileset.Offset;
-            pnlTilemap.TileID = pnlTiles.TileID;
-            SetIndexes();
-            pnlSpriteEditBGPalette.SetPalette(_bgPalette.Colors);
-            txtSpriteEditBGPalette.Text = _bgPalette.Name;
-            pnlSpriteEditSPRPalette.SetPalette(_sprPalette.Colors);
-            txtSpriteEditSPRPalette.Text = _sprPalette.Name;
-            pnlTilePalette.SetPalette(_selectedPalette.Colors);
-            pnlTile.UpdateImage(_selectedPalette.Colors);
-            tabMain_SelectedIndexChanged(this, EventArgs.Empty);
+                _selectedPalette = radBackgroundPalette.Checked ? _bgPalette : _sprPalette;
+                pnlSprite.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
+                pnlTilemap.Image = BitmapUtility.GetSpriteImage(_tileset, _tilemap, _bgPalette, _sprPalette);
+                pnlTilemap.SetTilemap(_tilemap.Tiles, _tilemap.Columns, _tilemap.Rows, _tilemap.Offset, _tilemap.PlaceHolder);
+                pnlTileset.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 16);
+                pnlTileset.SetTileset(_tileset.Pixels, _selectedPalette.Colors, _tileset.Offset);
+                pnlTiles.Image = BitmapUtility.GetTilesetImage(_tileset, _selectedPalette, 6);
+                pnlTiles.Offset = _tilemap.Offset;
+                pnlTiles.TileCount = _tileset.TileCount + _tileset.Offset;
+                pnlTilemap.TileID = pnlTiles.TileID;
+                SetIndexes();
+                pnlSpriteEditBGPalette.SetPalette(_bgPalette.Colors);
+                txtSpriteEditBGPalette.Text = _bgPalette.Name;
+                pnlSpriteEditSPRPalette.SetPalette(_sprPalette.Colors);
+                txtSpriteEditSPRPalette.Text = _sprPalette.Name;
+                pnlTilePalette.SetPalette(_selectedPalette.Colors);
+                pnlTile.UpdateImage(_selectedPalette.Colors);
+                tabMain_SelectedIndexChanged(this, EventArgs.Empty);
+            }
+            catch
+            {
+                DisableEditing();
+            }
+        }
+
+        /// <summary>
+        /// Disable editing, if there is an issue
+        /// </summary>
+        private void DisableEditing()
+        {
+            pnlTile.Clear();
+            pnlSprite.Image = null;
+            pnlTilemap.Image = null;
+            pnlTileset.Image = null;
+            _loading = false;
         }
 
         /// <summary>

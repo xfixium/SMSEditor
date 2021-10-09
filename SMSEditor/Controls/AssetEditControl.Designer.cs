@@ -51,7 +51,6 @@
             this.tabTileset = new System.Windows.Forms.TabPage();
             this.pnlTileset = new SMSEditor.Controls.TilesetControl();
             this.pnlTilesetTools = new System.Windows.Forms.Panel();
-            this.btnSpriteRevertPalette = new System.Windows.Forms.Button();
             this.chkDisableTileset = new System.Windows.Forms.CheckBox();
             this.btnTilesetProperties = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -139,6 +138,8 @@
             this.btnPreviousFrame = new System.Windows.Forms.Button();
             this.btnNextFrame = new System.Windows.Forms.Button();
             this.tpnlSpriteEditMain = new System.Windows.Forms.TableLayoutPanel();
+            this.btnRevertBGPalette = new System.Windows.Forms.Button();
+            this.btnRevertSPRPalette = new System.Windows.Forms.Button();
             this.tabSpriteEditMain.SuspendLayout();
             this.tabSprite.SuspendLayout();
             this.pnlSpriteTools.SuspendLayout();
@@ -209,6 +210,8 @@
             // 
             // pnlSpriteTools
             // 
+            this.pnlSpriteTools.Controls.Add(this.btnRevertSPRPalette);
+            this.pnlSpriteTools.Controls.Add(this.btnRevertBGPalette);
             this.pnlSpriteTools.Controls.Add(this.btnSpriteEnable);
             this.pnlSpriteTools.Controls.Add(this.chkDisableSPRPalette);
             this.pnlSpriteTools.Controls.Add(this.chkDisableBGPalette);
@@ -242,10 +245,10 @@
             // chkDisableSPRPalette
             // 
             this.chkDisableSPRPalette.AutoSize = true;
-            this.chkDisableSPRPalette.Location = new System.Drawing.Point(8, 336);
+            this.chkDisableSPRPalette.Location = new System.Drawing.Point(8, 392);
             this.chkDisableSPRPalette.Name = "chkDisableSPRPalette";
             this.chkDisableSPRPalette.Size = new System.Drawing.Size(125, 17);
-            this.chkDisableSPRPalette.TabIndex = 13;
+            this.chkDisableSPRPalette.TabIndex = 15;
             this.chkDisableSPRPalette.Text = "Disable Palette Edit";
             this.chkDisableSPRPalette.UseVisualStyleBackColor = true;
             this.chkDisableSPRPalette.CheckedChanged += new System.EventHandler(this.chkCheckBox_CheckedChanged);
@@ -253,10 +256,10 @@
             // chkDisableBGPalette
             // 
             this.chkDisableBGPalette.AutoSize = true;
-            this.chkDisableBGPalette.Location = new System.Drawing.Point(8, 232);
+            this.chkDisableBGPalette.Location = new System.Drawing.Point(8, 256);
             this.chkDisableBGPalette.Name = "chkDisableBGPalette";
             this.chkDisableBGPalette.Size = new System.Drawing.Size(125, 17);
-            this.chkDisableBGPalette.TabIndex = 9;
+            this.chkDisableBGPalette.TabIndex = 10;
             this.chkDisableBGPalette.Text = "Disable Palette Edit";
             this.chkDisableBGPalette.UseVisualStyleBackColor = true;
             this.chkDisableBGPalette.CheckedChanged += new System.EventHandler(this.chkCheckBox_CheckedChanged);
@@ -283,11 +286,11 @@
             // 
             // txtSpriteEditSPRPalette
             // 
-            this.txtSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 272);
+            this.txtSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 304);
             this.txtSpriteEditSPRPalette.Name = "txtSpriteEditSPRPalette";
             this.txtSpriteEditSPRPalette.ReadOnly = true;
             this.txtSpriteEditSPRPalette.Size = new System.Drawing.Size(160, 22);
-            this.txtSpriteEditSPRPalette.TabIndex = 11;
+            this.txtSpriteEditSPRPalette.TabIndex = 12;
             // 
             // txtSpriteEditBGPalette
             // 
@@ -310,20 +313,20 @@
             // lblSpriteEditSPRPalette
             // 
             this.lblSpriteEditSPRPalette.AutoSize = true;
-            this.lblSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 256);
+            this.lblSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 288);
             this.lblSpriteEditSPRPalette.Name = "lblSpriteEditSPRPalette";
             this.lblSpriteEditSPRPalette.Size = new System.Drawing.Size(78, 13);
-            this.lblSpriteEditSPRPalette.TabIndex = 10;
+            this.lblSpriteEditSPRPalette.TabIndex = 11;
             this.lblSpriteEditSPRPalette.Text = "Sprite Palette:";
             this.lblSpriteEditSPRPalette.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnlSpriteEditSPRPalette
             // 
-            this.pnlSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 296);
+            this.pnlSpriteEditSPRPalette.Location = new System.Drawing.Point(8, 328);
             this.pnlSpriteEditSPRPalette.Name = "pnlSpriteEditSPRPalette";
             this.pnlSpriteEditSPRPalette.ReadOnly = false;
             this.pnlSpriteEditSPRPalette.Size = new System.Drawing.Size(160, 40);
-            this.pnlSpriteEditSPRPalette.TabIndex = 12;
+            this.pnlSpriteEditSPRPalette.TabIndex = 13;
             // 
             // lblSpriteEditBGPalette
             // 
@@ -405,7 +408,6 @@
             // 
             // pnlTilesetTools
             // 
-            this.pnlTilesetTools.Controls.Add(this.btnSpriteRevertPalette);
             this.pnlTilesetTools.Controls.Add(this.chkDisableTileset);
             this.pnlTilesetTools.Controls.Add(this.btnTilesetProperties);
             this.pnlTilesetTools.Controls.Add(this.groupBox1);
@@ -428,16 +430,6 @@
             this.pnlTilesetTools.Name = "pnlTilesetTools";
             this.pnlTilesetTools.Size = new System.Drawing.Size(172, 503);
             this.pnlTilesetTools.TabIndex = 1;
-            // 
-            // btnSpriteRevertPalette
-            // 
-            this.btnSpriteRevertPalette.Location = new System.Drawing.Point(8, 228);
-            this.btnSpriteRevertPalette.Name = "btnSpriteRevertPalette";
-            this.btnSpriteRevertPalette.Size = new System.Drawing.Size(160, 23);
-            this.btnSpriteRevertPalette.TabIndex = 13;
-            this.btnSpriteRevertPalette.Text = "Revert Palette";
-            this.btnSpriteRevertPalette.UseVisualStyleBackColor = true;
-            this.btnSpriteRevertPalette.Click += new System.EventHandler(this.btnRevert_Click);
             // 
             // chkDisableTileset
             // 
@@ -491,7 +483,7 @@
             // 
             // btnSwapSelectedPixel
             // 
-            this.btnSwapSelectedPixel.Location = new System.Drawing.Point(6, 456);
+            this.btnSwapSelectedPixel.Location = new System.Drawing.Point(6, 432);
             this.btnSwapSelectedPixel.Name = "btnSwapSelectedPixel";
             this.btnSwapSelectedPixel.Size = new System.Drawing.Size(162, 23);
             this.btnSwapSelectedPixel.TabIndex = 17;
@@ -501,7 +493,7 @@
             // 
             // pnlTilePalette
             // 
-            this.pnlTilePalette.Location = new System.Drawing.Point(4, 416);
+            this.pnlTilePalette.Location = new System.Drawing.Point(4, 392);
             this.pnlTilePalette.Name = "pnlTilePalette";
             this.pnlTilePalette.ReadOnly = false;
             this.pnlTilePalette.Size = new System.Drawing.Size(168, 40);
@@ -544,7 +536,7 @@
             // lblTile
             // 
             this.lblTile.AutoSize = true;
-            this.lblTile.Location = new System.Drawing.Point(8, 256);
+            this.lblTile.Location = new System.Drawing.Point(8, 232);
             this.lblTile.Name = "lblTile";
             this.lblTile.Size = new System.Drawing.Size(74, 13);
             this.lblTile.TabIndex = 14;
@@ -562,7 +554,7 @@
             this.pnlTile.Image = null;
             this.pnlTile.ImageAlpha = 1F;
             this.pnlTile.ImageScale = 1;
-            this.pnlTile.Location = new System.Drawing.Point(16, 272);
+            this.pnlTile.Location = new System.Drawing.Point(16, 248);
             this.pnlTile.MinimumScale = 1;
             this.pnlTile.Name = "pnlTile";
             this.pnlTile.Palette = ((System.Collections.Generic.List<System.Drawing.Color>)(resources.GetObject("pnlTile.Palette")));
@@ -1356,6 +1348,26 @@
             this.tpnlSpriteEditMain.Size = new System.Drawing.Size(810, 544);
             this.tpnlSpriteEditMain.TabIndex = 3;
             // 
+            // btnRevertBGPalette
+            // 
+            this.btnRevertBGPalette.Location = new System.Drawing.Point(8, 232);
+            this.btnRevertBGPalette.Name = "btnRevertBGPalette";
+            this.btnRevertBGPalette.Size = new System.Drawing.Size(160, 23);
+            this.btnRevertBGPalette.TabIndex = 9;
+            this.btnRevertBGPalette.Text = "Revert Background Palette";
+            this.btnRevertBGPalette.UseVisualStyleBackColor = true;
+            this.btnRevertBGPalette.Click += new System.EventHandler(this.btnRevert_Click);
+            // 
+            // btnRevertSPRPalette
+            // 
+            this.btnRevertSPRPalette.Location = new System.Drawing.Point(8, 368);
+            this.btnRevertSPRPalette.Name = "btnRevertSPRPalette";
+            this.btnRevertSPRPalette.Size = new System.Drawing.Size(160, 23);
+            this.btnRevertSPRPalette.TabIndex = 14;
+            this.btnRevertSPRPalette.Text = "Revert Sprite Palette";
+            this.btnRevertSPRPalette.UseVisualStyleBackColor = true;
+            this.btnRevertSPRPalette.Click += new System.EventHandler(this.btnRevert_Click);
+            // 
             // AssetEditControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1494,7 +1506,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDataAsmCopyTilemap;
         private System.Windows.Forms.ToolStripMenuItem mnuEditedData;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-        private System.Windows.Forms.Button btnSpriteRevertPalette;
         private System.Windows.Forms.Button btnSpriteEnable;
+        private System.Windows.Forms.Button btnRevertSPRPalette;
+        private System.Windows.Forms.Button btnRevertBGPalette;
     }
 }

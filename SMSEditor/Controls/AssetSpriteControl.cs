@@ -197,10 +197,12 @@ namespace SMSEditor.Controls
             try
             {
                 if (!HasData)
+                {
+                    pnlSpriteImage.Image = null;
                     return null;
+                }
 
                 Sprite sprite = new Sprite();
-
                 sprite.Name = txtSpriteName.Text;
                 sprite.BGPaletteID = (cbSpriteBGPalette.SelectedItem as GameAsset).ID;
                 sprite.SPRPaletteID = (cbSpriteSPRPalette.SelectedItem as GameAsset).ID;
@@ -212,6 +214,7 @@ namespace SMSEditor.Controls
             }
             catch
             {
+                pnlSpriteImage.Image = null;
                 return null;
             }
         }
@@ -228,7 +231,11 @@ namespace SMSEditor.Controls
 
                 txtSpriteName.Text = sprite.Name;
                 cbSpriteBGPalette.SelectedItem = ItemByID(sprite.BGPaletteID, cbSpriteBGPalette);
+                if (cbSpriteBGPalette.SelectedItem == null && cbSpriteBGPalette.Items.Count > 0)
+                    cbSpriteBGPalette.SelectedIndex = 0;
                 cbSpriteSPRPalette.SelectedItem = ItemByID(sprite.SPRPaletteID, cbSpriteSPRPalette);
+                if (cbSpriteSPRPalette.SelectedItem == null && cbSpriteSPRPalette.Items.Count > 0)
+                    cbSpriteSPRPalette.SelectedIndex = 0;
                 _spriteID = sprite.ID;
                 object selected = lstSpriteTilemaps.SelectedItem;
                 lstSpriteTilemaps.Items.Clear();
@@ -245,7 +252,6 @@ namespace SMSEditor.Controls
             catch
             {
                 pnlSpriteImage.Image = null;
-                return;
             }
         }
 
@@ -363,27 +369,23 @@ namespace SMSEditor.Controls
         {
             try
             {
-                if (lstSpriteTilemaps.SelectedItem == null)
+                Palette bgPalette = GetPalette(cbSpriteBGPalette);
+                Palette sprPalette = GetPalette(cbSpriteSPRPalette);
+                Tilemap tilemap = lstSpriteTilemaps.SelectedItem == null ? null : lstSpriteTilemaps.SelectedItem as Tilemap;
+                Tileset tileset = _project.GetTileset(tilemap == null ? -1 : tilemap.TilesetID, true);
+                if (tilemap == null || tileset == null || bgPalette == null || sprPalette == null)
                 {
                     pnlSpriteImage.Image = null;
                     return;
                 }
 
-                Palette bgPalette = GetPalette(cbSpriteBGPalette);
                 pnlSpriteBGPalette.SetPalette(bgPalette.Colors);
-                Palette sprPalette = GetPalette(cbSpriteSPRPalette);
                 pnlSpriteSPRPalette.SetPalette(sprPalette.Colors);
-                Tilemap tilemap = lstSpriteTilemaps.SelectedItem as Tilemap;
-                Tileset tileset = _project.GetTileset(tilemap.TilesetID, true);
-
-                if (tilemap == null || tileset == null || bgPalette == null || sprPalette == null)
-                    pnlSpriteImage.Image = null;
-                else
-                    pnlSpriteImage.Image = BitmapUtility.GetSpriteImage(tileset, tilemap, bgPalette, sprPalette);
+                pnlSpriteImage.Image = BitmapUtility.GetSpriteImage(tileset, tilemap, bgPalette, sprPalette);
             }
             catch
             {
-
+                pnlSpriteImage.Image = null;
             }
         }
 

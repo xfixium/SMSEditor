@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -69,6 +70,8 @@ namespace SMSEditor.Forms
                 {
                     _project = null;
                     _project = (Project)formatter.Deserialize(fs);
+                    if (!_project.Palettes.Any(x => x.ID < -1))
+                        _project.Palettes.InsertRange(0, Palette.GetDefaultPalettes());
                     LoadData();
                 }
             }
