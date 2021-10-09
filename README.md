@@ -3,12 +3,12 @@ Sega Master System ROM resource editor
 
 SMS Editor is an application designed primarily to hack/patch graphic resources within a Sega Master System ROM image. It offers some basic tools to import new graphics, and edit them. There is also a data entry section, where byte data can be entered.
 
-# Screens:
+## Screens:
 <img src="https://pyxosoft.com/projects/sms_editor/sms_editor_0001.png" width="50%" height="50%" />
 <img src="https://pyxosoft.com/projects/sms_editor/sms_editor_0002.png" width="50%" height="50%" />
 <img src="https://pyxosoft.com/projects/sms_editor/sms_editor_0003.png" width="50%" height="50%" />
 
-# Crash course in SMS Editor by example (Images to come):
+## Crash course in SMS Editor by example (Images to come):
 
 What you will need:
 A ROM that you will be creating a hack of
@@ -35,18 +35,18 @@ http://jmimu.free.fr/mastertileconverter/
 A ROM patch application, Flips:
 https://www.smspower.org/Hacks/HowToUseBPSAndIPSPatchFiles
 
-# Start:
+## Start:
 SMS Editor can generate its own project files, but to start a new project, you will need to load the Sega Master System ROM you want to hack first.
 To do this, click "File" at the top left, then click "Open ROM". The "Open ROM" file dialog box will display. From there, select your ROM (.sms) 
 file. This will load the ROM into memory, and SMS Editor's UI will display.
 
-# Graphics:
+## Graphics:
 SMS Editor is primarily a graphics editing tool for Sega Master System ROMs. But, before you can change anything in an existing ROM, we need to first 
 define graphical building blocks common in all Sega Master System games. The three building blocks are; palettes, tilesets, and tilemaps. In this example 
 we're going to define some graphics within SMS Editor, and then later edit them, and finally compile the changes into a hacked version of the ROM. 
 Let's get started.
 
-# Palettes:
+## Palettes:
 Palettes are a collection of colors that the Master System uses when drawing graphics to the screen. The Master System has two palettes that it 
 can use, the background palette, and the sprite palette. Each palette has 16 colors out of 64 total colors the Master System can use. The topic 
 of palettes is quite detailed, and it won't be covered fully here. For more information about palettes, visit Maxim's thorough explaination of 
@@ -101,7 +101,7 @@ These are the questions to ask yourself when you're searching for data. But if y
 tileset, it should say the number of tiles (124) on bottom status bar, next to "Tile Count". Congrats, we just defined our first tileset. Now we need 
 that final graphical piece, the tilemap. So click the "Tilemaps" tab next.
 
-# Tilemaps:
+## Tilemaps:
 Tilemaps, much like a tileset pixel, uses a number to reference another graphical object. In a tileset, each pixel is a number pointing to a palette color. 
 Well, with tilemaps, each tile is a number referencing a tile in a tileset. Each of these numbers tells the Master System's graphics processor, what tile 
 to draw from the tileset. So a tilemap is a 2D grid of tiles, with a width and height. There are also special flags that can be set for each tile index. 
@@ -134,7 +134,7 @@ when the game is running, before the rest of the tileset data. So, to make up fo
 tileset, and in the "Offset" field, enter a 1, then save it. This will pad the tileset with an empty tile, it will not write it back to the ROM on export. 
 This is just so it looks right when viewing and editing it. Lastly, go back to the tilemap, it should update, and look like it does in the game.
 
-# Sprites:
+## Sprites:
 Now that we have a palette, a tileset, and a tilemap, we have enough information to create a Sprite. The Sprite object can hold a background and sprite 
 palette, and a collection of tilemaps. This can be put together in any way you see fit. The idea is to put together assets that are related to one 
 another for optimized editing. While the Stage 1 graphics aren't the best example of this, there are other assets that benefit from putting them together 
@@ -171,7 +171,7 @@ There's one last issue to resolve before importing the new graphics. The colors 
 palette. This can be easily done by clicking the color (It will blink with a red border), and then clicking the right arrow button, to move it to 
 the right. I do this, because of the way Golden Axe blends tiles. Once done, click okay, and the new graphics have been imported.
 
-# Export:
+## Export:
 Finally, we can take our new Stage 1, and export it to a newly hacked version of the original game. Click "File>>Create ROM (.sms)" and a dialog will 
 display, where you can name and save the ROM where you like. Last thing to do is fire up your favorite SMS emulator, and give it a test. You did it!
 If you like the results, you can create a patch from it, using Flips, as listed previously.
