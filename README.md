@@ -16,23 +16,23 @@ SMS Editor
 Note: I will be using Emulicious for this example, I suggest getting the latest version for this example
 
 Suggested tools:
-A decent graphics editor, like Gimp:
+* A decent graphics editor, like Gimp: 
 https://www.gimp.org/
 
-An emulator, like Emulicious or Meka:
-https://emulicious.net/
+* An emulator, like Emulicious or Meka: 
+https://emulicious.net/ 
 https://www.smspower.org/meka/
 
-A ROM checker, to make sure your ROM is legit, before hacking it:
+* A ROM checker, to make sure your ROM is legit, before hacking it: 
 https://www.smspower.org/maxim/Software/SMSChecker
 
-A hex editor, to look at the data at the byte level:
+* A hex editor, to look at the data at the byte level: 
 http://frhed.sourceforge.net/en/
 
-A visual graphics data tool:
+* A visual graphics data tool: 
 http://jmimu.free.fr/mastertileconverter/
 
-A ROM patch application, Flips:
+* A ROM patch application, Flips: 
 https://www.smspower.org/Hacks/HowToUseBPSAndIPSPatchFiles
 
 ## Start:
