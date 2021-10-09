@@ -146,7 +146,7 @@ So click on the Sprites tab, so we can define a sprite object.
 On the sprite page, in the "Name" field, enter Stage 1. For the background palette, choose Stage 1 BG, and finally from the "Tilemap" drop down, select 
 Stage 1 then click the "Add" button, to add it to the sprite's list of tilemaps. Click "Save Sprite". We now have an asset that can be edited.
 
-# Sprite Edits:
+## Sprite Edits:
 Once we have created a sprite through the "Sprites" tab, it will be available on the "Sprite Edits" tab. Stage 1 should already be selected. There 
 are a myriad of options, but the one we're focusing on is the "Import Sprite Graphics" button. What we want to accomplish is replacing the entire 
 stage 1 graphics, with something new. Before we do that however, we need to update the palette for our replacement graphics.
