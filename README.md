@@ -11,8 +11,17 @@ SMS Editor is an application designed primarily to hack/patch graphic resources 
 ## Crash course in SMS Editor by example (Images to come):
 
 What you will need:
-A ROM that you will be creating a hack of
-SMS Editor
+* A ROM that you will be creating a hack of (Golden Axe)
+* SMS Editor
+* The project_file_example.zip file, referenced in the first release of SMS Editor
+
+https://github.com/xfixium/SMSEditor/releases
+
+Note: We will be using the Stage 1 graphics in the sprite folder, within the project_file_example.zip file.
+After downloading the file, in Windows, you can right click the .zip file, and then choose "Extract All..." 
+to get to the resources within. The file contains image resources, a full .smsed project file of Golden Axe, 
+for reference, and image resources.
+
 Note: I will be using Emulicious for this example, I suggest getting the latest version for this example
 
 Suggested tools:
@@ -62,7 +71,7 @@ proceed to the stage 1 screen. From there, we're going to click from the menu ba
 appear. Emulicious displays the background palette on the top, and the sprite palette on the bottom. If we click the first color of the background 
 palette, there will be a ROM address next to the section labeled, "Source:", click it, and you will open the memory editor. The cursor will 
 automatically be set in the ROM where that palette color is located. To copy that position, right click the "Address:" section on the 
-lower left corner of the window, then click "Copy Address". This will copy the address in hexidecimal format to the clipboard. If Emulicious doesn't 
+lower left corner of the window, then click "Copy Address". This will copy the address in hexadecimal format to the clipboard. If Emulicious doesn't 
 have that option, your version may be out of date.
 
 Once we have the address, we're going to head back over to SMS Editor. Click the "Palettes" tab, and paste the address in the "Position (Hex)" field. 
@@ -88,8 +97,7 @@ under "Pixel Source", we'll be taken to the location in the ROM where the tilese
 right place. So let's try the next tile at tile index 129, click the ROM location, and it looks like valid data. Emulicious also highlights data in a 
 certain color, to give a better indication on what the data might be. Most of the time it's spot on. We right click and copy the address like last 
 time, and paste it into SMS Editor under the "Position (Hex)" field again (Address CA78). We name the tileset "Stage 1" again, now all we need is the length, 
-which 
-again, is in bytes. In Emulicious, if we click the starting address, and drag downwards, it'll sho the number of bytes being selected. We're going to 
+which again, is in bytes. In Emulicious, if we click the starting address, and drag downwards, it'll show the number of bytes being selected. We're going to 
 do that until we are at the end of the tileset data. Again, Emulicious making this very easy, by color coding the byte values. Once at the end, take 
 note of the number of bytes selected, and that's what we'll enter for the length of the tileset. Just a note, one tile is 32 bytes, so make sure your 
 length is divisible by 32 evenly, to be sure you're getting the exact amount of tile data, no more, no less. Of course SMS Editor will display more or 
@@ -98,8 +106,8 @@ jumbled mess. We want to make sure we're not going further than the tile data. A
 
 Click "Validate Tileset", to get the data from the ROM and display it on the screen. Does it look right? Is it over or under the tile count unevenly? 
 These are the questions to ask yourself when you're searching for data. But if you mess up, you can always come back and adjust. After validating the 
-tileset, it should say the number of tiles (124) on bottom status bar, next to "Tile Count". Congrats, we just defined our first tileset. Now we need 
-that final graphical piece, the tilemap. So click the "Tilemaps" tab next.
+tileset, it should say the number of tiles (124) on bottom status bar, next to "Tile Count". Click "Save Tileset", and we're done. Congrats, we just 
+defined our first tileset. Now we need that final graphical piece, the tilemap. So click the "Tilemaps" tab next.
 
 ## Tilemaps:
 Tilemaps, much like a tileset pixel, uses a number to reference another graphical object. In a tileset, each pixel is a number pointing to a palette color. 
@@ -120,7 +128,7 @@ index in its ROM, and that's it. Meaning it only uses 1 byte per tile, instead o
 Maxim's tilemap page for more info.) That also means that the maximum tile index is only 255. So, because of this, we need to make some adjustments when 
 defining the tilemap. In SMS Editor, we have an "Offset" field that can simulate that the tilemap starts at Tile index 0. It does not write the offset value 
 on ROM export. This is for visual and editing purposes only. Since technically, the tileset starts in graphics memory on the 128th tile, int the "Offset"
-field, enter 128, to subtract the stored tile index back by 128, meaing the first tile starts at 0. 
+field, enter 128, to subtract the stored tile index back by 128, meaning the first tile starts at 0. 
 
 In the "Position (Hex)" field, we're going to enter D9F8. In the "Name" field, enter Stage 1. We now need the width and height of the tilemap, in tiles. 
 Sometimes this information is close to the tilemap data itself, but for this one, I think I found the data through other means. I don't recall 
@@ -130,7 +138,7 @@ by 8 to get the actual size.  For the "Tileset" field, select our Stage 1 tilese
 Stage 1 BG. Click "Validate Tilemap" and the stage should appear. Except wait a minute, it seems jumbled. 
 
 This is because the first blank tile is elsewhere in the ROM. Not next to the Stage 1 tileset data. Golden Axe places the empty tile in graphics memory, 
-when the game is running, before the rest of the tileset data. So, to make up for this, and simulate a preceeding blank tile, just go back to the Stage 1 
+when the game is running, before the rest of the tileset data. So, to make up for this, and simulate a proceeding blank tile, just go back to the Stage 1 
 tileset, and in the "Offset" field, enter a 1, then save it. This will pad the tileset with an empty tile, it will not write it back to the ROM on export. 
 This is just so it looks right when viewing and editing it. Lastly, go back to the tilemap, it should update, and look like it does in the game.
 
@@ -140,16 +148,17 @@ palette, and a collection of tilemaps. This can be put together in any way you s
 another for optimized editing. While the Stage 1 graphics aren't the best example of this, there are other assets that benefit from putting them together 
 in a Sprite. For instance, the walking animation of Ax Battler (Tarik) uses only one tileset, for many tilemaps. Editing those assets in a single 
 place is more manageable. The graphics can be exported, worked on in an external editor like Gimp, and reimported. There is also no need to 
-worry about keeping the image in 8 bit indexed mode, as the importer will match the colors of the target palette(s). Or they can be assigned manually. 
+worry about keeping the image in 8 bit indexed mode, as the importer will match the colors of the target palette(s), or they can be assigned manually. 
 So click on the Sprites tab, so we can define a sprite object.
 
-On the sprite page, in the "Name" field, enter Stage 1. For the background palette, choose Stage 1 BG, and finally from the "Tilemap" drop down, select 
-Stage 1 then click the "Add" button, to add it to the sprite's list of tilemaps. Click "Save Sprite". We now have an asset that can be edited.
+On the sprite page, in the "Name" field, enter Stage 1. For the background palette, choose Stage 1 BG under the "Background Palette" drop down, and finally 
+from the "Tilemap" drop down, select Stage 1 then click the "Add" button, to add it to the sprite's list of tilemaps. Click "Save Sprite". We now have an 
+asset that can be edited.
 
 ## Sprite Edits:
 Once we have created a sprite through the "Sprites" tab, it will be available on the "Sprite Edits" tab. Stage 1 should already be selected. There 
 are a myriad of options, but the one we're focusing on is the "Import Sprite Graphics" button. What we want to accomplish is replacing the entire 
-stage 1 graphics, with something new. Before we do that however, we need to update the palette for our replacement graphics.
+Stage 1 graphics, with something new. Before we do that however, we need to update the palette for our replacement graphics.
 
 Click "Edit Palettes", a window will appear with a list of all the palettes. Select Stage 1 BG from the list. We're going to change the palette to 
 following colors: $05, $3F, $34, $03, $10, $01, $16, $2B, $00, $1A, $15, $2A, $04, $16, $01, $34. To do this, click on a color in the "Edit Palette" 
@@ -158,13 +167,13 @@ replace the selected color. Once this has been done for all colors, close the wi
 colors, it will set the selected color to white.
 
 Now that we're done with changing the palette, click the "Import Sprite Graphics" button. A window will display asking for the image that contains 
-the new graphics (.png), select the stage 1 graphics, and the importer window will display. Here it will give various compile options. The importer 
-will automatically match the colors from the image, with the palettes assigned to the sprite. You can assign certain tiles to use the background or 
-sprite tiles, if there's support for tile flags (Attributes). Since the tilemap doesn't support tile flags, we can just leave it pointing to the 
-background palette. What we're concerned with primarily, is that the tiles being imported are less than or equal to the originals size. If not, the 
-data will be truncated on write, unless the "Override Length" option is used. The "Override Length" option should only be used if you're sure 
-you're not writing over something else, when the ROM is exported. SMS Editor truncates to the original size of the defined data, by default. If 
-there is any issues with the import size, a warning will display on the bottom status bar. This is particularily helpful with assets that get 
+the new graphics (.png), select the Stage 1.png graphics (From the .zip file I linked to earlier), and the importer window will display. Here it will 
+give various compile options. The importer will automatically match the colors from the image, with the palettes assigned to the sprite. You can assign 
+certain tiles to use the background or sprite tiles, if there's support for tile flags (Attributes). Since the tilemap doesn't support tile flags, we can 
+just leave it pointing to the background palette. What we're concerned with primarily, is that the tiles being imported are less than or equal to the 
+originals size. If not, the data will be truncated on write, unless the "Override Length" option is used. The "Override Length" option should only be used 
+if you're sure you're not writing over something else, when the ROM is exported. SMS Editor truncates to the original size of the defined data, by default. 
+If there is any issues with the import size, a warning will display on the bottom status bar. This is particularly helpful with assets that get 
 compressed. If the import data is smaller than the original, SMS Editor pads the data with zeros to the original's data length.
 
 There's one last issue to resolve before importing the new graphics. The colors $34, $01, and $16 need to be up on the second half of the background 
