@@ -76,7 +76,7 @@ the palette into your project. Nice, we now have our first palette from the game
 # Tilesets:
 Tilesets, or tiles, are the raw pixel color information. A pixel is a number from 0 to 15, that directly represents the color index of the palette we 
 just defined earlier. So a pixel that has a 1 for a value, would be the color white, based on our previous palette we got. Indexes always start at 0, 
-so 1 is the second color in the background palette. For more information on tiles, visit Maxim's thorough explaination of them here:
+so 1 is the second color in the background palette. For more information on tiles, visit Maxim's thorough explanation of them here:
 
 https://www.smspower.org/maxim/HowToProgram/Tiles
 
