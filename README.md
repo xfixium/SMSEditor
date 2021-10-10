@@ -22,7 +22,7 @@ Note: We will be using the Stage 1 graphics in the sprite folder, within the pro
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0001.png" />
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0002.png" />
 
-Note: I will be using Emulicious for this example, I suggest getting the latest version for this example
+Note: I will be using Emulicious for this example, I suggest getting the latest version
 
 Suggested tools:
 * A decent graphics editor, like Gimp: 
@@ -45,7 +45,7 @@ http://jmimu.free.fr/mastertileconverter/
 https://www.smspower.org/Hacks/HowToUseBPSAndIPSPatchFiles
 
 ## Start:
-SMS Editor can generate its own project files, but to start a new project, you will need to load the Sega Master System ROM you want to hack first.First start SMS Editor (Download it from https://github.com/xfixium/SMSEditor/releases), once open, click "File" at the top left, then click "Open ROM". The "Open ROM" file dialog box will display. From there, select your ROM (.sms) file. This will load the ROM into memory, and SMS Editor's UI will display.
+SMS Editor can generate its own project files, but to start a new project, you will need to load the Sega Master System ROM you want to hack first. First, start SMS Editor (Download it from https://github.com/xfixium/SMSEditor/releases), once open, click "File" at the top left, then click "Open ROM". The "Open ROM" file dialog box will display. From there, select your ROM (.sms) file. This will load the ROM into memory, and SMS Editor's UI will display.
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0003.png" />
 
@@ -77,9 +77,7 @@ To copy that position, right click the "Address:" section on the lower left corn
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0008.png" />
 
-Once we have the address, we're going to head back over to SMS Editor. Click the "Palettes" tab, and paste the address in the "Position (Hex)" field. 
-Next, we're going to enter "Stage 1 BG" in the "Name" field. Then, we're going to set the "Length" field to 16, for 16 colors. Each color is a byte 
-in the ROM, length is always in number of bytes. 
+Once we have the address, we're going to head back over to SMS Editor. Click the "Palettes" tab, and paste the address in the "Position (Hex)" field. Next, we're going to enter "Stage 1 BG" in the "Name" field. Then, we're going to set the "Length" field to 16, for 16 colors. Each color is a byte in the ROM, length is always in number of bytes. 
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0009.png" />
 
@@ -118,24 +116,18 @@ Just a note, one tile is 32 bytes, so make sure your length is divisible by 32 e
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0016.png" />
 
-Click "Validate Tileset", to get the data from the ROM and display it on the screen. Does it look right? Is it over or under the tile count unevenly? 
-These are the questions to ask yourself when you're searching for data. But if you mess up, you can always come back and adjust. After validating the 
-tileset, it should say the number of tiles (124) on bottom status bar, next to "Tile Count". Click "Save Tileset", and we're done. 
+Click "Validate Tileset", to get the data from the ROM and display it on the screen. Does it look right? Is it over or under the tile count unevenly? These are the questions to ask yourself when you're searching for data. But if you mess up, you can always come back and adjust. After validating the tileset, it should say the number of tiles (124) on bottom status bar, next to "Tile Count". Click "Save Tileset", and we're done. 
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0017.png" />
 
 Congrats, we just defined our first tileset. Now we need that final graphical piece, the tilemap. So click the "Tilemaps" tab next.
 
 ## Tilemaps:
-Tilemaps, much like a tileset pixel, uses a number to reference another graphical object. In a tileset, each pixel is a number pointing to a palette color. 
-Well, with tilemaps, each tile is a number referencing a tile in a tileset. Each of these numbers tells the Master System's graphics processor, what tile 
-to draw from the tileset. So a tilemap is a 2D grid of tiles, with a width and height. There are also special flags that can be set for each tile index. 
-Like if it should be drawn flipped, or if it's drawn in front of a object in the game. More information from Maxim, here:
+Tilemaps, much like a tileset pixel, uses a number to reference another graphical object. In a tileset, each pixel is a number pointing to a palette color. Well, with tilemaps, each tile is a number referencing a tile in a tileset. Each of these numbers tells the Master System's graphics processor, what tile to draw from the tileset. So a tilemap is a 2D grid of tiles, with a width and height. There are also special flags that can be set for each tile index. Like if it should be drawn flipped, or if it's drawn in front of a object in the game. More information from Maxim, here:
 
 https://www.smspower.org/maxim/HowToProgram/Tilemap
 
-Finally, we're going to get the tilemap data. Once again, using Emulicious. This time from the stage 1 screen, we're going to click on 
-"Tools>>Tilemap Viewer", another window will display itself. 
+Finally, we're going to get the tilemap data. Once again, using Emulicious. This time from the stage 1 screen, we're going to click on "Tools>>Tilemap Viewer", another window will display itself. 
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0018.png" />
 
@@ -151,18 +143,9 @@ If we look at the values, they're pretty high. starting at 129 (81 in hex) for t
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0021.png" />
 
-To explain this, and this isn't the case for every game, but Golden Axe does not use tile flags (Attributes) for most tilemaps, it only holds the tile 
-index in its ROM, and that's it. Meaning it only uses 1 byte per tile, instead of 2. It can't use tile flipping, priority flag, etc.. etc.. (Look at 
-Maxim's tilemap page for more info.) That also means that the maximum tile index is only 255. So, because of this, we need to make some adjustments when 
-defining the tilemap. In SMS Editor, we have an "Offset" field that can simulate that the tilemap starts at Tile index 0. It does not write the offset value 
-on ROM export. This is for visual and editing purposes only. Since technically, the tileset starts in graphics memory on the 128th tile, int the "Offset"
-field, enter 128, to subtract the stored tile index back by 128, meaning the first tile starts at 0. 
+To explain this, and this isn't the case for every game, but Golden Axe does not use tile flags (Attributes) for most tilemaps, it only holds the tile index in its ROM, and that's it. Meaning it only uses 1 byte per tile, instead of 2. It can't use tile flipping, priority flag, etc.. etc.. (Look at Maxim's tilemap page for more info.) That also means that the maximum tile index is only 255. So, because of this, we need to make some adjustments when defining the tilemap. In SMS Editor, we have an "Offset" field that can simulate that the tilemap starts at Tile index 0. It does not write the offset value on ROM export. This is for visual and editing purposes only. Since technically, the tileset starts in graphics memory on the 128th tile, in the "Offset"field, enter 128, to subtract the stored tile index back by 128, meaning the first tile starts at 0. 
 
-In the "Position (Hex)" field, we're going to enter D9F8. In the "Name" field, enter Stage 1. We now need the width and height of the tilemap, in tiles. 
-Sometimes this information is close to the tilemap data itself, but for this one, I think I found the data through other means. I don't recall 
-how. I did find the right numbers however, so for the "Columns" field, enter 160, and for the "Rows" field, enter 24. That means our tilemap is 160 tiles 
-wide, and 24 tiles high. The actual size in pixels is 1280 x 192. Since a tile is 8 x 8 pixels big, we just take the tilemap dimensions, and times them 
-by 8 to get the actual size.  For the "Tileset" field, select our Stage 1 tileset, that we defined earlier.
+In the "Position (Hex)" field, we're going to enter D9F8. In the "Name" field, enter Stage 1. We now need the width and height of the tilemap, in tiles. Sometimes this information is close to the tilemap data itself, but for this one, I think I found the data through other means. I don't recall how. I did find the right numbers however, so for the "Columns" field, enter 160, and for the "Rows" field, enter 24. That means our tilemap is 160 tiles wide, and 24 tiles high. The actual size in pixels is 1280 x 192. Since a tile is 8 x 8 pixels big, we just take the tilemap dimensions, and times them by 8 to get the actual size.  For the "Tileset" field, select our Stage 1 tileset, that we defined earlier.
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0022.png" />
 
@@ -170,10 +153,7 @@ Lastly, for the "Background Palette", choose Stage 1 BG. Click "Validate Tilemap
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0023.png" />
 
-This is because the first blank tile is elsewhere in the ROM. Not next to the Stage 1 tileset data. Golden Axe places the empty tile in graphics memory, 
-when the game is running, before the rest of the tileset data. So, to make up for this, and simulate a proceeding blank tile, just go back to the Stage 1 
-tileset, and in the "Offset" field, enter a 1, then save it. This will pad the tileset with an empty tile, it will not write it back to the ROM on export. 
-This is just so it looks right when viewing and editing it. 
+This is because the first blank tile is elsewhere in the ROM. Not next to the Stage 1 tileset data. Golden Axe places the empty tile in graphics memory, when the game is running, before the rest of the tileset data. So, to make up for this, and simulate a proceeding blank tile, just go back to the Stage 1 tileset, and in the "Offset" field, enter a 1, then save it. This will pad the tileset with an empty tile, it will not write it back to the ROM on export. This is just so it looks right when viewing and editing it. 
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0024.png" />
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0025.png" />
@@ -194,9 +174,7 @@ Click "Save Sprite". We now have an asset that can be edited.
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0028.png" />
 
 ## Sprite Edits:
-Once we have created a sprite through the "Sprites" tab, it will be available on the "Sprite Edits" tab. Stage 1 should already be selected. There 
-are a myriad of options, but the one we're focusing on is the "Import Sprite Graphics" button. What we want to accomplish is replacing the entire 
-Stage 1 graphics, with something new. Before we do that however, we need to update the palette for our replacement graphics.
+Once we have created a sprite through the "Sprites" tab, it will be available on the "Sprite Edits" tab. Stage 1 should already be selected. There are a myriad of options, but the one we're focusing on is the "Import Sprite Graphics" button. What we want to accomplish is replacing the entire Stage 1 graphics, with something new. Before we do that however, we need to update the palette for our replacement graphics.
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0029.png" />
 
@@ -229,9 +207,7 @@ certain tiles to use the background or sprite tiles, if there's support for tile
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0036.png" />
 
-There's one last issue to resolve before importing the new graphics. The colors $34, $01, and $16 need to be up on the second half of the background 
-palette. This can be easily done by clicking the color (It will blink with a red border), and then clicking the right arrow button, to move it to 
-the right. 
+There's one last issue to resolve before importing the new graphics. The colors $34, $01, and $16 need to be up on the second half of the background palette. This can be easily done by clicking the color (It will blink with a red border), and then clicking the right arrow button, to move it to the right. 
 
 <img src="https://pyxosoft.com/projects/sms_editor/example/sms_editor_example_0037.png" />
 
