@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 //
 
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -28,77 +29,56 @@ namespace SMSEditor.Data
     public class Compression
     {
         /// <summary>
-        /// Compresses the given bytes using the given compression type
+        /// Compresses the given data with the given compression type
         /// </summary>
-        /// <param name="type">Compression type to use</param>
-        /// <param name="bytes">The bytes to compress</param>
-        /// <returns>A compressed byte array</returns>
-        public static byte[] Compress(CompressionType type, byte[] bytes)
+        /// <param name="type"> The type of compression to use</param>
+        /// <param name="data">The data to compress</param>
+        /// <returns>Compressed data</returns>
+        public static byte[] Compress(CompressionType type, byte[] data)
         {
             switch (type)
             {
-                case CompressionType.PSRLELinear: { return CompressPSRLELinear(bytes); }
-                case CompressionType.PSRLEPlanar2: { return CompressPSRLEPlanar2(bytes); }
-                case CompressionType.PSRLEPlanar4: { return CompressPSRLEPlanar4(bytes); }
-                default: return bytes;
+                case CompressionType.PSRLELinear: { return CompressPSRLE(data, 1); }
+                case CompressionType.PSRLEPlanar2: { return CompressPSRLE(data, 2); }
+                case CompressionType.PSRLEPlanar4: { return CompressPSRLE(data, 4); }
+                default: return data;
             }
         }
 
         /// <summary>
-        /// Decompresses the given bytes using the given compression type
+        /// Decompresses the given data with the given compression type
         /// </summary>
-        /// <param name="type">Decompression type to use</param>
-        /// <param name="bytes">The bytes to decompression</param>
-        /// <returns>A decompression byte array</returns>
-        public static byte[] Decompress(CompressionType type, byte[] bytes)
+        /// <param name="type"> The type of compression to use</param>
+        /// <param name="data">The data to decompress</param>
+        /// <returns>Decompressed data</returns>
+        public static byte[] Decompress(CompressionType type, byte[] data)
         {
             switch (type)
             {
-                case CompressionType.PSRLELinear: { return DecompressPSRLELinear(bytes); }
-                case CompressionType.PSRLEPlanar2: { return DecompressPSRLEPlanar4(bytes); }
-                case CompressionType.PSRLEPlanar4: { return DecompressPSRLEPlanar4(bytes); }
-                default: return bytes;
+                case CompressionType.PSRLELinear: { return DecompressPSRLE(data, 1); }
+                case CompressionType.PSRLEPlanar2: { return DecompressPSRLE(data, 2); }
+                case CompressionType.PSRLEPlanar4: { return DecompressPSRLE(data, 4); }
+                default: return data;
             }
         }
 
-        public static byte[] CompressPSRLELinear(byte[] data)
+        /// <summary>
+        /// Compresses the given data planes, using Phantasy Star RLE compression
+        /// </summary>
+        /// <param name="data">The data to compress</param>
+        /// <param name="planeCount">Number of planes to interleave</param>
+        /// <returns></returns>
+        private static byte[] CompressPSRLE(byte[] data, int planeCount)
         {
+            int length = data.Length / planeCount;
             List<byte[]> planes = new List<byte[]>();
-            planes.Add(data.ToArray());
-            return PSRLECompress(planes);
-        }
-
-        public static byte[] CompressPSRLEPlanar4(byte[] data)
-        {
-            List<byte[]> planes = new List<byte[]>();
-            for (int i = 0; i < 4; i++)
-                planes.Add(new byte[data.Length / 4]);
-
-            int index = 0;
-            for (int j = 0; j < data.Length / 4; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    if (j < planes[k].Length)
-                        planes[k][j] = data[index];
-
-                    index++;
-                }
-            }
-            return PSRLECompress(planes);
-        }
-
-        public static byte[] CompressPSRLEPlanar2(byte[] data)
-        {
-            int length = data.Length / 2;
-            List<byte[]> planes = new List<byte[]>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < planeCount; i++)
                 planes.Add(new byte[length]);
 
             int index = 0;
             for (int j = 0; j < length; j++)
             {
-                for (int k = 0; k < 2; k++)
+                for (int k = 0; k < planeCount; k++)
                 {
                     if (j < planes[k].Length)
                         planes[k][j] = data[index];
@@ -106,17 +86,13 @@ namespace SMSEditor.Data
                     index++;
                 }
             }
-            return PSRLECompress(planes);
-        }
 
-        private static byte[] PSRLECompress(List<byte[]> planes)
-        {
             List<byte> compressed = new List<byte>();
             foreach (byte[] plane in planes)
             {
                 int mode = 0; // No run = 0, run = 1, raw = 2
                 List<byte> buffer = new List<byte>();
-                List<Block> blocks = new List<Block>();
+                List<Tuple<bool, List<byte>>> blocks = new List<Tuple<bool, List<byte>>>();
                 for (int i = 0; i < plane.Length; i++)
                 {
                     if (buffer.Count < 2)
@@ -134,7 +110,7 @@ namespace SMSEditor.Data
                             buffer.Add(plane[i]);
                         else
                         {
-                            blocks.Add(new Block(false, buffer.DeepClone()));
+                            blocks.Add(new Tuple<bool, List<byte>>(false, buffer.DeepClone()));
                             buffer.Clear();
                             buffer.Add(plane[i]);
                             mode = 0;
@@ -144,7 +120,7 @@ namespace SMSEditor.Data
                     {
                         if (plane[i] == buffer[buffer.Count - 1])
                         {
-                            blocks.Add(new Block(true, buffer.DeepClone().GetRange(0, buffer.Count - 1)));
+                            blocks.Add(new Tuple<bool, List<byte>>(true, buffer.DeepClone().GetRange(0, buffer.Count - 1)));
                             buffer.Clear();
                             buffer.AddRange(new byte[] { plane[i], plane[i] });
                             mode = 1;
@@ -154,20 +130,20 @@ namespace SMSEditor.Data
                     }
                 }
 
-                blocks.Add(new Block(mode != 1, buffer.DeepClone()));
+                blocks.Add(new Tuple<bool, List<byte>>(mode != 1, buffer.DeepClone()));
 
                 for (int i = 1; i < blocks.Count;)
                 {
-                    if ((blocks[i - 1].Raw && !blocks[i].Raw && blocks[i].Data.Count == 2) ||
-                        (blocks[i - 1].Raw && blocks[i].Raw) ||
-                        (!blocks[i - 1].Raw && blocks[i - 1].Data.Count == 2 && blocks[i].Raw))
+                    if ((blocks[i - 1].Item1 && !blocks[i].Item1 && blocks[i].Item2.Count == 2) ||
+                        (blocks[i - 1].Item1 && blocks[i].Item1) ||
+                        (!blocks[i - 1].Item1 && blocks[i - 1].Item2.Count == 2 && blocks[i].Item1))
                     {
-                        if (blocks[i - 1].Data.Count + blocks[i].Data.Count >= 127)
+                        if (blocks[i - 1].Item2.Count + blocks[i].Item2.Count >= 127)
                             i++;
                         else
                         {
-                            blocks[i - 1].Data.AddRange(blocks[i].Data.DeepClone());
-                            blocks[i - 1].Raw = true;
+                            blocks[i - 1].Item2.AddRange(blocks[i].Item2.DeepClone());
+                            blocks[i - 1] = new Tuple<bool, List<byte>>(true, blocks[i - 1].Item2);
                             blocks.RemoveAt(i);
                         }
                     }
@@ -175,24 +151,21 @@ namespace SMSEditor.Data
                         i++;
                 }
 
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                foreach (Block block in blocks)
+                foreach (Tuple<bool, List<byte>> block in blocks)
                 {
-                    if (block.Data.Count <= 0)
+                    if (block.Item2.Count <= 0)
                         continue;
 
-                    if (block.Raw)
+                    if (block.Item1)
                     {
-                        compressed.Add((byte)(block.Data.Count + 128));
-                        compressed.AddRange(block.Data);
+                        compressed.Add((byte)(block.Item2.Count + 128));
+                        compressed.AddRange(block.Item2);
                     }
                     else
                     {
-                        compressed.Add((byte)(block.Data.Count));
-                        compressed.Add(block.Data[0]);
+                        compressed.Add((byte)(block.Item2.Count));
+                        compressed.Add(block.Item2[0]);
                     }
-
-                    sb.AppendLine(block.ToString());
                 }
 
                 compressed.Add(0);
@@ -201,13 +174,19 @@ namespace SMSEditor.Data
             return compressed.ToArray();
         }
 
-        public static byte[] DecompressPSRLEPlanar4(byte[] data)
+        /// <summary>
+        /// Decompresses Phantasy Star RLE compression
+        /// </summary>
+        /// <param name="data">The data to decompress</param>
+        /// <param name="planeCount">Number of planes</param>
+        /// <returns></returns>
+        public static byte[] DecompressPSRLE(byte[] data, int planeCount)
         {
             int index = 0;
             int count;
             byte value;
-            List<byte>[] bitPlanes = new List<byte>[4];
-            for (int i = 0; i < 4; i++)
+            List<byte>[] bitPlanes = new List<byte>[planeCount];
+            for (int i = 0; i < planeCount; i++)
             {
                 bitPlanes[i] = new List<byte>();
                 while (index < data.Length && data[index] != 0)
@@ -238,55 +217,11 @@ namespace SMSEditor.Data
 
             List<byte> decompressed = new List<byte>();
             for (int j = 0; j < bitPlanes[0].Count; j++)
-                for (int k = 0; k < 4; k++)
+                for (int k = 0; k < planeCount; k++)
                     if (j < bitPlanes[k].Count)
                         decompressed.Add(bitPlanes[k][j]);
 
             return decompressed.ToArray();
         }
-
-        public static byte[] DecompressPSRLELinear(byte[] data)
-        {
-            List<byte> decompressed = new List<byte>();
-            int index = 0;
-            int count;
-            byte value;
-            while (index < data.Length && data[index] != 0)
-            {
-                if (data[index] < 128)
-                {
-                    count = data[index];
-                    index++;
-                    value = data[index];
-                    index++;
-                    for (int j = 0; j < count; j++)
-                        decompressed.Add(value);
-                }
-                else
-                {
-                    count = data[index] - 128;
-                    index++;
-                    for (int j = 0; j < count; j++)
-                    {
-                        value = data[index];
-                        decompressed.Add(value);
-                        index++;
-                    }
-                }
-            }
-            return decompressed.ToArray();
-        }
-
-        public class Block
-        {
-            public bool Raw { get; set; }
-            public List<byte> Data { get; set; } = new List<byte>();
-
-            public Block(bool raw, List<byte> data)
-            {
-                Raw = raw;
-                Data.AddRange(data.ToArray());
-            }
-        };
     }
 }

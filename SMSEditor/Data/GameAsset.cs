@@ -1,5 +1,5 @@
 ﻿// 
-// Dev SMS
+// SMS Editor
 // Copyright (C) 2021 xfixium | xfixium@yahoo.com
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -64,25 +64,13 @@ namespace SMSEditor.Data
         /// </summary>
         /// <param name="bytes">The bytes to export</param>
         /// <param name="pad">If padding should be applied to length</param>
-        /// <param name="over">If data length should be overriden</param>
+        /// <param name="overwrite">If data length should be overriden</param>
         /// <returns>A finalized array of bytes</returns>
-        public byte[] GetExportData(List<byte> bytes, bool pad, bool over)
+        public byte[] GetExportData(List<byte> bytes, bool pad, bool overwrite)
         {
-            if (CompressionType == CompressionType.PSRLEPlanar4)
+            if (CompressionType != CompressionType.None)
             {
-                byte[] compressed = Compression.CompressPSRLEPlanar4(bytes.ToArray());
-                bytes.Clear();
-                bytes.AddRange(compressed);
-            }
-            else if (CompressionType == CompressionType.PSRLEPlanar2)
-            {
-                byte[] compressed = Compression.CompressPSRLEPlanar2(bytes.ToArray());
-                bytes.Clear();
-                bytes.AddRange(compressed);
-            }
-            else if (CompressionType == CompressionType.PSRLELinear)
-            {
-                byte[] compressed = Compression.CompressPSRLELinear(bytes.ToArray());
+                byte[] compressed = Compression.Compress(CompressionType, bytes.ToArray());
                 bytes.Clear();
                 bytes.AddRange(compressed);
             }
@@ -93,7 +81,7 @@ namespace SMSEditor.Data
                 for (int i = 0; i < amount; i++)
                     bytes.Add(0);
             }
-            else if (!over && bytes.Count > Length)
+            else if (!overwrite && bytes.Count > Length)
                 bytes = bytes.GetRange(0, Length);
 
             return bytes.ToArray();
