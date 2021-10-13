@@ -39,7 +39,9 @@ namespace SMSEditor.Data
         [Description("PS RLE Linear")]
         PSRLELinear = 2,
         [Description("PS RLE Planar 2")]
-        PSRLEPlanar2 = 3
+        PSRLEPlanar2 = 3,
+        [Description("Sonic 1")]
+        Sonic1 = 4,
     }
 
     /// <summary>

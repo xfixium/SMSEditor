@@ -41,6 +41,7 @@ namespace SMSEditor.Data
                 case CompressionType.PSRLELinear: { return CompressPSRLE(data, 1); }
                 case CompressionType.PSRLEPlanar2: { return CompressPSRLE(data, 2); }
                 case CompressionType.PSRLEPlanar4: { return CompressPSRLE(data, 4); }
+                case CompressionType.Sonic1: { return CompressSonic1(data); }
                 default: return data;
             }
         }
@@ -58,6 +59,7 @@ namespace SMSEditor.Data
                 case CompressionType.PSRLELinear: { return DecompressPSRLE(data, 1); }
                 case CompressionType.PSRLEPlanar2: { return DecompressPSRLE(data, 2); }
                 case CompressionType.PSRLEPlanar4: { return DecompressPSRLE(data, 4); }
+                case CompressionType.Sonic1: { return DecompressSonic1(data); }
                 default: return data;
             }
         }
@@ -220,6 +222,123 @@ namespace SMSEditor.Data
                 for (int k = 0; k < planeCount; k++)
                     if (j < bitPlanes[k].Count)
                         decompressed.Add(bitPlanes[k][j]);
+
+            return decompressed.ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        private static byte[] GetWord(ushort word)
+        {
+            byte[] bytes = new byte[2];
+            bytes[0] = (byte)((word >> 0) & 0xff);
+            bytes[1] = (byte)((word >> 8) & 0xff);
+            return bytes;
+        }
+
+        private static ushort GetWord(byte[] word)
+        {
+            return BitConverter.ToUInt16(word, 0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static int GetRow(byte[] data)
+        {
+            return (data[0] << 0) | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static byte[] CompressSonic1(byte[] data)
+        {
+            int count = data.Length / 32;
+            List<int> artData = new List<int>();
+            List<byte> duplicateRows = new List<byte>();
+            List<byte> compressed = new List<byte>();
+            compressed.AddRange(GetWord(0x5948));
+            compressed.AddRange(GetWord((ushort)(count + 8)));
+            compressed.AddRange(GetWord((ushort)(count * 8)));
+            int point = 0;
+            for (int i = 0; i < count; i++)
+            {
+                byte bitmask = 0;
+                for (int rowIndex = 0; rowIndex < 8; rowIndex++)
+                {
+                    bitmask >>= 1;
+                    int row = GetRow(data);
+                    point += 4;
+                    int match = artData.Find(x => x == row);
+                    if (match == 0)
+                        artData.Add(row);
+                    else
+                    {
+                        bitmask |= 0x80;
+                        ushort index = (ushort)(artData.Count + artData.IndexOf(match));
+                        if (index >= 0xF0)
+                            duplicateRows.Add((byte)((index >> 8) | 0xf0));
+
+                        duplicateRows.Add((byte)(index));
+                    }
+                }
+                compressed.Add(bitmask);
+            }
+
+            compressed.InsertRange(4, GetWord((ushort)compressed.Count)); // Art offset
+            compressed.AddRange(duplicateRows);
+            foreach (var row in artData)
+                compressed.AddRange(BitConverter.GetBytes(row));
+
+            return compressed.ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static byte[] DecompressSonic1(byte[] data)
+        {
+            List<byte> decompressed = new List<byte>();
+            var duplicateOffset = GetWord(new byte[] { data[2], data[3] });
+            var artOffset = GetWord(new byte[] { data[4], data[5] });
+            var count = GetWord(new byte[] { data[6], data[7] });
+            int artIndex = 0;
+            int duplicateIndex = 0;
+            for (int i = 8; i < duplicateOffset; i++)
+            {
+                byte row = data[i];
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((row & (1 << j)) == 0)
+                    {
+                        int index = artIndex + artOffset;
+                        if (index >= data.Length)
+                            continue;
+                        decompressed.AddRange(new byte[] { data[index], data[index + 1], data[index + 2], data[index + 3] });
+                        artIndex += 4;
+                    }
+                    else
+                    {
+                        int index = duplicateIndex + duplicateOffset;
+                        int value = ((data[index] >= 240 ? GetWord(new byte[] { data[index + 1], (byte)(data[index] & 0x0F) }) : data[index]));
+                        value = value * 4 + artOffset;
+                        if (value >= data.Length)
+                            continue;
+                        decompressed.AddRange(new byte[] { data[value], data[value + 1], data[value + 2], data[value + 3] });
+                        duplicateIndex += data[index] >= 240 ? 2 : 1;
+                    }
+                }
+            }
 
             return decompressed.ToArray();
         }
