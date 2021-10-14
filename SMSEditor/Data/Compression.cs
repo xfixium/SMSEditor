@@ -227,10 +227,10 @@ namespace SMSEditor.Data
         }
 
         /// <summary>
-        /// 
+        /// Converts word (unsigned short) into 2 bytes
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
+        /// <param name="word">Word (unsigned short) to convert into 2 bytes</param>
+        /// <returns>2 bytes</returns>
         private static byte[] GetWord(ushort word)
         {
             byte[] bytes = new byte[2];
@@ -239,26 +239,31 @@ namespace SMSEditor.Data
             return bytes;
         }
 
+        /// <summary>
+        /// Converts 2 bytes into a word (unsigned short)
+        /// </summary>
+        /// <param name="word">2 bytes to convert into a word</param>
+        /// <returns>A word</returns>
         private static ushort GetWord(byte[] word)
         {
             return BitConverter.ToUInt16(word, 0);
         }
 
         /// <summary>
-        /// 
+        /// Converts given tile row data into an integer
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="data">Byte values to convert to integer</param>
+        /// <returns>An integer (4 bytes)</returns>
         private static int GetRow(byte[] data)
         {
             return (data[0] << 0) | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
         }
 
         /// <summary>
-        /// 
+        /// Sega Master System Sonic 1 compression
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="data">Data to compress</param>
+        /// <returns>Compressed data</returns>
         private static byte[] CompressSonic1(byte[] data)
         {
             int count = data.Length / 32;
@@ -272,20 +277,19 @@ namespace SMSEditor.Data
             for (int i = 0; i < count; i++)
             {
                 byte bitmask = 0;
-                for (int rowIndex = 0; rowIndex < 8; rowIndex++)
+                for (int j = 0; j < 8; j++)
                 {
                     bitmask >>= 1;
-                    int row = GetRow(data);
+                    int row = GetRow(new byte[] { data[point], data[point + 1], data[point + 2], data[point + 3] });
                     point += 4;
-                    int match = artData.Find(x => x == row);
-                    if (match == 0)
+                    if (!artData.Any(x => x == row))
                         artData.Add(row);
                     else
                     {
                         bitmask |= 0x80;
-                        ushort index = (ushort)(artData.Count + artData.IndexOf(match));
+                        ushort index = (ushort)(artData.IndexOf(row));
                         if (index >= 0xF0)
-                            duplicateRows.Add((byte)((index >> 8) | 0xf0));
+                            duplicateRows.Add((byte)((index >> 8) | 0xF0));
 
                         duplicateRows.Add((byte)(index));
                     }
@@ -293,7 +297,7 @@ namespace SMSEditor.Data
                 compressed.Add(bitmask);
             }
 
-            compressed.InsertRange(4, GetWord((ushort)compressed.Count)); // Art offset
+            compressed.InsertRange(4, GetWord((ushort)(compressed.Count + duplicateRows.Count + 2)));
             compressed.AddRange(duplicateRows);
             foreach (var row in artData)
                 compressed.AddRange(BitConverter.GetBytes(row));
@@ -302,16 +306,15 @@ namespace SMSEditor.Data
         }
 
         /// <summary>
-        /// 
+        /// Sega Master System Sonic 1 decompression
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="data">The data to decompress</param>
+        /// <returns>Decompressed data</returns>
         private static byte[] DecompressSonic1(byte[] data)
         {
             List<byte> decompressed = new List<byte>();
             var duplicateOffset = GetWord(new byte[] { data[2], data[3] });
             var artOffset = GetWord(new byte[] { data[4], data[5] });
-            var count = GetWord(new byte[] { data[6], data[7] });
             int artIndex = 0;
             int duplicateIndex = 0;
             for (int i = 8; i < duplicateOffset; i++)
