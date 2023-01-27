@@ -35,9 +35,10 @@ namespace SMSEditor.Data
         /// <summary>
         /// Properties
         /// </summary>
-        public int BGPaletteID { get; set; } = -1;                      // Background palette ID for this Sprite
-        public int SPRPaletteID { get; set; } = -1;                     // Sprite palette ID for this Sprite
-        public List<int> TilemapIDs { get; set; } = new List<int>();    // Tilemaps for the Sprite (Frames)
+        public int BGPaletteID { get; set; } = -1;                          // Background palette ID for this Sprite
+        public int SPRPaletteID { get; set; } = -1;                         // Sprite palette ID for this Sprite
+        public List<int> TilemapIDs { get; set; } = new List<int>();        // Tilemap IDs for the Sprite (Frames)
+        public List<Tilemap> Tilemaps { get; set; } = new List<Tilemap>();  // Tilemaps for the Sprite (Frames)
 
         /// <summary>
         /// Consrtuctors
@@ -50,6 +51,13 @@ namespace SMSEditor.Data
             BGPaletteID = bgPaletteID;
             SPRPaletteID = sprPaletteID;
             TilemapIDs = tilemapIds;
+        }
+        public Sprite(string name, int bgPaletteID, int sprPaletteID, List<Tilemap> tilemaps)
+        {
+            Name = name;
+            BGPaletteID = bgPaletteID;
+            SPRPaletteID = sprPaletteID;
+            Tilemaps = tilemaps;
         }
 
         /// <summary>

@@ -244,6 +244,7 @@ namespace SMSEditor.Controls
                 tilemap.Bounds[3] = _bounds[3];
                 tilemap.CompressionType = GetCompressionType(cbTilemapCompression);
                 tilemap.UseTileAttributes = chkTilemapUseAttributes.Checked;
+                tilemap.VerticalOrientation = chkVerticalOrientation.Checked;
                 tilemap.Length = tilemap.CompressionType == CompressionType.None ? (tilemap.Columns * tilemap.Rows) * (tilemap.UseTileAttributes ? 2 : 1) : (int)nudTilemapLength.Value;
                 tilemap.TilesetID = cbTilemapTileset.SelectedItem == null ? tilemap.TilesetID : (cbTilemapTileset.SelectedItem as GameAsset).ID;
                 tilemap.Tiles = pnlTilemapImage.Tag == null ? tilemap.Tiles : (pnlTilemapImage.Tag as Tilemap).Tiles.DeepClone();
@@ -286,6 +287,7 @@ namespace SMSEditor.Controls
                 nudTilemapLength.Value = tilemap.Length;
                 nudTilemapLength.Enabled = tilemap.CompressionType != CompressionType.None;
                 chkTilemapUseAttributes.Checked = tilemap.UseTileAttributes;
+                chkVerticalOrientation.Checked = tilemap.VerticalOrientation;
                 cbTilemapTileset.SelectedItem = ItemByID(tilemap.TilesetID, cbTilemapTileset);
                 if (cbTilemapTileset.SelectedItem == null && cbTilemapTileset.Items.Count > 0)
                     cbTilemapTileset.SelectedIndex = 0;

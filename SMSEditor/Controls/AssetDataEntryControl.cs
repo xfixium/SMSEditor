@@ -24,6 +24,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using SMSEditor.Data;
@@ -56,12 +57,14 @@ namespace SMSEditor.Controls
                 return;
 
             Control ctrl = sender as Control;
-            if (ctrl.Name == btnDataEntrySave.Name)
+            if (ctrl == btnDataEntrySave)
                 SaveDataEntry();
-            else if (ctrl.Name == btnDataEntryRemove.Name)
+            else if (ctrl == btnDataEntryRemove)
                 RemoveDataEntry();
-            else if (ctrl.Name == btnImportData.Name)
+            else if (ctrl == btnImportData)
                 ImportData();
+            else if (ctrl == btnFormatText)
+                FormatText();
         }
 
         /// <summary>
@@ -287,6 +290,12 @@ namespace SMSEditor.Controls
                 data.AddRange(File.ReadAllBytes(ofd.FileName));
                 DataToText(data);
             }
+        }
+
+        // Formats text with spaces
+        private void FormatText()
+        {
+            txtDataEntry.Text = Regex.Replace(txtDataEntry.Text, ".{2}", "$0 ");
         }
 
         /// <summary>

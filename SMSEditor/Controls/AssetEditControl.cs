@@ -825,7 +825,7 @@ namespace SMSEditor.Controls
         /// Exports all sprite images
         /// </summary>
         /// <param name="path">The target file path</param>
-        public void ExportAllSprites()
+        private void ExportAllSprites()
         {
             if (MessageBox.Show("Are you sure you want to export all sprite images? This may take some time to process.", "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
@@ -840,6 +840,7 @@ namespace SMSEditor.Controls
             }
 
             bool edited = mnuEditedData.Checked;
+            bool useCustomColor = mnuUseCustomColor.Checked;
             foreach (Sprite sprite in _project.Sprites)
             {
                 List<Tilemap> tilemaps = new List<Tilemap>();
@@ -848,6 +849,15 @@ namespace SMSEditor.Controls
 
                 Palette bgPalette = _project.GetPalette(sprite.BGPaletteID, !edited);
                 Palette sprPalette = _project.GetPalette(sprite.SPRPaletteID, !edited);
+                if (useCustomColor)
+                {
+                    if (bgPalette.Colors.Count > 0)
+                        bgPalette.Colors[0] = Color.Lime;
+
+                    if (sprPalette.Colors.Count > 0)
+                        sprPalette.Colors[0] = Color.Lime;
+                }
+
                 foreach (Tilemap tilemap in tilemaps)
                 {
                     try
@@ -868,9 +878,10 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Exports a sprite image
         /// </summary>
-        public void ExportSprite()
+        private void ExportSprite()
         {
             bool edited = mnuEditedData.Checked;
+            bool useCustomColor = mnuUseCustomColor.Checked;
             List<Tilemap> tilemaps = new List<Tilemap>();
             foreach (int id in _sprite.TilemapIDs)
                 tilemaps.Add(_project.GetTilemap(id, !edited));
@@ -892,6 +903,14 @@ namespace SMSEditor.Controls
                     {
                         Palette bgPalette = _project.GetPalette(_bgPalette.ID, !edited);
                         Palette sprPalette = _project.GetPalette(_sprPalette.ID, !edited);
+                        if (useCustomColor)
+                        {
+                            if (bgPalette.Colors.Count > 0)
+                                bgPalette.Colors[0] = Color.Lime;
+
+                            if (sprPalette.Colors.Count > 0)
+                                sprPalette.Colors[0] = Color.Lime;
+                        }
                         using (Bitmap image = BitmapUtility.GetSpriteImageStrip(tilemaps, _project.GetTilesets(tilemaps, !edited), bgPalette, sprPalette))
                         {
                             image.Save(dialog.FileName, ImageFormat.Png);
@@ -908,7 +927,7 @@ namespace SMSEditor.Controls
         /// <summary>
         /// Exports a tileset image
         /// </summary>
-        public void ExportTileset()
+        private void ExportTileset()
         {
             if (!HasAssets || _tileset == null || _selectedPalette == null)
             {
@@ -926,8 +945,16 @@ namespace SMSEditor.Controls
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         bool edited = mnuEditedData.Checked;
+                        bool useCustomColor = mnuUseCustomColor.Checked;
                         Palette palette = _project.GetPalette(_selectedPalette.ID, !edited);
                         Tileset tileset = _project.GetTileset(_tileset.ID, !edited);
+
+                        if (useCustomColor)
+                        {
+                            if (palette.Colors.Count > 0)
+                                palette.Colors[0] = Color.Lime;
+                        }
+
                         using (Bitmap image = BitmapUtility.GetTilesetImage(tileset, palette, 16))
                         {
                             image.Save(dialog.FileName, ImageFormat.Png);

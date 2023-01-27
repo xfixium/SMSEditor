@@ -91,6 +91,17 @@ namespace SMSEditor.Data
     }
 
     /// <summary>
+    /// Describes bits per pixel types
+    /// </summary>
+    public enum BppType
+    {
+        one,
+        Two,
+        Three,
+        Four
+    }
+
+    /// <summary>
     /// Gets a list of enumeration values, using the description as the display member
     /// </summary>
     public static class EnumMethods

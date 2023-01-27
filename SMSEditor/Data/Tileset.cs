@@ -43,6 +43,7 @@ namespace SMSEditor.Data
         public int SpriteID { get; set; } = -1;                                             // Optional sprite id, if creating alternates using the same asset
         public int TileCount { get { return Pixels.Count <= 0 ? 0 : Pixels.Count / 64; } }  // The number of 8 x 8 tiles the tileset has
         public int PaletteID { get; set; } = -1;                                            // The display palette
+        public int BitsPerPixel { get; set; } = 4;                                          // Bits per pixel
         public bool Masked { get; set; } = false;                                           // If the pixel data is offset by 2 times the value, except when the value is zero
         public List<byte> Pixels { get; set; } = new List<byte>();                          // The raw pixel data, the byte value will be an index of 0 - 15 (16 colors)
 

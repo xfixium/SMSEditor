@@ -64,6 +64,7 @@
             this.lblTilemapOffset = new System.Windows.Forms.Label();
             this.lblTilemapTileset = new System.Windows.Forms.Label();
             this.nudTilemapID = new System.Windows.Forms.NumericUpDown();
+            this.chkVerticalOrientation = new System.Windows.Forms.CheckBox();
             this.tpnlTilemapsMain.SuspendLayout();
             this.grpTilemapList.SuspendLayout();
             this.pnlTilemapButtons.SuspendLayout();
@@ -198,6 +199,7 @@
             // 
             // pnlTilemapOptions
             // 
+            this.pnlTilemapOptions.Controls.Add(this.chkVerticalOrientation);
             this.pnlTilemapOptions.Controls.Add(this.chkTilemapPlaceholder);
             this.pnlTilemapOptions.Controls.Add(this.nudTilemapHex);
             this.pnlTilemapOptions.Controls.Add(this.lblTilemapHex);
@@ -235,7 +237,7 @@
             // chkTilemapPlaceholder
             // 
             this.chkTilemapPlaceholder.AutoSize = true;
-            this.chkTilemapPlaceholder.Location = new System.Drawing.Point(0, 448);
+            this.chkTilemapPlaceholder.Location = new System.Drawing.Point(0, 464);
             this.chkTilemapPlaceholder.Name = "chkTilemapPlaceholder";
             this.chkTilemapPlaceholder.Size = new System.Drawing.Size(122, 17);
             this.chkTilemapPlaceholder.TabIndex = 26;
@@ -302,7 +304,7 @@
             // 
             // grpTilemapDivider
             // 
-            this.grpTilemapDivider.Location = new System.Drawing.Point(0, 260);
+            this.grpTilemapDivider.Location = new System.Drawing.Point(0, 276);
             this.grpTilemapDivider.Name = "grpTilemapDivider";
             this.grpTilemapDivider.Size = new System.Drawing.Size(176, 5);
             this.grpTilemapDivider.TabIndex = 19;
@@ -310,7 +312,7 @@
             // 
             // pnlTilemapSPRPalette
             // 
-            this.pnlTilemapSPRPalette.Location = new System.Drawing.Point(0, 400);
+            this.pnlTilemapSPRPalette.Location = new System.Drawing.Point(0, 416);
             this.pnlTilemapSPRPalette.Margin = new System.Windows.Forms.Padding(0);
             this.pnlTilemapSPRPalette.Name = "pnlTilemapSPRPalette";
             this.pnlTilemapSPRPalette.ReadOnly = true;
@@ -319,7 +321,7 @@
             // 
             // pnlTilemapBGPalette
             // 
-            this.pnlTilemapBGPalette.Location = new System.Drawing.Point(0, 312);
+            this.pnlTilemapBGPalette.Location = new System.Drawing.Point(0, 328);
             this.pnlTilemapBGPalette.Margin = new System.Windows.Forms.Padding(0);
             this.pnlTilemapBGPalette.Name = "pnlTilemapBGPalette";
             this.pnlTilemapBGPalette.ReadOnly = true;
@@ -363,7 +365,7 @@
             // 
             this.cbTilemapSPRPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTilemapSPRPalette.FormattingEnabled = true;
-            this.cbTilemapSPRPalette.Location = new System.Drawing.Point(0, 376);
+            this.cbTilemapSPRPalette.Location = new System.Drawing.Point(0, 392);
             this.cbTilemapSPRPalette.Name = "cbTilemapSPRPalette";
             this.cbTilemapSPRPalette.Size = new System.Drawing.Size(168, 21);
             this.cbTilemapSPRPalette.TabIndex = 24;
@@ -425,7 +427,7 @@
             // lblTilemapSPRPalette
             // 
             this.lblTilemapSPRPalette.AutoSize = true;
-            this.lblTilemapSPRPalette.Location = new System.Drawing.Point(0, 360);
+            this.lblTilemapSPRPalette.Location = new System.Drawing.Point(0, 376);
             this.lblTilemapSPRPalette.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilemapSPRPalette.Name = "lblTilemapSPRPalette";
             this.lblTilemapSPRPalette.Size = new System.Drawing.Size(78, 13);
@@ -459,7 +461,7 @@
             // 
             this.cbTilemapBGPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTilemapBGPalette.FormattingEnabled = true;
-            this.cbTilemapBGPalette.Location = new System.Drawing.Point(0, 288);
+            this.cbTilemapBGPalette.Location = new System.Drawing.Point(0, 304);
             this.cbTilemapBGPalette.Name = "cbTilemapBGPalette";
             this.cbTilemapBGPalette.Size = new System.Drawing.Size(168, 21);
             this.cbTilemapBGPalette.TabIndex = 21;
@@ -498,7 +500,7 @@
             // lblTilemapBGPalette
             // 
             this.lblTilemapBGPalette.AutoSize = true;
-            this.lblTilemapBGPalette.Location = new System.Drawing.Point(0, 272);
+            this.lblTilemapBGPalette.Location = new System.Drawing.Point(0, 288);
             this.lblTilemapBGPalette.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilemapBGPalette.Name = "lblTilemapBGPalette";
             this.lblTilemapBGPalette.Size = new System.Drawing.Size(110, 13);
@@ -551,6 +553,17 @@
             this.nudTilemapID.Size = new System.Drawing.Size(80, 22);
             this.nudTilemapID.TabIndex = 1;
             this.nudTilemapID.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
+            // 
+            // chkVerticalOrientation
+            // 
+            this.chkVerticalOrientation.AutoSize = true;
+            this.chkVerticalOrientation.Location = new System.Drawing.Point(0, 256);
+            this.chkVerticalOrientation.Margin = new System.Windows.Forms.Padding(0);
+            this.chkVerticalOrientation.Name = "chkVerticalOrientation";
+            this.chkVerticalOrientation.Size = new System.Drawing.Size(126, 17);
+            this.chkVerticalOrientation.TabIndex = 27;
+            this.chkVerticalOrientation.Text = "Vertical Orientation";
+            this.chkVerticalOrientation.UseVisualStyleBackColor = true;
             // 
             // AssetTilemapControl
             // 
@@ -613,5 +626,6 @@
         private System.Windows.Forms.Label lblTilemapHex;
         private System.Windows.Forms.NumericUpDown nudTilemapHex;
         private System.Windows.Forms.CheckBox chkTilemapPlaceholder;
+        private System.Windows.Forms.CheckBox chkVerticalOrientation;
     }
 }

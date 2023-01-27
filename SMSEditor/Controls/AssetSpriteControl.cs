@@ -184,7 +184,7 @@ namespace SMSEditor.Controls
             if (MessageBox.Show("Are you sure you want to remove sprite: " + txtSpriteName.Text + "?", "", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            _project.Sprites.Remove(_project.Sprites.Find(x => x.ID == (lstSprites.SelectedItem as GameAsset).ID));
+            _project.RemoveSprite((lstSprites.SelectedItem as GameAsset).ID);
             LoadData(_project);
             OnAssetsChanged();
         }

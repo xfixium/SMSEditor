@@ -54,6 +54,11 @@
             this.lblTilesetOffset = new System.Windows.Forms.Label();
             this.lblTilesetCompression = new System.Windows.Forms.Label();
             this.cbTilesetPalette = new System.Windows.Forms.ComboBox();
+            this.lblTilesetBpp = new System.Windows.Forms.Label();
+            this.rad1Bpp = new System.Windows.Forms.RadioButton();
+            this.rad3Bpp = new System.Windows.Forms.RadioButton();
+            this.rad2Bpp = new System.Windows.Forms.RadioButton();
+            this.rad4Bpp = new System.Windows.Forms.RadioButton();
             this.tpnlTilesetsMain.SuspendLayout();
             this.grpTilesetList.SuspendLayout();
             this.pnlTilesetButtons.SuspendLayout();
@@ -129,9 +134,9 @@
             this.lstTilesets.HorizontalExtent = 170;
             this.lstTilesets.IntegralHeight = false;
             this.lstTilesets.ItemHeight = 15;
-            this.lstTilesets.Location = new System.Drawing.Point(12, 87);
+            this.lstTilesets.Location = new System.Drawing.Point(12, 89);
             this.lstTilesets.Name = "lstTilesets";
-            this.lstTilesets.Size = new System.Drawing.Size(172, 445);
+            this.lstTilesets.Size = new System.Drawing.Size(172, 443);
             this.lstTilesets.TabIndex = 1;
             this.lstTilesets.TextOffsetX = 2;
             this.lstTilesets.TextOffsetY = -1;
@@ -143,7 +148,7 @@
             this.pnlTilesetButtons.Controls.Add(this.btnTilesetSave);
             this.pnlTilesetButtons.Controls.Add(this.btnTilesetValidate);
             this.pnlTilesetButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTilesetButtons.Location = new System.Drawing.Point(12, 17);
+            this.pnlTilesetButtons.Location = new System.Drawing.Point(12, 19);
             this.pnlTilesetButtons.Name = "pnlTilesetButtons";
             this.pnlTilesetButtons.Size = new System.Drawing.Size(172, 70);
             this.pnlTilesetButtons.TabIndex = 0;
@@ -186,6 +191,11 @@
             // 
             // pnlTilesetOptions
             // 
+            this.pnlTilesetOptions.Controls.Add(this.rad4Bpp);
+            this.pnlTilesetOptions.Controls.Add(this.rad2Bpp);
+            this.pnlTilesetOptions.Controls.Add(this.rad3Bpp);
+            this.pnlTilesetOptions.Controls.Add(this.rad1Bpp);
+            this.pnlTilesetOptions.Controls.Add(this.lblTilesetBpp);
             this.pnlTilesetOptions.Controls.Add(this.nudTilesetHex);
             this.pnlTilesetOptions.Controls.Add(this.lblTilesetHex);
             this.pnlTilesetOptions.Controls.Add(this.grpTilesetDivider);
@@ -220,7 +230,7 @@
             0,
             0});
             this.nudTilesetHex.Name = "nudTilesetHex";
-            this.nudTilesetHex.Size = new System.Drawing.Size(80, 20);
+            this.nudTilesetHex.Size = new System.Drawing.Size(80, 22);
             this.nudTilesetHex.TabIndex = 3;
             this.nudTilesetHex.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
             // 
@@ -230,14 +240,14 @@
             this.lblTilesetHex.Location = new System.Drawing.Point(88, 0);
             this.lblTilesetHex.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetHex.Name = "lblTilesetHex";
-            this.lblTilesetHex.Size = new System.Drawing.Size(75, 13);
+            this.lblTilesetHex.Size = new System.Drawing.Size(80, 13);
             this.lblTilesetHex.TabIndex = 2;
             this.lblTilesetHex.Text = "Position (Hex):";
             this.lblTilesetHex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // grpTilesetDivider
             // 
-            this.grpTilesetDivider.Location = new System.Drawing.Point(-2, 192);
+            this.grpTilesetDivider.Location = new System.Drawing.Point(-2, 240);
             this.grpTilesetDivider.Name = "grpTilesetDivider";
             this.grpTilesetDivider.Size = new System.Drawing.Size(176, 5);
             this.grpTilesetDivider.TabIndex = 13;
@@ -249,7 +259,7 @@
             this.lblTilesetLength.Location = new System.Drawing.Point(0, 120);
             this.lblTilesetLength.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetLength.Name = "lblTilesetLength";
-            this.lblTilesetLength.Size = new System.Drawing.Size(43, 13);
+            this.lblTilesetLength.Size = new System.Drawing.Size(46, 13);
             this.lblTilesetLength.TabIndex = 8;
             this.lblTilesetLength.Text = "Length:";
             this.lblTilesetLength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -257,9 +267,9 @@
             // chkTilesetMasked
             // 
             this.chkTilesetMasked.AutoSize = true;
-            this.chkTilesetMasked.Location = new System.Drawing.Point(0, 168);
+            this.chkTilesetMasked.Location = new System.Drawing.Point(0, 216);
             this.chkTilesetMasked.Name = "chkTilesetMasked";
-            this.chkTilesetMasked.Size = new System.Drawing.Size(64, 17);
+            this.chkTilesetMasked.Size = new System.Drawing.Size(66, 17);
             this.chkTilesetMasked.TabIndex = 12;
             this.chkTilesetMasked.Text = "Masked";
             this.chkTilesetMasked.UseVisualStyleBackColor = true;
@@ -270,7 +280,7 @@
             this.lblTilesetID.Location = new System.Drawing.Point(0, 0);
             this.lblTilesetID.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetID.Name = "lblTilesetID";
-            this.lblTilesetID.Size = new System.Drawing.Size(67, 13);
+            this.lblTilesetID.Size = new System.Drawing.Size(72, 13);
             this.lblTilesetID.TabIndex = 0;
             this.lblTilesetID.Text = "Position (ID):";
             this.lblTilesetID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -289,7 +299,7 @@
             0,
             0});
             this.nudTilesetLength.Name = "nudTilesetLength";
-            this.nudTilesetLength.Size = new System.Drawing.Size(80, 20);
+            this.nudTilesetLength.Size = new System.Drawing.Size(80, 22);
             this.nudTilesetLength.TabIndex = 9;
             this.nudTilesetLength.Value = new decimal(new int[] {
             32,
@@ -302,12 +312,12 @@
             this.txtTilesetName.Location = new System.Drawing.Point(0, 56);
             this.txtTilesetName.MaxLength = 50;
             this.txtTilesetName.Name = "txtTilesetName";
-            this.txtTilesetName.Size = new System.Drawing.Size(168, 20);
+            this.txtTilesetName.Size = new System.Drawing.Size(168, 22);
             this.txtTilesetName.TabIndex = 5;
             // 
             // pnlTilesetPalette
             // 
-            this.pnlTilesetPalette.Location = new System.Drawing.Point(0, 244);
+            this.pnlTilesetPalette.Location = new System.Drawing.Point(0, 292);
             this.pnlTilesetPalette.Margin = new System.Windows.Forms.Padding(0);
             this.pnlTilesetPalette.Name = "pnlTilesetPalette";
             this.pnlTilesetPalette.ReadOnly = true;
@@ -332,7 +342,7 @@
             0,
             0});
             this.nudTilesetOffset.Name = "nudTilesetOffset";
-            this.nudTilesetOffset.Size = new System.Drawing.Size(80, 20);
+            this.nudTilesetOffset.Size = new System.Drawing.Size(80, 22);
             this.nudTilesetOffset.TabIndex = 11;
             // 
             // lblTilesetName
@@ -341,7 +351,7 @@
             this.lblTilesetName.Location = new System.Drawing.Point(0, 40);
             this.lblTilesetName.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetName.Name = "lblTilesetName";
-            this.lblTilesetName.Size = new System.Drawing.Size(72, 13);
+            this.lblTilesetName.Size = new System.Drawing.Size(75, 13);
             this.lblTilesetName.TabIndex = 4;
             this.lblTilesetName.Text = "Tileset Name:";
             this.lblTilesetName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -349,10 +359,10 @@
             // lblTilesetPalette
             // 
             this.lblTilesetPalette.AutoSize = true;
-            this.lblTilesetPalette.Location = new System.Drawing.Point(0, 204);
+            this.lblTilesetPalette.Location = new System.Drawing.Point(0, 252);
             this.lblTilesetPalette.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetPalette.Name = "lblTilesetPalette";
-            this.lblTilesetPalette.Size = new System.Drawing.Size(43, 13);
+            this.lblTilesetPalette.Size = new System.Drawing.Size(45, 13);
             this.lblTilesetPalette.TabIndex = 14;
             this.lblTilesetPalette.Text = "Palette:";
             this.lblTilesetPalette.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -366,7 +376,7 @@
             0,
             0});
             this.nudTilesetID.Name = "nudTilesetID";
-            this.nudTilesetID.Size = new System.Drawing.Size(80, 20);
+            this.nudTilesetID.Size = new System.Drawing.Size(80, 22);
             this.nudTilesetID.TabIndex = 1;
             this.nudTilesetID.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
             // 
@@ -376,7 +386,7 @@
             this.lblTilesetOffset.Location = new System.Drawing.Point(88, 120);
             this.lblTilesetOffset.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetOffset.Name = "lblTilesetOffset";
-            this.lblTilesetOffset.Size = new System.Drawing.Size(38, 13);
+            this.lblTilesetOffset.Size = new System.Drawing.Size(42, 13);
             this.lblTilesetOffset.TabIndex = 10;
             this.lblTilesetOffset.Text = "Offset:";
             this.lblTilesetOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -387,7 +397,7 @@
             this.lblTilesetCompression.Location = new System.Drawing.Point(0, 80);
             this.lblTilesetCompression.Margin = new System.Windows.Forms.Padding(0);
             this.lblTilesetCompression.Name = "lblTilesetCompression";
-            this.lblTilesetCompression.Size = new System.Drawing.Size(70, 13);
+            this.lblTilesetCompression.Size = new System.Drawing.Size(77, 13);
             this.lblTilesetCompression.TabIndex = 6;
             this.lblTilesetCompression.Text = "Compression:";
             this.lblTilesetCompression.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -396,17 +406,74 @@
             // 
             this.cbTilesetPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTilesetPalette.FormattingEnabled = true;
-            this.cbTilesetPalette.Location = new System.Drawing.Point(0, 220);
+            this.cbTilesetPalette.Location = new System.Drawing.Point(0, 268);
             this.cbTilesetPalette.Name = "cbTilesetPalette";
             this.cbTilesetPalette.Size = new System.Drawing.Size(168, 21);
             this.cbTilesetPalette.TabIndex = 15;
             this.cbTilesetPalette.SelectedIndexChanged += new System.EventHandler(this.cbAsset_SelectedIndexChanged);
+            // 
+            // lblTilesetBpp
+            // 
+            this.lblTilesetBpp.AutoSize = true;
+            this.lblTilesetBpp.Location = new System.Drawing.Point(0, 160);
+            this.lblTilesetBpp.Margin = new System.Windows.Forms.Padding(0);
+            this.lblTilesetBpp.Name = "lblTilesetBpp";
+            this.lblTilesetBpp.Size = new System.Drawing.Size(73, 13);
+            this.lblTilesetBpp.TabIndex = 17;
+            this.lblTilesetBpp.Text = "Bits Per Pixel:";
+            this.lblTilesetBpp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rad1Bpp
+            // 
+            this.rad1Bpp.AutoSize = true;
+            this.rad1Bpp.Location = new System.Drawing.Point(0, 176);
+            this.rad1Bpp.Name = "rad1Bpp";
+            this.rad1Bpp.Size = new System.Drawing.Size(55, 17);
+            this.rad1Bpp.TabIndex = 18;
+            this.rad1Bpp.TabStop = true;
+            this.rad1Bpp.Text = "1 bpp";
+            this.rad1Bpp.UseVisualStyleBackColor = true;
+            // 
+            // rad3Bpp
+            // 
+            this.rad3Bpp.AutoSize = true;
+            this.rad3Bpp.Location = new System.Drawing.Point(0, 192);
+            this.rad3Bpp.Name = "rad3Bpp";
+            this.rad3Bpp.Size = new System.Drawing.Size(55, 17);
+            this.rad3Bpp.TabIndex = 19;
+            this.rad3Bpp.TabStop = true;
+            this.rad3Bpp.Text = "3 bpp";
+            this.rad3Bpp.UseVisualStyleBackColor = true;
+            // 
+            // rad2Bpp
+            // 
+            this.rad2Bpp.AutoSize = true;
+            this.rad2Bpp.Location = new System.Drawing.Point(88, 176);
+            this.rad2Bpp.Name = "rad2Bpp";
+            this.rad2Bpp.Size = new System.Drawing.Size(55, 17);
+            this.rad2Bpp.TabIndex = 20;
+            this.rad2Bpp.TabStop = true;
+            this.rad2Bpp.Text = "2 bpp";
+            this.rad2Bpp.UseVisualStyleBackColor = true;
+            // 
+            // rad4Bpp
+            // 
+            this.rad4Bpp.AutoSize = true;
+            this.rad4Bpp.Checked = true;
+            this.rad4Bpp.Location = new System.Drawing.Point(88, 192);
+            this.rad4Bpp.Name = "rad4Bpp";
+            this.rad4Bpp.Size = new System.Drawing.Size(55, 17);
+            this.rad4Bpp.TabIndex = 21;
+            this.rad4Bpp.TabStop = true;
+            this.rad4Bpp.Text = "4 bpp";
+            this.rad4Bpp.UseVisualStyleBackColor = true;
             // 
             // AssetTilesetControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tpnlTilesetsMain);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AssetTilesetControl";
             this.Size = new System.Drawing.Size(810, 544);
             this.tpnlTilesetsMain.ResumeLayout(false);
@@ -450,5 +517,10 @@
         private System.Windows.Forms.GroupBox grpTilesetDivider;
         private System.Windows.Forms.Label lblTilesetHex;
         private System.Windows.Forms.NumericUpDown nudTilesetHex;
+        private System.Windows.Forms.Label lblTilesetBpp;
+        private System.Windows.Forms.RadioButton rad4Bpp;
+        private System.Windows.Forms.RadioButton rad2Bpp;
+        private System.Windows.Forms.RadioButton rad3Bpp;
+        private System.Windows.Forms.RadioButton rad1Bpp;
     }
 }

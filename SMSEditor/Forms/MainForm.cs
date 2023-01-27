@@ -73,6 +73,7 @@ namespace SMSEditor.Forms
                     if (!_project.Palettes.Any(x => x.ID < -1))
                         _project.Palettes.InsertRange(0, Palette.GetDefaultPalettes());
                     LoadData();
+                    Text = "SMS Editor - " + Path.GetFileName(ofd.FileName);
                 }
             }
         }

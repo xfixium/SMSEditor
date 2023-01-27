@@ -172,7 +172,7 @@ namespace SMSEditor.Forms
 
                 tilemap.SetStatus(null);
                 _project.SetTilemap(tilemap);
-                var tileset = _project.GetTileset(tilemap.TilesetID, true).DeepClone();
+                var tileset = _project.GetTileset(tilemap.TilesetID, false).DeepClone();
                 tileset.Pixels = BitmapUtility.PixelTilesToSMSTiles(pixelTiles, pnlPalettes.BGImport, pnlPalettes.SPRImport);
                 tileset.SetStatus(null);
                 _project.SetTileset(tileset);
@@ -269,7 +269,7 @@ namespace SMSEditor.Forms
                 pnlImage.Index = _frame;
                 pnlColors_ColorShifted();
             }
-            catch
+            catch (Exception ex)
             {
                 MessageBox.Show("There was an issue importing the image. Make sure the image is the correct size.");
             }

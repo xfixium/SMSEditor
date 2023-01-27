@@ -109,9 +109,9 @@ namespace SMSEditor.Data
                 data = Compression.Decompress(tileset.CompressionType, data);
                 tileset.ActualLength = data.Length;
                 byte[] row = new byte[4];
-                for (int i = 0; i < data.Length; i += 4)
+                for (int i = 0; i < data.Length; i += tileset.BitsPerPixel)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < tileset.BitsPerPixel; j++)
                         if (i + j < data.Length)
                             row[j] = data[i + j];
                         else
@@ -222,7 +222,7 @@ namespace SMSEditor.Data
             {
                 Palette edit = PaletteEdits.Find(x => x.ID == id);
                 if (edit != null)
-                    return edit;
+                    return edit.DeepClone();
             }
 
             var original = Palettes.Find(x => x.ID == id);
@@ -403,6 +403,29 @@ namespace SMSEditor.Data
         }
 
         /// <summary>
+        /// Removes the given sprite
+        /// </summary>
+        /// <param name="id">The sprite id</param>
+        public void RemoveSprite(int id)
+        {
+            var sprite = Sprites.Find(x => x.ID == id);
+            if (sprite == null)
+                return;
+
+            foreach (int tilemapID in sprite.TilemapIDs)
+            {
+                var tilemap = TilemapEdits.Find(x => x.ID == tilemapID);
+                if (tilemap != null)
+                {
+                    TilesetEdits.RemoveAll(x => x.ID == tilemap.TilesetID);
+                    TilemapEdits.RemoveAll(x => x.ID == tilemap.ID);
+                }
+            }
+
+            Sprites.Remove(sprite);
+        }
+
+        /// <summary>
         /// Removes any edits made to the given sprite
         /// </summary>
         /// <param name="id">The sprite id</param>
@@ -488,14 +511,19 @@ namespace SMSEditor.Data
                 if (tileset.Disable || tileset.ID < 0)
                     continue;
 
+                var derp = "";
+                if (tileset.Name.ToLower().Contains("end screen 2"))
+                    derp = tileset.Name;
+
                 int position = tileset.Location;
                 byte[] bytes = tileset.GetTilesetData(false, true, tileset.Override);
-                if (position > data.Count - 1)
+                if (position + bytes.Length > data.Count - 1)
                 {
-                    var length = (position - data.Count) + bytes.Length;
+                    var length = (position + bytes.Length - data.Count);
                     for (int i = 0; i < length; i++)
                         data.Add(0);
                 }
+
                 data.RemoveRange(position, bytes.Length);
                 data.InsertRange(position, bytes);
 
@@ -511,12 +539,13 @@ namespace SMSEditor.Data
 
                 int position = tilemap.Location;
                 byte[] bytes = tilemap.GetTilemapData(false, true, tilemap.Override);
-                if (position > data.Count - 1)
+                if (position + bytes.Length > data.Count - 1)
                 {
-                    var length = (position - data.Count) + bytes.Length;
+                    var length = (position + bytes.Length - data.Count);
                     for (int i = 0; i < length; i++)
                         data.Add(0);
                 }
+
                 data.RemoveRange(position, bytes.Length);
                 data.InsertRange(position, bytes);
 

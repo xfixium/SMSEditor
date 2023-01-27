@@ -44,6 +44,7 @@ namespace SMSEditor.Data
         public byte[] Bounds { get; set; } = new byte[] { 0, 0, 0, 0 };         // Bounding position offset rectangle
         public bool UseTileAttributes { get; set; } = false;                    // If the tilemap tiles use attribute flags
         public bool PlaceHolder { get; set; } = false;                          // If the tilemap is a placeholder for the tileset
+        public bool VerticalOrientation { get; set; } = false;                  // If the tilemap data is stored in a vertical orientation
         public int TilesetID { get; set; } = -1;                                // The tileset for this tilemap
         public int BGPaletteID { get; set; } = -1;                              // The display BG palette
         public int SPRPaletteID { get; set; } = -1;                             // The display SPR palette

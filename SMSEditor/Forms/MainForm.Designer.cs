@@ -34,6 +34,7 @@
             this.mnuOpenROM = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuExportBinarySMS = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTools = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuValidateOutput = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,24 +47,23 @@
             this.pnlMain = new System.Windows.Forms.Panel();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabSprites = new System.Windows.Forms.TabPage();
+            this.pnlSprites = new SMSEditor.Controls.AssetSpriteControl();
             this.tabPalettes = new System.Windows.Forms.TabPage();
+            this.pnlPalettes = new SMSEditor.Controls.AssetPaletteControl();
             this.tabTilesets = new System.Windows.Forms.TabPage();
+            this.pnlTilesets = new SMSEditor.Controls.AssetTilesetControl();
             this.tabTilemaps = new System.Windows.Forms.TabPage();
+            this.pnlTilemaps = new SMSEditor.Controls.AssetTilemapControl();
             this.tabSpriteEdits = new System.Windows.Forms.TabPage();
+            this.pnlSpriteEdit = new SMSEditor.Controls.AssetEditControl();
             this.tabDataEntries = new System.Windows.Forms.TabPage();
+            this.pnlDataInjection = new SMSEditor.Controls.AssetDataEntryControl();
             this.tabRomImage = new System.Windows.Forms.TabPage();
+            this.pnlRomImage = new SMSEditor.Controls.RomImageControl();
             this.tabHexView = new System.Windows.Forms.TabPage();
+            this.pnlRomHex = new SMSEditor.Controls.RomHexControl();
             this.tabOutputMap = new System.Windows.Forms.TabPage();
             this.lblStarting = new System.Windows.Forms.Label();
-            this.mnuExportBinarySMS = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlSprites = new SMSEditor.Controls.AssetSpriteControl();
-            this.pnlPalettes = new SMSEditor.Controls.AssetPaletteControl();
-            this.pnlTilesets = new SMSEditor.Controls.AssetTilesetControl();
-            this.pnlTilemaps = new SMSEditor.Controls.AssetTilemapControl();
-            this.pnlSpriteEdit = new SMSEditor.Controls.AssetEditControl();
-            this.pnlDataInjection = new SMSEditor.Controls.AssetDataEntryControl();
-            this.pnlRomImage = new SMSEditor.Controls.RomImageControl();
-            this.pnlRomHex = new SMSEditor.Controls.RomHexControl();
             this.mnuMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -135,6 +135,14 @@
             this.mnuSeparator1.Name = "mnuSeparator1";
             this.mnuSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
+            // mnuExportBinarySMS
+            // 
+            this.mnuExportBinarySMS.Image = global::SMSEditor.Properties.Resources.export_bin;
+            this.mnuExportBinarySMS.Name = "mnuExportBinarySMS";
+            this.mnuExportBinarySMS.Size = new System.Drawing.Size(186, 22);
+            this.mnuExportBinarySMS.Text = "Create ROM (.sms)";
+            this.mnuExportBinarySMS.Click += new System.EventHandler(this.mnuExport_Click);
+            // 
             // mnuExit
             // 
             this.mnuExit.Image = global::SMSEditor.Properties.Resources.exit;
@@ -155,7 +163,7 @@
             // mnuValidateOutput
             // 
             this.mnuValidateOutput.Name = "mnuValidateOutput";
-            this.mnuValidateOutput.Size = new System.Drawing.Size(180, 22);
+            this.mnuValidateOutput.Size = new System.Drawing.Size(156, 22);
             this.mnuValidateOutput.Text = "Validate Output";
             // 
             // mnuHelp
@@ -250,6 +258,18 @@
             this.tabSprites.TabIndex = 1;
             this.tabSprites.Text = "Sprites";
             // 
+            // pnlSprites
+            // 
+            this.pnlSprites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSprites.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlSprites.Location = new System.Drawing.Point(3, 3);
+            this.pnlSprites.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlSprites.Name = "pnlSprites";
+            this.pnlSprites.Size = new System.Drawing.Size(810, 545);
+            this.pnlSprites.TabIndex = 0;
+            this.pnlSprites.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlSprites_AssetsChanged);
+            this.pnlSprites.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
+            // 
             // tabPalettes
             // 
             this.tabPalettes.BackColor = System.Drawing.SystemColors.Control;
@@ -260,6 +280,18 @@
             this.tabPalettes.Size = new System.Drawing.Size(816, 551);
             this.tabPalettes.TabIndex = 2;
             this.tabPalettes.Text = "Palettes";
+            // 
+            // pnlPalettes
+            // 
+            this.pnlPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPalettes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPalettes.Location = new System.Drawing.Point(3, 3);
+            this.pnlPalettes.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlPalettes.Name = "pnlPalettes";
+            this.pnlPalettes.Size = new System.Drawing.Size(810, 545);
+            this.pnlPalettes.TabIndex = 0;
+            this.pnlPalettes.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlPalettes_AssetsChanged);
+            this.pnlPalettes.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
             // 
             // tabTilesets
             // 
@@ -272,6 +304,17 @@
             this.tabTilesets.TabIndex = 3;
             this.tabTilesets.Text = "Tilesets";
             // 
+            // pnlTilesets
+            // 
+            this.pnlTilesets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTilesets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlTilesets.Location = new System.Drawing.Point(3, 3);
+            this.pnlTilesets.Name = "pnlTilesets";
+            this.pnlTilesets.Size = new System.Drawing.Size(810, 545);
+            this.pnlTilesets.TabIndex = 0;
+            this.pnlTilesets.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlTilesets_AssetsChanged);
+            this.pnlTilesets.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
+            // 
             // tabTilemaps
             // 
             this.tabTilemaps.BackColor = System.Drawing.SystemColors.Control;
@@ -282,6 +325,17 @@
             this.tabTilemaps.Size = new System.Drawing.Size(816, 551);
             this.tabTilemaps.TabIndex = 4;
             this.tabTilemaps.Text = "Tilemaps";
+            // 
+            // pnlTilemaps
+            // 
+            this.pnlTilemaps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTilemaps.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlTilemaps.Location = new System.Drawing.Point(3, 3);
+            this.pnlTilemaps.Name = "pnlTilemaps";
+            this.pnlTilemaps.Size = new System.Drawing.Size(810, 545);
+            this.pnlTilemaps.TabIndex = 0;
+            this.pnlTilemaps.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlTilemaps_AssetsChanged);
+            this.pnlTilemaps.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
             // 
             // tabSpriteEdits
             // 
@@ -294,6 +348,16 @@
             this.tabSpriteEdits.TabIndex = 5;
             this.tabSpriteEdits.Text = "Sprite Edits";
             // 
+            // pnlSpriteEdit
+            // 
+            this.pnlSpriteEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSpriteEdit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlSpriteEdit.Location = new System.Drawing.Point(3, 3);
+            this.pnlSpriteEdit.Name = "pnlSpriteEdit";
+            this.pnlSpriteEdit.Size = new System.Drawing.Size(810, 545);
+            this.pnlSpriteEdit.TabIndex = 0;
+            this.pnlSpriteEdit.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
+            // 
             // tabDataEntries
             // 
             this.tabDataEntries.BackColor = System.Drawing.SystemColors.Control;
@@ -304,6 +368,16 @@
             this.tabDataEntries.Size = new System.Drawing.Size(816, 551);
             this.tabDataEntries.TabIndex = 6;
             this.tabDataEntries.Text = "Data Entries";
+            // 
+            // pnlDataInjection
+            // 
+            this.pnlDataInjection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDataInjection.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlDataInjection.Location = new System.Drawing.Point(3, 3);
+            this.pnlDataInjection.Name = "pnlDataInjection";
+            this.pnlDataInjection.Size = new System.Drawing.Size(810, 545);
+            this.pnlDataInjection.TabIndex = 0;
+            this.pnlDataInjection.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
             // 
             // tabRomImage
             // 
@@ -316,6 +390,14 @@
             this.tabRomImage.TabIndex = 7;
             this.tabRomImage.Text = "ROM Image";
             // 
+            // pnlRomImage
+            // 
+            this.pnlRomImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlRomImage.Location = new System.Drawing.Point(3, 3);
+            this.pnlRomImage.Name = "pnlRomImage";
+            this.pnlRomImage.Size = new System.Drawing.Size(810, 545);
+            this.pnlRomImage.TabIndex = 0;
+            // 
             // tabHexView
             // 
             this.tabHexView.BackColor = System.Drawing.SystemColors.Control;
@@ -326,6 +408,14 @@
             this.tabHexView.Size = new System.Drawing.Size(816, 551);
             this.tabHexView.TabIndex = 8;
             this.tabHexView.Text = "Hex View";
+            // 
+            // pnlRomHex
+            // 
+            this.pnlRomHex.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlRomHex.Location = new System.Drawing.Point(3, 3);
+            this.pnlRomHex.Name = "pnlRomHex";
+            this.pnlRomHex.Size = new System.Drawing.Size(810, 545);
+            this.pnlRomHex.TabIndex = 0;
             // 
             // tabOutputMap
             // 
@@ -347,95 +437,6 @@
             this.lblStarting.Text = "From the File menu, select Open ROM for a new project, select Open Project for an" +
     " existing one.";
             this.lblStarting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // mnuExportBinarySMS
-            // 
-            this.mnuExportBinarySMS.Image = global::SMSEditor.Properties.Resources.export_bin;
-            this.mnuExportBinarySMS.Name = "mnuExportBinarySMS";
-            this.mnuExportBinarySMS.Size = new System.Drawing.Size(186, 22);
-            this.mnuExportBinarySMS.Text = "Create ROM (.sms)";
-            this.mnuExportBinarySMS.Click += new System.EventHandler(this.mnuExport_Click);
-            // 
-            // pnlSprites
-            // 
-            this.pnlSprites.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSprites.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlSprites.Location = new System.Drawing.Point(3, 3);
-            this.pnlSprites.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlSprites.Name = "pnlSprites";
-            this.pnlSprites.Size = new System.Drawing.Size(810, 545);
-            this.pnlSprites.TabIndex = 0;
-            this.pnlSprites.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlSprites_AssetsChanged);
-            this.pnlSprites.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlPalettes
-            // 
-            this.pnlPalettes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPalettes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlPalettes.Location = new System.Drawing.Point(3, 3);
-            this.pnlPalettes.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlPalettes.Name = "pnlPalettes";
-            this.pnlPalettes.Size = new System.Drawing.Size(810, 545);
-            this.pnlPalettes.TabIndex = 0;
-            this.pnlPalettes.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlPalettes_AssetsChanged);
-            this.pnlPalettes.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlTilesets
-            // 
-            this.pnlTilesets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTilesets.Location = new System.Drawing.Point(3, 3);
-            this.pnlTilesets.Name = "pnlTilesets";
-            this.pnlTilesets.Size = new System.Drawing.Size(810, 545);
-            this.pnlTilesets.TabIndex = 0;
-            this.pnlTilesets.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlTilesets_AssetsChanged);
-            this.pnlTilesets.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlTilemaps
-            // 
-            this.pnlTilemaps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTilemaps.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlTilemaps.Location = new System.Drawing.Point(3, 3);
-            this.pnlTilemaps.Name = "pnlTilemaps";
-            this.pnlTilemaps.Size = new System.Drawing.Size(810, 545);
-            this.pnlTilemaps.TabIndex = 0;
-            this.pnlTilemaps.AssetsChanged += new SMSEditor.Controls.AssetControl.AssetsChangedHandler(this.pnlTilemaps_AssetsChanged);
-            this.pnlTilemaps.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlSpriteEdit
-            // 
-            this.pnlSpriteEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSpriteEdit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlSpriteEdit.Location = new System.Drawing.Point(3, 3);
-            this.pnlSpriteEdit.Name = "pnlSpriteEdit";
-            this.pnlSpriteEdit.Size = new System.Drawing.Size(810, 545);
-            this.pnlSpriteEdit.TabIndex = 0;
-            this.pnlSpriteEdit.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlDataInjection
-            // 
-            this.pnlDataInjection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDataInjection.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlDataInjection.Location = new System.Drawing.Point(3, 3);
-            this.pnlDataInjection.Name = "pnlDataInjection";
-            this.pnlDataInjection.Size = new System.Drawing.Size(810, 545);
-            this.pnlDataInjection.TabIndex = 0;
-            this.pnlDataInjection.InfoChanged += new SMSEditor.Controls.AssetControl.InfoChangedHandler(this.pnlAssets_InfoChanged);
-            // 
-            // pnlRomImage
-            // 
-            this.pnlRomImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRomImage.Location = new System.Drawing.Point(3, 3);
-            this.pnlRomImage.Name = "pnlRomImage";
-            this.pnlRomImage.Size = new System.Drawing.Size(810, 545);
-            this.pnlRomImage.TabIndex = 0;
-            // 
-            // pnlRomHex
-            // 
-            this.pnlRomHex.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRomHex.Location = new System.Drawing.Point(3, 3);
-            this.pnlRomHex.Name = "pnlRomHex";
-            this.pnlRomHex.Size = new System.Drawing.Size(810, 545);
-            this.pnlRomHex.TabIndex = 0;
             // 
             // MainForm
             // 

@@ -34,6 +34,8 @@
             this.tabSprite = new System.Windows.Forms.TabPage();
             this.pnlSprite = new SMSEditor.Controls.ImageControl();
             this.pnlSpriteTools = new System.Windows.Forms.Panel();
+            this.btnRevertSPRPalette = new System.Windows.Forms.Button();
+            this.btnRevertBGPalette = new System.Windows.Forms.Button();
             this.btnSpriteEnable = new System.Windows.Forms.Button();
             this.chkDisableSPRPalette = new System.Windows.Forms.CheckBox();
             this.chkDisableBGPalette = new System.Windows.Forms.CheckBox();
@@ -138,8 +140,7 @@
             this.btnPreviousFrame = new System.Windows.Forms.Button();
             this.btnNextFrame = new System.Windows.Forms.Button();
             this.tpnlSpriteEditMain = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRevertBGPalette = new System.Windows.Forms.Button();
-            this.btnRevertSPRPalette = new System.Windows.Forms.Button();
+            this.mnuUseCustomColor = new System.Windows.Forms.ToolStripMenuItem();
             this.tabSpriteEditMain.SuspendLayout();
             this.tabSprite.SuspendLayout();
             this.pnlSpriteTools.SuspendLayout();
@@ -231,6 +232,26 @@
             this.pnlSpriteTools.Name = "pnlSpriteTools";
             this.pnlSpriteTools.Size = new System.Drawing.Size(172, 503);
             this.pnlSpriteTools.TabIndex = 1;
+            // 
+            // btnRevertSPRPalette
+            // 
+            this.btnRevertSPRPalette.Location = new System.Drawing.Point(8, 368);
+            this.btnRevertSPRPalette.Name = "btnRevertSPRPalette";
+            this.btnRevertSPRPalette.Size = new System.Drawing.Size(160, 23);
+            this.btnRevertSPRPalette.TabIndex = 14;
+            this.btnRevertSPRPalette.Text = "Revert Sprite Palette";
+            this.btnRevertSPRPalette.UseVisualStyleBackColor = true;
+            this.btnRevertSPRPalette.Click += new System.EventHandler(this.btnRevert_Click);
+            // 
+            // btnRevertBGPalette
+            // 
+            this.btnRevertBGPalette.Location = new System.Drawing.Point(8, 232);
+            this.btnRevertBGPalette.Name = "btnRevertBGPalette";
+            this.btnRevertBGPalette.Size = new System.Drawing.Size(160, 23);
+            this.btnRevertBGPalette.TabIndex = 9;
+            this.btnRevertBGPalette.Text = "Revert Background Palette";
+            this.btnRevertBGPalette.UseVisualStyleBackColor = true;
+            this.btnRevertBGPalette.Click += new System.EventHandler(this.btnRevert_Click);
             // 
             // btnSpriteEnable
             // 
@@ -984,7 +1005,7 @@
             this.mnuAddress,
             this.mnuData});
             this.mnuSpriteOptions.Name = "mnuInfo";
-            this.mnuSpriteOptions.Size = new System.Drawing.Size(135, 98);
+            this.mnuSpriteOptions.Size = new System.Drawing.Size(181, 120);
             this.mnuSpriteOptions.Opening += new System.ComponentModel.CancelEventHandler(this.mnuSpriteOptions_Opening);
             // 
             // mnuEditedData
@@ -993,43 +1014,44 @@
             this.mnuEditedData.CheckOnClick = true;
             this.mnuEditedData.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuEditedData.Name = "mnuEditedData";
-            this.mnuEditedData.Size = new System.Drawing.Size(134, 22);
+            this.mnuEditedData.Size = new System.Drawing.Size(180, 22);
             this.mnuEditedData.Text = "Edited Data";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(131, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuImage
             // 
             this.mnuImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuImageExportAll,
+            this.mnuUseCustomColor,
             this.toolStripMenuItem2,
             this.mnuImageExportSprite,
             this.mnuImageExportTileset});
             this.mnuImage.Name = "mnuImage";
-            this.mnuImage.Size = new System.Drawing.Size(134, 22);
+            this.mnuImage.Size = new System.Drawing.Size(180, 22);
             this.mnuImage.Text = "Image";
             // 
             // mnuImageExportAll
             // 
             this.mnuImageExportAll.Image = global::SMSEditor.Properties.Resources.export_image;
             this.mnuImageExportAll.Name = "mnuImageExportAll";
-            this.mnuImageExportAll.Size = new System.Drawing.Size(199, 22);
+            this.mnuImageExportAll.Size = new System.Drawing.Size(234, 22);
             this.mnuImageExportAll.Text = "Export All Sprite Images";
             this.mnuImageExportAll.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(196, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(231, 6);
             // 
             // mnuImageExportSprite
             // 
             this.mnuImageExportSprite.Image = global::SMSEditor.Properties.Resources.export_image;
             this.mnuImageExportSprite.Name = "mnuImageExportSprite";
-            this.mnuImageExportSprite.Size = new System.Drawing.Size(199, 22);
+            this.mnuImageExportSprite.Size = new System.Drawing.Size(234, 22);
             this.mnuImageExportSprite.Text = "Export Sprite Image";
             this.mnuImageExportSprite.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
@@ -1037,7 +1059,7 @@
             // 
             this.mnuImageExportTileset.Image = global::SMSEditor.Properties.Resources.export_image;
             this.mnuImageExportTileset.Name = "mnuImageExportTileset";
-            this.mnuImageExportTileset.Size = new System.Drawing.Size(199, 22);
+            this.mnuImageExportTileset.Size = new System.Drawing.Size(234, 22);
             this.mnuImageExportTileset.Text = "Export Tileset Image";
             this.mnuImageExportTileset.Click += new System.EventHandler(this.mnuContextMenuItem_Click);
             // 
@@ -1047,7 +1069,7 @@
             this.mnuAddrDec,
             this.mnuAddrHex});
             this.mnuAddress.Name = "mnuAddress";
-            this.mnuAddress.Size = new System.Drawing.Size(134, 22);
+            this.mnuAddress.Size = new System.Drawing.Size(180, 22);
             this.mnuAddress.Text = "Address";
             // 
             // mnuAddrDec
@@ -1138,7 +1160,7 @@
             this.mnuDataHex,
             this.mnuDataAsm});
             this.mnuData.Name = "mnuData";
-            this.mnuData.Size = new System.Drawing.Size(134, 22);
+            this.mnuData.Size = new System.Drawing.Size(180, 22);
             this.mnuData.Text = "Data";
             // 
             // mnuDataIgnoreCompression
@@ -1348,25 +1370,12 @@
             this.tpnlSpriteEditMain.Size = new System.Drawing.Size(810, 544);
             this.tpnlSpriteEditMain.TabIndex = 3;
             // 
-            // btnRevertBGPalette
+            // mnuUseCustomColor
             // 
-            this.btnRevertBGPalette.Location = new System.Drawing.Point(8, 232);
-            this.btnRevertBGPalette.Name = "btnRevertBGPalette";
-            this.btnRevertBGPalette.Size = new System.Drawing.Size(160, 23);
-            this.btnRevertBGPalette.TabIndex = 9;
-            this.btnRevertBGPalette.Text = "Revert Background Palette";
-            this.btnRevertBGPalette.UseVisualStyleBackColor = true;
-            this.btnRevertBGPalette.Click += new System.EventHandler(this.btnRevert_Click);
-            // 
-            // btnRevertSPRPalette
-            // 
-            this.btnRevertSPRPalette.Location = new System.Drawing.Point(8, 368);
-            this.btnRevertSPRPalette.Name = "btnRevertSPRPalette";
-            this.btnRevertSPRPalette.Size = new System.Drawing.Size(160, 23);
-            this.btnRevertSPRPalette.TabIndex = 14;
-            this.btnRevertSPRPalette.Text = "Revert Sprite Palette";
-            this.btnRevertSPRPalette.UseVisualStyleBackColor = true;
-            this.btnRevertSPRPalette.Click += new System.EventHandler(this.btnRevert_Click);
+            this.mnuUseCustomColor.CheckOnClick = true;
+            this.mnuUseCustomColor.Name = "mnuUseCustomColor";
+            this.mnuUseCustomColor.Size = new System.Drawing.Size(234, 22);
+            this.mnuUseCustomColor.Text = "Use Custom Transparent Color";
             // 
             // AssetEditControl
             // 
@@ -1509,5 +1518,6 @@
         private System.Windows.Forms.Button btnSpriteEnable;
         private System.Windows.Forms.Button btnRevertSPRPalette;
         private System.Windows.Forms.Button btnRevertBGPalette;
+        private System.Windows.Forms.ToolStripMenuItem mnuUseCustomColor;
     }
 }

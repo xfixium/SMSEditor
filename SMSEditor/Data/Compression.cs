@@ -158,6 +158,28 @@ namespace SMSEditor.Data
                     if (block.Item2.Count <= 0)
                         continue;
 
+                    if (block.Item2.Count >= 127)
+                    {
+                        var sets = Math.Ceiling((decimal)((decimal)block.Item2.Count / (decimal)128));
+                        for (int i = 0; i < sets; i++)
+                        {
+                            int count = block.Item2.Count < 127 ? block.Item2.Count : 127;
+                            List<byte> bytes = block.Item2.GetRange(0, count);
+                            block.Item2.RemoveRange(0, count);
+                            if (block.Item1)
+                            {
+                                compressed.Add((byte)(bytes.Count == 127 ? 255 : bytes.Count + 128));
+                                compressed.AddRange(bytes);
+                            }
+                            else
+                            {
+                                compressed.Add((byte)(bytes.Count));
+                                compressed.Add(bytes[0]);
+                            }
+                        }
+                        continue;
+                    }
+
                     if (block.Item1)
                     {
                         compressed.Add((byte)(block.Item2.Count + 128));

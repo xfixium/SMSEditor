@@ -36,10 +36,10 @@
             this.grpDataEntryList = new System.Windows.Forms.GroupBox();
             this.lstDataEntries = new SMSEditor.Controls.ListBoxControl();
             this.pnlDataEntryButtons = new System.Windows.Forms.Panel();
+            this.btnImportData = new System.Windows.Forms.Button();
             this.btnDataEntryRemove = new System.Windows.Forms.Button();
             this.btnDataEntrySave = new System.Windows.Forms.Button();
             this.pnlDataEntryOptions = new System.Windows.Forms.Panel();
-            this.btnImportData = new System.Windows.Forms.Button();
             this.lblDataEntryComments = new System.Windows.Forms.Label();
             this.txtDataEntryComments = new System.Windows.Forms.TextBox();
             this.nudDataEntryHex = new System.Windows.Forms.NumericUpDown();
@@ -50,6 +50,7 @@
             this.lblDataEntryID = new System.Windows.Forms.Label();
             this.txtDataEntryName = new System.Windows.Forms.TextBox();
             this.lblDataEntryName = new System.Windows.Forms.Label();
+            this.btnFormatText = new System.Windows.Forms.Button();
             this.grpData.SuspendLayout();
             this.tpnlDataInjectionMain.SuspendLayout();
             this.grpDataEntryList.SuspendLayout();
@@ -67,7 +68,7 @@
             this.grpData.Margin = new System.Windows.Forms.Padding(6, 0, 6, 2);
             this.grpData.Name = "grpData";
             this.grpData.Padding = new System.Windows.Forms.Padding(12, 8, 12, 12);
-            this.grpData.Size = new System.Drawing.Size(430, 542);
+            this.grpData.Size = new System.Drawing.Size(395, 542);
             this.grpData.TabIndex = 1;
             this.grpData.TabStop = false;
             this.grpData.Text = "Space Separated Byte Values";
@@ -80,13 +81,13 @@
             this.txtDataEntry.Multiline = true;
             this.txtDataEntry.Name = "txtDataEntry";
             this.txtDataEntry.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDataEntry.Size = new System.Drawing.Size(406, 507);
+            this.txtDataEntry.Size = new System.Drawing.Size(371, 507);
             this.txtDataEntry.TabIndex = 0;
             // 
             // radDataEntryInsert
             // 
             this.radDataEntryInsert.AutoSize = true;
-            this.radDataEntryInsert.Location = new System.Drawing.Point(80, 96);
+            this.radDataEntryInsert.Location = new System.Drawing.Point(112, 96);
             this.radDataEntryInsert.Name = "radDataEntryInsert";
             this.radDataEntryInsert.Size = new System.Drawing.Size(54, 17);
             this.radDataEntryInsert.TabIndex = 9;
@@ -110,7 +111,7 @@
             this.tpnlDataInjectionMain.ColumnCount = 3;
             this.tpnlDataInjectionMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 196F));
             this.tpnlDataInjectionMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tpnlDataInjectionMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.tpnlDataInjectionMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 207F));
             this.tpnlDataInjectionMain.Controls.Add(this.grpData, 1, 0);
             this.tpnlDataInjectionMain.Controls.Add(this.grpDataEntryList, 0, 0);
             this.tpnlDataInjectionMain.Controls.Add(this.pnlDataEntryOptions, 2, 0);
@@ -146,9 +147,9 @@
             this.lstDataEntries.HorizontalExtent = 170;
             this.lstDataEntries.IntegralHeight = false;
             this.lstDataEntries.ItemHeight = 15;
-            this.lstDataEntries.Location = new System.Drawing.Point(12, 89);
+            this.lstDataEntries.Location = new System.Drawing.Point(12, 112);
             this.lstDataEntries.Name = "lstDataEntries";
-            this.lstDataEntries.Size = new System.Drawing.Size(172, 443);
+            this.lstDataEntries.Size = new System.Drawing.Size(172, 420);
             this.lstDataEntries.TabIndex = 1;
             this.lstDataEntries.TextOffsetX = 2;
             this.lstDataEntries.TextOffsetY = -1;
@@ -156,14 +157,27 @@
             // 
             // pnlDataEntryButtons
             // 
+            this.pnlDataEntryButtons.Controls.Add(this.btnFormatText);
             this.pnlDataEntryButtons.Controls.Add(this.btnImportData);
             this.pnlDataEntryButtons.Controls.Add(this.btnDataEntryRemove);
             this.pnlDataEntryButtons.Controls.Add(this.btnDataEntrySave);
             this.pnlDataEntryButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlDataEntryButtons.Location = new System.Drawing.Point(12, 19);
             this.pnlDataEntryButtons.Name = "pnlDataEntryButtons";
-            this.pnlDataEntryButtons.Size = new System.Drawing.Size(172, 70);
+            this.pnlDataEntryButtons.Size = new System.Drawing.Size(172, 93);
             this.pnlDataEntryButtons.TabIndex = 0;
+            // 
+            // btnImportData
+            // 
+            this.btnImportData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnImportData.Location = new System.Drawing.Point(0, 46);
+            this.btnImportData.Margin = new System.Windows.Forms.Padding(0);
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(172, 23);
+            this.btnImportData.TabIndex = 2;
+            this.btnImportData.Text = "Import Data";
+            this.btnImportData.UseVisualStyleBackColor = true;
+            this.btnImportData.Click += new System.EventHandler(this.btnAsset_Click);
             // 
             // btnDataEntryRemove
             // 
@@ -204,23 +218,11 @@
             this.pnlDataEntryOptions.Controls.Add(this.txtDataEntryName);
             this.pnlDataEntryOptions.Controls.Add(this.lblDataEntryName);
             this.pnlDataEntryOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDataEntryOptions.Location = new System.Drawing.Point(638, 6);
+            this.pnlDataEntryOptions.Location = new System.Drawing.Point(603, 6);
             this.pnlDataEntryOptions.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
             this.pnlDataEntryOptions.Name = "pnlDataEntryOptions";
-            this.pnlDataEntryOptions.Size = new System.Drawing.Size(172, 538);
+            this.pnlDataEntryOptions.Size = new System.Drawing.Size(207, 538);
             this.pnlDataEntryOptions.TabIndex = 2;
-            // 
-            // btnImportData
-            // 
-            this.btnImportData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnImportData.Location = new System.Drawing.Point(0, 46);
-            this.btnImportData.Margin = new System.Windows.Forms.Padding(0);
-            this.btnImportData.Name = "btnImportData";
-            this.btnImportData.Size = new System.Drawing.Size(172, 23);
-            this.btnImportData.TabIndex = 2;
-            this.btnImportData.Text = "Import Data";
-            this.btnImportData.UseVisualStyleBackColor = true;
-            this.btnImportData.Click += new System.EventHandler(this.btnAsset_Click);
             // 
             // lblDataEntryComments
             // 
@@ -237,27 +239,27 @@
             this.txtDataEntryComments.Multiline = true;
             this.txtDataEntryComments.Name = "txtDataEntryComments";
             this.txtDataEntryComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDataEntryComments.Size = new System.Drawing.Size(168, 184);
+            this.txtDataEntryComments.Size = new System.Drawing.Size(200, 184);
             this.txtDataEntryComments.TabIndex = 11;
             // 
             // nudDataEntryHex
             // 
             this.nudDataEntryHex.Hexadecimal = true;
-            this.nudDataEntryHex.Location = new System.Drawing.Point(88, 16);
+            this.nudDataEntryHex.Location = new System.Drawing.Point(104, 16);
             this.nudDataEntryHex.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
             this.nudDataEntryHex.Name = "nudDataEntryHex";
-            this.nudDataEntryHex.Size = new System.Drawing.Size(80, 22);
+            this.nudDataEntryHex.Size = new System.Drawing.Size(96, 22);
             this.nudDataEntryHex.TabIndex = 3;
             this.nudDataEntryHex.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
             // 
             // lblDataEntryHex
             // 
             this.lblDataEntryHex.AutoSize = true;
-            this.lblDataEntryHex.Location = new System.Drawing.Point(88, 0);
+            this.lblDataEntryHex.Location = new System.Drawing.Point(104, 0);
             this.lblDataEntryHex.Margin = new System.Windows.Forms.Padding(0);
             this.lblDataEntryHex.Name = "lblDataEntryHex";
             this.lblDataEntryHex.Size = new System.Drawing.Size(80, 13);
@@ -274,7 +276,7 @@
             0,
             0});
             this.nudDataEntryID.Name = "nudDataEntryID";
-            this.nudDataEntryID.Size = new System.Drawing.Size(80, 22);
+            this.nudDataEntryID.Size = new System.Drawing.Size(96, 22);
             this.nudDataEntryID.TabIndex = 2;
             this.nudDataEntryID.ValueChanged += new System.EventHandler(this.nudAssetID_ValueChanged);
             // 
@@ -315,7 +317,7 @@
             this.txtDataEntryName.Location = new System.Drawing.Point(0, 56);
             this.txtDataEntryName.MaxLength = 50;
             this.txtDataEntryName.Name = "txtDataEntryName";
-            this.txtDataEntryName.Size = new System.Drawing.Size(168, 22);
+            this.txtDataEntryName.Size = new System.Drawing.Size(200, 22);
             this.txtDataEntryName.TabIndex = 5;
             // 
             // lblDataEntryName
@@ -326,6 +328,18 @@
             this.lblDataEntryName.Size = new System.Drawing.Size(39, 13);
             this.lblDataEntryName.TabIndex = 4;
             this.lblDataEntryName.Text = "Name:";
+            // 
+            // btnFormatText
+            // 
+            this.btnFormatText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnFormatText.Location = new System.Drawing.Point(0, 69);
+            this.btnFormatText.Margin = new System.Windows.Forms.Padding(0);
+            this.btnFormatText.Name = "btnFormatText";
+            this.btnFormatText.Size = new System.Drawing.Size(172, 23);
+            this.btnFormatText.TabIndex = 3;
+            this.btnFormatText.Text = "Format Text";
+            this.btnFormatText.UseVisualStyleBackColor = true;
+            this.btnFormatText.Click += new System.EventHandler(this.btnAsset_Click);
             // 
             // AssetDataEntryControl
             // 
@@ -371,5 +385,6 @@
         private System.Windows.Forms.Label lblDataEntryComments;
         private System.Windows.Forms.TextBox txtDataEntryComments;
         private System.Windows.Forms.Button btnImportData;
+        private System.Windows.Forms.Button btnFormatText;
     }
 }
